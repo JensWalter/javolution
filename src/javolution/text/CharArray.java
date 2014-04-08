@@ -419,11 +419,10 @@ public final class CharArray implements CharSequence, Comparable {
      * @return <code>TypeFormat.parseFloat(this)</code>
      * @throws NumberFormatException if this character sequence
      *         does not contain a parsable <code>float</code>.
-     /*@JVM-1.1+@
+     */
      public float toFloat() {
      return TypeFormat.parseFloat(this);
      }
-     /**/
 
     /**
      * Returns the <code>double</code> represented by this character array.
@@ -431,10 +430,9 @@ public final class CharArray implements CharSequence, Comparable {
      * @return the corresponding <code>double</code> value.
      * @throws NumberFormatException if this character sequence
      *         does not contain a parsable <code>double</code>.
-     /*@JVM-1.1+@
+     */
      public double toDouble() {
      return TypeFormat.parseDouble(this);
      }
-     /**/
 
 }

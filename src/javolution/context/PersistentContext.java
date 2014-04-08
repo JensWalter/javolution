@@ -86,7 +86,7 @@ public class PersistentContext extends Context {
      *
      * @return the persistent value indexed by identifiers.
      */
-    public Map/*<String, Object>*/ getIdToValue() {
+    public Map<String, Object> getIdToValue() {
         return _idToValue;
     }
 
@@ -151,8 +151,8 @@ public class PersistentContext extends Context {
      * @author  <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
      * @version 4.0, September 4, 2006
      */
-    public static class Reference /*<T>*/implements
-            javolution.lang.Reference/*<T>*/ {
+    public static class Reference<T> implements
+            javolution.lang.Reference<T> {
 
         /**
          * Holds the instances.
@@ -167,7 +167,7 @@ public class PersistentContext extends Context {
         /**
          * Holds the current value.
          */
-        private Object/*{T}*/ _value;
+        private T _value;
 
         /**
          * Creates a persistent reference identified by the specified name and 
@@ -177,7 +177,7 @@ public class PersistentContext extends Context {
          * @param defaultValue the default value.
          * @throws IllegalArgumentException if the name is not unique.
          */
-        public Reference(String id, Object/*{T}*/defaultValue) {
+        public Reference(String id, T defaultValue) {
             _id = id;
             _value = defaultValue;
             synchronized (INSTANCES) {
@@ -187,17 +187,17 @@ public class PersistentContext extends Context {
                 INSTANCES.put(id, this);
             }
             if (_PersistentContext._idToValue.containsKey(id)) {
-                set((Object/*{T}*/) _PersistentContext._idToValue.get(id));
+                set((T) _PersistentContext._idToValue.get(id));
             }
         }
 
         // Implements Reference interface.
-        public Object/*{T}*/get() {
+        public T get() {
             return _value;
         }
 
         // Implements Reference interface.
-        public void set(Object/*{T}*/value) {
+        public void set(T value) {
             _value = value;
             notifyChange();
         }
@@ -210,7 +210,7 @@ public class PersistentContext extends Context {
          * @throws IllegalArgumentException if the specified value is not 
          *         {@link Comparable} or an {@link Integer} instance (J2ME).
          */
-        public void setMinimum(Object/*{T}*/value) {
+        public void setMinimum(T value) {
             synchronized (this) {
                 if (value instanceof Comparable) {
                     Object prevValue = get();
@@ -237,7 +237,7 @@ public class PersistentContext extends Context {
          * @throws IllegalArgumentException if the specified value is not 
          *         {@link Comparable} or an {@link Integer} instance (J2ME).
          */
-        public void setMaximum(Object/*{T}*/value) {
+        public void setMaximum(T value) {
             synchronized (this) {
                 if (value instanceof Comparable) {
                     Object prevValue = get();

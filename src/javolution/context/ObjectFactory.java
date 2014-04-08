@@ -46,7 +46,7 @@ import java.lang.ThreadLocal;
  * @author  <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
  * @version 5.2, August 14, 2007
  */
-public abstract class ObjectFactory/*<T>*/{
+public abstract class ObjectFactory<T>{
 
     /**
      * Indicates if the objects products of this factory require
@@ -81,7 +81,7 @@ public abstract class ObjectFactory/*<T>*/{
      * @param forClass the class for which an object factory is returned.
      * @return an object factory producing instances of the specified class.
      */
-    public static/*<T>*/ObjectFactory/*<T>*/getInstance(Class/*<T>*/forClass) {
+    public static <T> ObjectFactory<T> getInstance(Class<T>forClass) {
         ObjectFactory factory = (ObjectFactory) Generic.CLASS_TO_FACTORY
                 .get(forClass);
         return factory != null ? factory : Generic.newInstance(forClass);
@@ -95,8 +95,8 @@ public abstract class ObjectFactory/*<T>*/{
      * @param forClass the associated class.
      * @see #getInstance(Class)
      */
-    public static/*<T>*/void setInstance(ObjectFactory/*<T>*/factory,
-            Class/*<T>*/forClass) {
+    public static<T>void setInstance(ObjectFactory<T>factory,
+            Class<T>forClass) {
         Generic.CLASS_TO_FACTORY.put(forClass, factory);
     }
 
@@ -106,13 +106,13 @@ public abstract class ObjectFactory/*<T>*/{
      * 
      * @return a recycled, pre-allocated or new factory object.
      */
-    public final Object/*{T}*/object() {
-        final Allocator/*<T>*/ allocator = _allocator;
+    public final T object() {
+        final Allocator<T> allocator = _allocator;
         return allocator.user == Thread.currentThread() ? 
              allocator.next() : currentAllocator().next();
     }
 
-    private Allocator/*<T>*/ _allocator = NULL_ALLOCATOR; // Hopefully in the cache.   
+    private Allocator<T> _allocator = NULL_ALLOCATOR; // Hopefully in the cache.   
 
     private static final Allocator NULL_ALLOCATOR = new Allocator() {
 		protected Object allocate() {
@@ -127,7 +127,7 @@ public abstract class ObjectFactory/*<T>*/{
      * 
      * @param obj the object to be recycled.
      */
-    public final void recycle(Object/*{T}*/obj) {
+    public final void recycle(T obj) {
         currentAllocator().recycle(obj);
     }
 
@@ -137,7 +137,7 @@ public abstract class ObjectFactory/*<T>*/{
      * 
      * @return the current object queue for this factory. 
      */
-    public final Allocator/*<T>*/currentAllocator() {
+    public final Allocator<T> currentAllocator() {
 
         // Search thread-local value first.
         Allocator allocator = (Allocator) _localAllocator.get();
@@ -167,7 +167,7 @@ public abstract class ObjectFactory/*<T>*/{
      *
      * @return a new factory object.
      */
-    protected abstract Object/*{T}*/create();
+    protected abstract T create();
 
     /**
      * Cleans-up this factory's objects for future reuse. 
@@ -187,7 +187,7 @@ public abstract class ObjectFactory/*<T>*/{
      *
      * @param  obj the factory object being recycled.
      */
-    protected void cleanup(Object/*{T}*/obj) {
+    protected void cleanup(T obj) {
         _doCleanup = false;
     }
 

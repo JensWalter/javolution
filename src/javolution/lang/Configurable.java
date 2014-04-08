@@ -120,17 +120,17 @@ import javolution.text.TextFormat;
  * @author  <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
  * @version 5.1, July 4, 2007
  */
-public class Configurable/*<T>*/{
+public class Configurable<T>{
 
     /**
      * Holds the current value. 
      */
-    private Object/*{T}*/_value;
+    private T _value;
 
     /**
      * Default constructor. 
      */
-    public Configurable(Object/*{T}*/defaultValue) {
+    public Configurable(T defaultValue) {
         _value = defaultValue;
     }
 
@@ -139,7 +139,7 @@ public class Configurable/*<T>*/{
      * 
      *  @return the current value.
      */
-    public final Object/*{T}*/get() {
+    public final T get() {
         return _value;
     }
 
@@ -159,11 +159,11 @@ public class Configurable/*<T>*/{
      * "javolution.context.ConcurrentContext#MAXIMUM_CONCURRENCY"</code>).
      * Conversion of <code>String</code> values is performed   
      * using {@link javolution.text.TextFormat#getInstance(Class)}.   
-     *@JVM-1.1+@
-     public static void read(j2me.util.Map properties) {
-     j2me.util.Iterator i = properties.entrySet().iterator();
+     */
+     public static void read(java.util.Map properties) {
+     java.util.Iterator i = properties.entrySet().iterator();
      while (i.hasNext()) {
-     j2me.util.Map.Entry entry = (j2me.util.Map.Entry) i.next();
+     java.util.Map.Entry entry = (java.util.Map.Entry) i.next();
      String key = String.valueOf(entry.getKey());
      Object value = entry.getValue();
      try {
@@ -208,7 +208,6 @@ public class Configurable/*<T>*/{
      }
      }
      }
-     /**/
 
     static final Logic LOGIC = new Logic() {
     }; // To access configuration setting. 
@@ -270,8 +269,8 @@ public class Configurable/*<T>*/{
          * @throws SecurityException if the specified configurable cannot 
          *         be modified.
          */
-        protected final/*<T>*/void configure(Configurable/*<T>*/cfg,
-                Object/*{T}*/value) {
+        protected final<T>void configure(Configurable<T> cfg,
+                T value) {
             SecurityContext policy = (SecurityContext) SecurityContext
                     .getCurrent();
             if (!policy.isModifiable(cfg))

@@ -24,7 +24,7 @@ package javolution.context;
  * @version 5.2, August 14, 2007
  * @see     AllocatorContext#getAllocator(ObjectFactory)
  */
-public abstract class Allocator /*<T>*/{
+public abstract class Allocator<T>{
 
     /**
      * Holds the current user or <code>null</code> if deactivated.  
@@ -34,7 +34,7 @@ public abstract class Allocator /*<T>*/{
     /**
      * Holds the queue of available objects (typically recycled).  
      */
-    protected Object/*{T}*/[] queue = (Object/*{T}*/[]) new Object[16];
+    protected T[] queue = (T[]) new Object[16];
 
      /**
      * Holds the number of objects in this allocator queue.   
@@ -59,13 +59,13 @@ public abstract class Allocator /*<T>*/{
      * 
      * @return the next available object ready to use.
      */
-    public final Object/*{T}*/next() {
+    public final T next() {
         return queueSize > 0 ? 
         		(keepInQueue ? queue[--queueSize] : removeLast()) : allocate();
      }
     
-     private final Object/*{T}*/ removeLast() {
-    	 Object/*{T}*/ obj = queue[--queueSize];
+     private final T removeLast() {
+    	 T obj = queue[--queueSize];
     	 queue[queueSize] = null;
     	 return obj;
      }
@@ -76,21 +76,21 @@ public abstract class Allocator /*<T>*/{
      * 
      * @return the allocated object.
      */
-    protected abstract Object/*{T}*/allocate();
+    protected abstract T allocate();
 
     /**
      * Recycles the specified object to this queue.
      * 
      * @param object the object to recycle.
      */
-    protected abstract void recycle(Object/*{T}*/object);
+    protected abstract void recycle(T object);
 
     /**
      * Resizes this allocator queue (hopefully rare as implementation should 
      * keep the queue small).
      */
     void resize() {
-    	Object/*{T}*/[] tmp = (Object/*{T}*/[]) new Object[queue.length * 2];
+    	T[] tmp = (T[]) new Object[queue.length * 2];
         System.arraycopy(queue, 0, tmp, 0, queue.length);
         queue = tmp;
     }

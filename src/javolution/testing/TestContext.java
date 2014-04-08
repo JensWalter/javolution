@@ -52,7 +52,7 @@ public abstract class TestContext extends LogContext {
      * an {@link AssertionException} when an assertion fails.
      * This implementation can be used for automatic regression tests.
      */
-    public static final Class/*<TestContext>*/REGRESSION = Regression.CLASS;
+    public static final Class<TestContext> REGRESSION = Regression.CLASS;
 
     /**
      * Runs an individual test case (possibly multiple times) and logs the

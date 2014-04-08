@@ -88,31 +88,31 @@ public abstract class LogContext extends Context {
      * The info/warning/error events are mapped to the info/warning/severe 
      * log levels respectively.
      */
-    public static final Class/*<? extends LogContext>*/STANDARD = _Default.getClass();
+    public static final Class<? extends LogContext> STANDARD = _Default.getClass();
 
     /**
      * Holds a logging context implementation ignoring logging events.
      */
-    public static final Class/*<? extends LogContext>*/NULL = new NullLog().getClass();
+    public static final Class<? extends LogContext> NULL = new NullLog().getClass();
 
     /**
      * Holds a context logging messages to <code>System.out</code>.
      */
-    public static final Class/*<? extends LogContext>*/SYSTEM_OUT = new SystemOut()
+    public static final Class<? extends LogContext> SYSTEM_OUT = new SystemOut()
             .getClass();
 
     /**
      * Holds a context logging informative/warnings/errors events to 
      * the system console.
      */
-    public static final Class/*<? extends LogContext>*/CONSOLE = new ConsoleLog()
+    public static final Class<? extends LogContext> CONSOLE = new ConsoleLog()
             .getClass();
 
     /**
      * Holds the logging context default implementation (configurable, 
      * default value {@link #STANDARD}).
      */
-    public static final Configurable/*<Class<? extends LogContext>>*/
+    public static final Configurable<Class<? extends LogContext>>
     DEFAULT = new Configurable(STANDARD) {
         protected void notifyChange() {
             _Default = (LogContext) ObjectFactory.getInstance((Class) get())
@@ -390,7 +390,6 @@ public abstract class LogContext extends Context {
      * This class represents the console logging context.
      */
     private static class ConsoleLog extends SystemOut {
-        /*@JVM-1.6+@
          final java.io.PrintWriter writer;
          ConsoleLog() {
          java.io.Console console = System.console();
@@ -430,7 +429,6 @@ public abstract class LogContext extends Context {
          writer.println();
          }
          }                          
-         /**/
     }
 
     // Allows instances of private classes to be factory produced. 

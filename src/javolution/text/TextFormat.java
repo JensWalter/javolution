@@ -49,7 +49,7 @@ import java.io.IOException;
  * @author <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle </a>
  * @version 5.1, July 4, 2007
  */
-public abstract class TextFormat/*<T>*/{
+public abstract class TextFormat<T>{
 
     /**
      * Holds the class to format mapping.
@@ -95,7 +95,7 @@ public abstract class TextFormat/*<T>*/{
      * @return the format for instances of the specified class or 
      *         <code>null</code> if unkown.
      */
-    public static/*<T>*/TextFormat/*<T>*/getInstance(Class/*<T>*/cls) {
+    public static <T> TextFormat<T> getInstance(Class<T> cls) {
         TextFormat format = (TextFormat) FORMATS.get(cls);
         return (format != null) ? format : searchFormat(cls);
     }
@@ -109,10 +109,7 @@ public abstract class TextFormat/*<T>*/{
     }
 
     private static Class superclassOf(Class cls) {
-        /*@JVM-1.4+@
-         if (true) return cls.getSuperclass();
-         /**/
-        return null;
+        return cls.getSuperclass();
     }
 
     /**
@@ -122,8 +119,8 @@ public abstract class TextFormat/*<T>*/{
      * @param  cls the class for which the default format is returned.
      * @param format the format for instances of the specified calss class.
      */
-    public static/*<T>*/void setInstance(Class/*<T>*/cls,
-            TextFormat/*<T>*/format) {
+    public static <T> void setInstance(Class<T>cls,
+            TextFormat<T>format) {
 
         // The specified class is initialized prior to setting 
         // the format to ensure that the default format (typically in the 
@@ -141,7 +138,7 @@ public abstract class TextFormat/*<T>*/{
      * @return the specified <code>Appendable</code>.
      * @throws IOException if an I/O exception occurs.
      */
-    public abstract Appendable format(Object/*{T}*/obj, Appendable dest)
+    public abstract Appendable format(T obj, Appendable dest)
             throws IOException;
 
     /**
@@ -156,7 +153,7 @@ public abstract class TextFormat/*<T>*/{
      * @throws RuntimeException if any problem occurs while parsing the 
      *         specified character sequence (e.g. illegal syntax).
      */
-    public abstract Object/*{T}*/parse(CharSequence csq, Cursor cursor);
+    public abstract T parse(CharSequence csq, Cursor cursor);
 
     /**
      * Formats the specified object into a {@link TextBuilder} (convenience 
@@ -166,7 +163,7 @@ public abstract class TextFormat/*<T>*/{
      * @param dest the text builder destination.
      * @return the specified text builder.
      */
-    public final Appendable format(Object/*{T}*/obj, TextBuilder dest) {
+    public final Appendable format(T obj, TextBuilder dest) {
         try {
             return format(obj, (Appendable) dest);
         } catch (IOException e) {
@@ -181,7 +178,7 @@ public abstract class TextFormat/*<T>*/{
      * @param obj the object being formated.
      * @return the text representing the specified object.
      */
-    public final Text format(Object/*{T}*/obj) {
+    public final Text format(T obj) {
         TextBuilder tb = TextBuilder.newInstance();
         format(obj, tb);
         Text txt = tb.toText();
@@ -198,9 +195,9 @@ public abstract class TextFormat/*<T>*/{
      * @throws IllegalArgumentException if the specified character sequence 
      *        cannot be fully parsed.
      */
-    public final Object/*{T}*/parse(CharSequence csq) {
+    public final T parse(CharSequence csq) {
         Cursor cursor = Cursor.newInstance(0, csq.length());
-        Object/*{T}*/obj = parse(csq, cursor);
+        T obj = parse(csq, cursor);
         if (cursor.hasNext())
             throw new IllegalArgumentException("Incomplete Parsing");
         Cursor.recycle(cursor);
@@ -625,7 +622,6 @@ public abstract class TextFormat/*<T>*/{
 
         });
 
-        /*@JVM-1.1+@
          FORMATS.put(new Float(0).getClass(), new TextFormat() {
 
          public Appendable format(Object obj, Appendable dest)
@@ -650,7 +646,6 @@ public abstract class TextFormat/*<T>*/{
          }
 
          });
-         /**/
 
     }
 }

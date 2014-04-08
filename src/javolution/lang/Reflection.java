@@ -77,15 +77,14 @@ public final class Reflection {
         try {
             cls = Class.forName(name); // Caller class loader.
         } catch (ClassNotFoundException e0) { // Try context class loader.
-            /*@JVM-1.4+@
-             try {
+          
+   try {
              ClassLoader cl = Thread.currentThread().getContextClassLoader();
              cls = Class.forName(name, true, cl);
              } catch (ClassNotFoundException e1) { // Try system class loader.
              ClassLoader cl = ClassLoader.getSystemClassLoader();
              cls = Class.forName(name, true, cl);
              }
-             /**/
             if (cls == null)
                 throw new ClassNotFoundException("Cannot found class " + name);
         }
@@ -131,7 +130,6 @@ public final class Reflection {
         String args = signature.substring(argStart, argEnd);
         if (args.length() == 0)
             return new DefaultConstructor(theClass);
-        /*@JVM-1.4+@
          Class[] argsTypes;
          try {
          argsTypes = classesFor(args);
@@ -143,7 +141,6 @@ public final class Reflection {
          signature);
          } catch (NoSuchMethodException e) {
          }          
-         /**/
         return null;
     }
 
@@ -172,7 +169,6 @@ public final class Reflection {
         }
     }
 
-    /*@JVM-1.4+@
      private static final class ReflectConstructor extends Constructor {
      private final java.lang.reflect.Constructor _value;
 
@@ -208,7 +204,6 @@ public final class Reflection {
      return _signature + " constructor";
      }
      }
-     /**/
 
     /**
      * Returns the method having the specified signature.
@@ -218,7 +213,6 @@ public final class Reflection {
      *         found. 
      */
     public static Method getMethod(String signature) {
-        /*@JVM-1.4+@
          int argStart = signature.indexOf('(') + 1;
          if (argStart < 0) {
          throw new IllegalArgumentException("Parenthesis '(' not found");
@@ -249,11 +243,9 @@ public final class Reflection {
          signature);
          } catch (Throwable t) {
          }
-         /**/
         return null;
     }
 
-    /*@JVM-1.4+@
      private static final class ReflectMethod extends Method {
      private final java.lang.reflect.Method _value;
 
@@ -285,14 +277,13 @@ public final class Reflection {
      return _signature + " method";
      }
      }
-     /**/
 
     /**
      * Returns the classes for the specified argument.
      * 
      * @param args the comma separated arguments.
      * @return the classes or <code>null</code> if one of the class is not found.
-     @JVM-1.4+@
+     */
      private static Class[] classesFor(String args) throws ClassNotFoundException {
      args = args.trim();
      if (args.length() == 0) {
@@ -383,7 +374,6 @@ public final class Reflection {
      return "L" + className + ";";
      }
      }
-     /**/
 
     /**
      * This class represents a run-time constructor obtained through reflection.

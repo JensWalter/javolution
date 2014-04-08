@@ -141,7 +141,7 @@ public abstract class Context implements XMLSerializable {
      * @return the specified context.
      * @throws IllegalStateException if this context is currently in use.
      */
-    public static final /*<T extends Context>*/ /*T*/Context enter(/*T*/Context context) {
+    public static final <T extends Context> /*T*/Context enter(/*T*/Context context) {
         if (context._owner != null)
             throw new IllegalStateException("Context is currently in use");
         Context current = Context.getCurrent();
@@ -166,7 +166,7 @@ public abstract class Context implements XMLSerializable {
      * @return the context being entered.
      * @see ObjectFactory#getInstance(Class)
      */
-    public static final /*<T extends Context>*/ /*T*/Context enter(Class/*<T>*/ contextType) {
+    public static final <T extends Context> /*T*/Context enter(Class/*<T>*/ contextType) {
         ObjectFactory factory = ObjectFactory.getInstance(contextType);
         Context context = (Context) factory.object();
         context._factory = factory;

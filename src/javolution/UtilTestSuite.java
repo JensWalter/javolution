@@ -53,64 +53,64 @@ public final class UtilTestSuite extends TestSuite {
         TestContext.info(" - Add elements to collection -");
         boolean reuse = false;
         TestContext.test(new CollectionAdd(FastTable.class, size, reuse));
-        /*@JVM-1.4+@ TestContext.test(new CollectionAdd(java.util.ArrayList.class, size, reuse)); /**/
+        TestContext.test(new CollectionAdd(java.util.ArrayList.class, size, reuse));
         TestContext.test(new CollectionAdd(FastList.class, size, reuse));
-        /*@JVM-1.4+@ TestContext.test(new CollectionAdd(java.util.LinkedList.class, size, reuse)); /**/
+        TestContext.test(new CollectionAdd(java.util.LinkedList.class, size, reuse)); /**/
         TestContext.test(new CollectionAdd(FastSet.class, size, reuse));
-        /*@JVM-1.4+@ TestContext.test(new CollectionAdd(java.util.HashSet.class, size, reuse)); /**/
+        TestContext.test(new CollectionAdd(java.util.HashSet.class, size, reuse)); /**/
         reuse = true;
         TestContext.test(new CollectionAdd(FastTable.class, size, reuse));
-        /*@JVM-1.4+@ TestContext.test(new CollectionAdd(java.util.ArrayList.class, size, reuse)); /**/
+        TestContext.test(new CollectionAdd(java.util.ArrayList.class, size, reuse)); /**/
         TestContext.test(new CollectionAdd(FastList.class, size, reuse));
-        /*@JVM-1.4+@ TestContext.test(new CollectionAdd(java.util.LinkedList.class, size, reuse)); /**/
+        TestContext.test(new CollectionAdd(java.util.LinkedList.class, size, reuse)); /**/
         TestContext.test(new CollectionAdd(FastSet.class, size, reuse));
-        /*@JVM-1.4+@ TestContext.test(new CollectionAdd(java.util.HashSet.class, size, reuse)); /**/
+        TestContext.test(new CollectionAdd(java.util.HashSet.class, size, reuse)); /**/
         TestContext.info("");
 
         TestContext.info(" - Iterate over collections -");
         TestContext.test(new CollectionIteration(FastTable.class, size));
-        /*@JVM-1.4+@ TestContext.test(new CollectionIteration(java.util.ArrayList.class, size)); /**/
+        TestContext.test(new CollectionIteration(java.util.ArrayList.class, size)); /**/
         TestContext.test(new CollectionIteration(FastList.class, size));
-        /*@JVM-1.4+@ TestContext.test(new CollectionIteration(java.util.LinkedList.class, size)); /**/
+        TestContext.test(new CollectionIteration(java.util.LinkedList.class, size)); /**/
         TestContext.test(new CollectionIteration(FastSet.class, size));
-        /*@JVM-1.4+@ TestContext.test(new CollectionIteration(java.util.HashSet.class, size)); /**/
+        TestContext.test(new CollectionIteration(java.util.HashSet.class, size)); /**/
         TestContext.info("");
 
         TestContext.info(" - Put new key/value pairs to map instance -");
         reuse = false;
         TestContext.test(new MapPut(FastMap.class, size, reuse));
-        /*@JVM-1.4+@ TestContext.test(new MapPut(java.util.HashMap.class, size, reuse)); /**/
-        /*@JVM-1.4+@ TestContext.test(new MapPut(java.util.LinkedHashMap.class, size, reuse)); /**/
+        TestContext.test(new MapPut(java.util.HashMap.class, size, reuse)); /**/
+        TestContext.test(new MapPut(java.util.LinkedHashMap.class, size, reuse)); /**/
         TestContext.test(new MapPut(SharedFastMap.class, size, reuse));
-        /*@JVM-1.5+@ TestContext.test(new MapPut(java.util.concurrent.ConcurrentHashMap.class, size, reuse)); /**/
+        TestContext.test(new MapPut(java.util.concurrent.ConcurrentHashMap.class, size, reuse)); /**/
         reuse = true;
         TestContext.test(new MapPut(FastMap.class, size, reuse));
-        /*@JVM-1.4+@ TestContext.test(new MapPut(java.util.HashMap.class, size, reuse)); /**/
-        /*@JVM-1.4+@ TestContext.test(new MapPut(java.util.LinkedHashMap.class, size, reuse)); /**/
+        TestContext.test(new MapPut(java.util.HashMap.class, size, reuse)); /**/
+        TestContext.test(new MapPut(java.util.LinkedHashMap.class, size, reuse)); /**/
         TestContext.info("");
 
         TestContext.info(" - Retrieves map value from key - ");
         TestContext.test(new MapGet(FastMap.class, size));
-        /*@JVM-1.4+@ TestContext.test(new MapGet(java.util.HashMap.class, size)); /**/
-        /*@JVM-1.4+@ TestContext.test(new MapGet(java.util.LinkedHashMap.class, size)); /**/
+        TestContext.test(new MapGet(java.util.HashMap.class, size)); /**/
+        TestContext.test(new MapGet(java.util.LinkedHashMap.class, size)); /**/
         TestContext.test(new MapGet(SharedFastMap.class, size));
-        /*@JVM-1.5+@ TestContext.test(new MapGet(java.util.concurrent.ConcurrentHashMap.class, size)); /**/
+        TestContext.test(new MapGet(java.util.concurrent.ConcurrentHashMap.class, size)); /**/
         TestContext.info("");
 
         TestContext.info(" - Removes keys from map - ");
         TestContext.test(new MapRemove(FastMap.class, size));
-        /*@JVM-1.4+@ TestContext.test(new MapRemove(java.util.HashMap.class, size)); /**/
-        /*@JVM-1.4+@ TestContext.test(new MapRemove(java.util.LinkedHashMap.class, size)); /**/
+        TestContext.test(new MapRemove(java.util.HashMap.class, size)); /**/
+        TestContext.test(new MapRemove(java.util.LinkedHashMap.class, size)); /**/
         TestContext.test(new MapRemove(SharedFastMap.class, size));
-        /*@JVM-1.5+@ TestContext.test(new MapRemove(java.util.concurrent.ConcurrentHashMap.class, size)); /**/
+        TestContext.test(new MapRemove(java.util.concurrent.ConcurrentHashMap.class, size)); /**/
         TestContext.info("");
 
         TestContext.info(" - Iterates over map entries - ");
         TestContext.test(new MapIteration(FastMap.class, size));
-        /*@JVM-1.4+@ TestContext.test(new MapIteration(java.util.HashMap.class, size)); /**/
-        /*@JVM-1.4+@ TestContext.test(new MapIteration(java.util.LinkedHashMap.class, size)); /**/
+        TestContext.test(new MapIteration(java.util.HashMap.class, size)); /**/
+        TestContext.test(new MapIteration(java.util.LinkedHashMap.class, size)); /**/
         TestContext.test(new MapIteration(SharedFastMap.class, size));
-        /*@JVM-1.5+@ TestContext.test(new MapIteration(java.util.concurrent.ConcurrentHashMap.class, size)); /**/
+        TestContext.test(new MapIteration(java.util.concurrent.ConcurrentHashMap.class, size)); /**/
         TestContext.info("");
 
         TestContext

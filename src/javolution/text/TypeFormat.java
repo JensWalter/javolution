@@ -746,20 +746,18 @@ public final class TypeFormat {
      *
      * @param  csq the character sequence to parse.
      * @return the float number represented by the specified character sequence.
-     *@JVM-1.1+@
+     */
      public static float parseFloat(CharSequence csq) {
      return (float) parseDouble(csq);
      }
-     /**/
 
     /**
      * Equivalent to {@link #parseFloat(CharSequence)} 
      * (for J2ME compatibility).
-     *@JVM-1.1+@
+     */
      public static float parseFloat(String str) {
      return (float) parseDoubleString(str, null);
      }
-     /**/
 
     /**
      * Parses the specified character sequence from the specified position 
@@ -768,11 +766,10 @@ public final class TypeFormat {
      * @param  csq the character sequence to parse.
      * @param  cursor the current cursor position (being maintained).
      * @return the float number represented by the specified character sequence.
-     *@JVM-1.1+@
+     */
      public static float parseFloat(CharSequence csq, Cursor cursor) {
      return (float) parseDouble(csq, cursor);
      }
-     /**/
 
     /**
      * Parses the specified character sequence as a <code>double</code>.
@@ -783,21 +780,19 @@ public final class TypeFormat {
      * @return the double number represented by this character sequence.
      * @throws NumberFormatException if the character sequence does not contain
      *         a parsable <code>double</code>.
-     *@JVM-1.1+@
+     */
      public static double parseDouble(CharSequence csq)
      throws NumberFormatException {
      return parseDouble(csq, null);
      }
-     /**/
 
     /**
      * Equivalent to {@link #parseDouble(CharSequence)} 
      * (for J2ME compatibility).
-     *@JVM-1.1+@
+     */
      public static double parseDouble(String str) {
      return parseDoubleString(str, null);
      }
-     /**/
 
     /**
      * Parses the specified character sequence from the specified position 
@@ -808,7 +803,7 @@ public final class TypeFormat {
      * @return the double number represented by this character sequence.
      * @throws NumberFormatException if the character sequence does not contain
      *         a parsable <code>double</code>.
-     *@JVM-1.1+@
+     */
      public static double parseDouble(CharSequence csq, Cursor cursor)
      throws NumberFormatException {
      // Avoids dynamic cost of CharSequence.charAt
@@ -1373,7 +1368,7 @@ public final class TypeFormat {
      * @return the specified <code>Appendable</code> object.
      * @throws IOException if an I/O exception occurs.
      * @see    TextBuilder#append(float)
-     *@JVM-1.1+@
+     */
      public static Appendable format(float f, Appendable a)
      throws IOException {
      if (a instanceof TextBuilder)
@@ -1384,7 +1379,6 @@ public final class TypeFormat {
      TextBuilder.recycle(tmp);
      return a;
      }
-     /**/
 
     /**
      * Formats the specified <code>double</code> value (16 or 17 digits output).
@@ -1394,7 +1388,7 @@ public final class TypeFormat {
      * @return the specified <code>Appendable</code> object.
      * @throws IOException if an I/O exception occurs.
      * @see    TextBuilder#append(double)
-     *@JVM-1.1+@
+     */
      public static Appendable format(double d, Appendable a)
      throws IOException {
      if (a instanceof TextBuilder)
@@ -1405,7 +1399,6 @@ public final class TypeFormat {
      TextBuilder.recycle(tmp);
      return a;
      }
-     /**/
 
     /**
      * Formats the specified <code>double</code> value according to the 
@@ -1424,7 +1417,7 @@ public final class TypeFormat {
      * @throws IllegalArgumentException if <code>(digits &gt; 19)</code>)
      * @throws IOException if an I/O exception occurs.
      * @see    TextBuilder#append(double, int, boolean, boolean)
-     *@JVM-1.1+@
+     */
      public static Appendable format(double d, int digits,
      boolean scientific, boolean showZero, Appendable a) throws IOException {
      if (a instanceof TextBuilder)
@@ -1435,7 +1428,6 @@ public final class TypeFormat {
      TextBuilder.recycle(tmp);
      return a;
      }
-     /**/
 
     /**
      * Appends to the specified appendable the text builder argument
@@ -1448,10 +1440,8 @@ public final class TypeFormat {
     private static void appendTo(Object to, TextBuilder txt) throws IOException {
         if (to instanceof StringBuffer) {
             txt.appendTo((StringBuffer) to);
-        /* @JVM-1.5+@            
         } else if (to instanceof StringBuilder) {
             txt.appendTo((StringBuilder) to);
-        /**/
         } else {
             ((Appendable) to).append(txt);
         }

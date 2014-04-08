@@ -141,7 +141,7 @@ public class Struct {
      * Configurable holding the maximum alignment in bytes 
      * (default <code>4</code>).
      */
-    public static final Configurable/*<Integer>*/MAXIMUM_ALIGNMENT 
+    public static final Configurable<Integer>MAXIMUM_ALIGNMENT 
         = new Configurable(new Integer(4));
 
     /**
@@ -1270,7 +1270,6 @@ public class Struct {
         public Float32() {
             super(4, 4);
         }
-        /*@JVM-1.1+@
          public void set(float value) {
          getByteBuffer().putFloat(position(), value);
          }
@@ -1278,7 +1277,6 @@ public class Struct {
          public float get() {
          return getByteBuffer().getFloat(position());
          }
-         /**/
     }
 
     /**
@@ -1288,14 +1286,12 @@ public class Struct {
         public Float64() {
             super(8, 8);
         }
-        /*@JVM-1.1+@
          public void set(double value) {
          getByteBuffer().putDouble(position(), value);
          }
          public double get() {
          return getByteBuffer().getDouble(position());
          }
-         /**/
     }
 
     /**

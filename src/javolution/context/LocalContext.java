@@ -103,12 +103,12 @@ public class LocalContext extends Context {
      *        LocalContext.exit(); // Reverts to previous format.
      *     }[/code]</p>
      */     
-    public static class Reference/*<T>*/implements javolution.lang.Reference/*<T>*/ {
+    public static class Reference<T>implements javolution.lang.Reference<T> {
 
         /**
          * Holds the default value for this reference.
          */
-        private Object/*{T}*/_defaultValue;
+        private T _defaultValue;
 
         /**
          * Indicates if this reference value has ever been locally overriden 
@@ -128,7 +128,7 @@ public class LocalContext extends Context {
          * 
          * @param defaultValue the default value or root value of this variable.
          */
-        public Reference(Object/*{T}*/defaultValue) {
+        public Reference(T defaultValue) {
             _defaultValue = defaultValue;
         }
 
@@ -140,17 +140,17 @@ public class LocalContext extends Context {
          *
          * @return the context-local value.
          */
-        public final Object/*{T}*/get() {
+        public final T get() {
             return (_hasBeenLocallyOverriden) ? retrieveValue() : _defaultValue;
         }
 
-        private Object/*{T}*/retrieveValue() {
+        private T retrieveValue() {
             for (Context ctx = Context.getCurrent(); ctx != null; ctx = ctx.getOuter()) {
                 if (ctx instanceof LocalContext) {
                     LocalContext localContext = (LocalContext) ctx;
                     Object value = localContext._references.get(this);
                     if (value != null) {
-                        return (Object/*{T}*/) value;
+                        return (T) value;
                     }
                 }
             }
@@ -164,7 +164,7 @@ public class LocalContext extends Context {
          * @param value the new local value or <code>null</code> to inherit
          *        the outer value.
          */
-        public void set(Object/*{T}*/value) {
+        public void set(T value) {
             LocalContext ctx = Reference.getLocalContext();
             if (ctx != null) {
                 FastMap references = ctx._references;
@@ -181,7 +181,7 @@ public class LocalContext extends Context {
          *
          * @return the defaultValue.
          */
-        public Object/*{T}*/getDefault() {
+        public T getDefault() {
             return _defaultValue;
         }
 
@@ -191,9 +191,9 @@ public class LocalContext extends Context {
          * @return the local value or <code>null</code> if none (value to be 
          *         inherited or not set).
          */
-        public Object/*{T}*/getLocal() {
+        public T getLocal() {
             LocalContext ctx = Reference.getLocalContext();
-            return (ctx != null) ? (Object/*{T}*/) ctx._references.get(this)
+            return (ctx != null) ? (T) ctx._references.get(this)
                     : _defaultValue;
         }
 
@@ -202,7 +202,7 @@ public class LocalContext extends Context {
          *
          * @param  defaultValue the root value.
          */
-        public void setDefault(Object/*{T}*/defaultValue) {
+        public void setDefault(T defaultValue) {
             _defaultValue = defaultValue;
         }
         

@@ -35,7 +35,7 @@ public abstract class AllocatorContext extends Context {
     /**
      * Holds the default implementation ({@link HeapContext} instance).
      */
-    public static final Configurable/*<Class<? extends AllocatorContext>>*/
+    public static final Configurable<Class<? extends AllocatorContext>>
     DEFAULT = new Configurable(_Default.getClass()) {
         protected void notifyChange() {
             _Default = (AllocatorContext) ObjectFactory.getInstance(
@@ -97,7 +97,7 @@ public abstract class AllocatorContext extends Context {
      * @author  <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
      * @version 5.0, April 14, 2007
      */
-    public static class Reference/*<T>*/implements javolution.lang.Reference/*<T>*/{
+    public static class Reference<T> implements javolution.lang.Reference<T>{
 
         /**
          * Holds the factory.
@@ -115,7 +115,7 @@ public abstract class AllocatorContext extends Context {
         /**
          * Holds the reference value.
          */
-        private Object/*{T}*/_value;
+        private T _value;
 
         /**
          * Default constructor.
@@ -129,7 +129,7 @@ public abstract class AllocatorContext extends Context {
          * 
          * @return a reference object possibly recycled.
          */
-        public static/*<T>*/Reference /*<T>*/newInstance() {
+        public static <T> Reference <T> newInstance() {
             return (Reference) FACTORY.object();
         }
 
@@ -144,12 +144,12 @@ public abstract class AllocatorContext extends Context {
         }
 
         // Implements Reference interface.
-        public final Object/*{T}*/get() {
+        public final T get() {
             return _value;
         }
 
         // Implements Reference interface.
-        public final void set(Object/*{T}*/value) {
+        public final void set(T value) {
             _value = value;
         }
     }

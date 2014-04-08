@@ -112,7 +112,7 @@ import javolution.xml.stream.XMLStreamWriterImpl;
  * @author  <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
  * @version 5.1, July 4, 2007
  */
-public abstract class XMLFormat/*<T>*/{
+public abstract class XMLFormat<T>{
 
     /**
      * Holds <code>null</code> representation.
@@ -144,7 +144,7 @@ public abstract class XMLFormat/*<T>*/{
      * @throws IllegalArgumentException if the specified class is already 
      *         bound to another format.
      */
-    protected XMLFormat(Class/*<T>*/cls) {
+    protected XMLFormat(Class<T>cls) {
         _class = cls;
         if (cls == null)
             return; // Dynamic format.
@@ -175,7 +175,7 @@ public abstract class XMLFormat/*<T>*/{
      * 
      * @return the class/interface bound to this format.
      */
-    public final Class/*<T>*/getBoundClass() {
+    public final Class<T> getBoundClass() {
         return _class;
     }
 
@@ -203,7 +203,7 @@ public abstract class XMLFormat/*<T>*/{
      * @param xml the XML input element.
      * @return the object corresponding to the specified XML element.
      */
-    public Object/*{T}*/newInstance(Class/*<T>*/cls, InputElement xml)
+    public T newInstance(Class<T> cls, InputElement xml)
             throws XMLStreamException {
         try {
             return cls.newInstance();
@@ -220,7 +220,7 @@ public abstract class XMLFormat/*<T>*/{
      * @param obj the object to format.
      * @param xml the <code>XMLElement</code> destination.
      */
-    public abstract void write(Object/*{T}*/obj, OutputElement xml)
+    public abstract void write(T obj, OutputElement xml)
             throws XMLStreamException;
 
     /**
@@ -230,7 +230,7 @@ public abstract class XMLFormat/*<T>*/{
      * @param obj the object created through {@link #newInstance}
      *        and to setup from the specified XML element.
      */
-    public abstract void read(InputElement xml, Object/*{T}*/obj)
+    public abstract void read(InputElement xml, T obj)
             throws XMLStreamException;
 
     /**
@@ -298,7 +298,7 @@ public abstract class XMLFormat/*<T>*/{
          * @return the next nested object which can be <code>null</code>.
          * @throws XMLStreamException if <code>hasNext() == false</code>.
          */
-        public/*<T>*/Object/*{T}*/getNext() throws XMLStreamException {
+        public <T> T getNext() throws XMLStreamException {
             if (!hasNext()) // Asserts isReaderAtNext == true
                 throw new XMLStreamException("No more element to read", _reader
                         .getLocation());
@@ -318,7 +318,7 @@ public abstract class XMLFormat/*<T>*/{
                     if (_reader.next() != XMLStreamReader.END_ELEMENT)
                         throw new XMLStreamException("Non Empty Reference Element");
                     _isReaderAtNext = false;
-                    return (Object/*{T}*/) obj;
+                    return (T) obj;
                 }
             }
 
@@ -331,7 +331,7 @@ public abstract class XMLFormat/*<T>*/{
                 throw new XMLStreamException(e);
             }
 
-            return (Object/*{T}*/) get(cls);
+            return (T) get(cls);
         }
 
         /**
@@ -341,7 +341,7 @@ public abstract class XMLFormat/*<T>*/{
          * @param name the local name of the next element.
          * @return the next nested object or <code>null</code>.
          */
-        public/*<T>*/Object/*{T}*/get(String name) throws XMLStreamException {
+        public <T> T get(String name) throws XMLStreamException {
             if (!hasNext()// Asserts isReaderAtNext == true
                     || !_reader.getLocalName().equals(name))
                 return null;
@@ -353,14 +353,14 @@ public abstract class XMLFormat/*<T>*/{
                     if (_reader.next() != XMLStreamReader.END_ELEMENT)
                         throw new XMLStreamException("Non Empty Reference Element");
                     _isReaderAtNext = false;
-                    return (Object/*{T}*/) obj;
+                    return (T) obj;
                 }
             }
 
             // Retrieves object's class from class attribute.
             Class cls = _binding.readClassAttribute(_reader);
 
-            return (Object/*{T}*/) get(cls);
+            return (T) get(cls);
         }
 
         /**
@@ -371,10 +371,10 @@ public abstract class XMLFormat/*<T>*/{
          * @param uri the namespace URI or <code>null</code>.
          * @return the next nested object or <code>null</code>.
          */
-        public/*<T>*/Object/*{T}*/get(String localName, String uri)
+        public <T> T get(String localName, String uri)
                 throws XMLStreamException {
             if (uri == null)
-                return (Object/*{T}*/) get(localName);
+                return (T) get(localName);
 
             if (!hasNext()// Asserts isReaderAtNext == true
                     || !_reader.getLocalName().equals(localName)
@@ -388,14 +388,14 @@ public abstract class XMLFormat/*<T>*/{
                     if (_reader.next() != XMLStreamReader.END_ELEMENT)
                         throw new XMLStreamException("Non Empty Reference Element");
                     _isReaderAtNext = false;
-                    return (Object/*{T}*/) obj;
+                    return (T) obj;
                 }
             }
 
             // Retrieves object's class from class attribute.
             Class cls = _binding.readClassAttribute(_reader);
 
-            return (Object/*{T}*/) get(cls);
+            return (T) get(cls);
         }
 
         /**
@@ -406,7 +406,7 @@ public abstract class XMLFormat/*<T>*/{
          * @param cls the class identifying the format of the object to return.
          * @return the next nested object or <code>null</code>.
          */
-        public/*<T>*/Object/*{T}*/get(String name, Class/*<T>*/cls) 
+        public <T> T get(String name, Class<T> cls) 
                 throws XMLStreamException {
             if (!hasNext()// Asserts isReaderAtNext == true
                     || !_reader.getLocalName().equals(name))
@@ -419,11 +419,11 @@ public abstract class XMLFormat/*<T>*/{
                     if (_reader.next() != XMLStreamReader.END_ELEMENT)
                         throw new XMLStreamException("Non Empty Reference Element");
                     _isReaderAtNext = false;
-                    return (Object/*{T}*/) obj;
+                    return (T) obj;
                 }
             }
 
-            return (Object/*{T}*/) get(cls);
+            return (T) get(cls);
         }
 
         /**
@@ -435,8 +435,8 @@ public abstract class XMLFormat/*<T>*/{
          * @param cls the class identifying the format of the object to return.
          * @return the next nested object or <code>null</code>.
          */
-        public/*<T>*/Object/*{T}*/get(String localName, String uri,
-                Class/*<T>*/cls) throws XMLStreamException {
+        public <T> T get(String localName, String uri,
+                Class<T> cls) throws XMLStreamException {
             if (uri == null)
                 return get(localName, cls);
 
@@ -452,11 +452,11 @@ public abstract class XMLFormat/*<T>*/{
                     if (_reader.next() != XMLStreamReader.END_ELEMENT)
                         throw new XMLStreamException("Non Empty Reference Element");
                     _isReaderAtNext = false;
-                    return (Object/*{T}*/) obj;
+                    return (T) obj;
                 }
             }
 
-            return (Object/*{T}*/) get(cls);
+            return (T) get(cls);
         }
 
         // Builds object of specified class.
@@ -604,12 +604,11 @@ public abstract class XMLFormat/*<T>*/{
          * @param  defaultValue the value returned if the attribute is not found.
          * @return the <code>float</code> value for the specified attribute or
          *         the default value if the attribute is not found.
-         /*@JVM-1.1+@
+         */
          public float getAttribute(String name, float defaultValue) throws XMLStreamException {
          CharArray value = getAttribute(name);
          return (value != null) ? value.toFloat() : defaultValue;
          }
-         /**/
 
         /**
          * Returns the specified <code>double</code> attribute.
@@ -618,12 +617,11 @@ public abstract class XMLFormat/*<T>*/{
          * @param  defaultValue the value returned if the attribute is not found.
          * @return the <code>double</code> value for the specified attribute or
          *         the default value if the attribute is not found.
-         /*@JVM-1.1+@
+         */
          public double getAttribute(String name, double defaultValue) throws XMLStreamException {
          CharArray value = getAttribute(name);
          return (value != null) ? value.toDouble() : defaultValue;
          }
-         /**/
 
         /**
          * Returns the attribute of same type as the specified
@@ -636,7 +634,7 @@ public abstract class XMLFormat/*<T>*/{
          * @return the parse value for the specified attribute or
          *         the default value if the attribute is not found.
          */
-        public /*<T>*/ Object/*{T}*/ getAttribute(String name, Object/*{T}*/ defaultValue)
+        public <T> T getAttribute(String name, T defaultValue)
                 throws XMLStreamException {
             CharArray value = getAttribute(name);
             if (value == null)
@@ -646,7 +644,7 @@ public abstract class XMLFormat/*<T>*/{
             TextFormat format = TextFormat.getInstance(type);
             if (format == null) throw new XMLStreamException(
                     "No TextFormat instance for " + type);
-            return (Object/*{T}*/) format.parse(value);
+            return (T) format.parse(value);
         }
 
         // Sets XML binding. 
@@ -815,7 +813,7 @@ public abstract class XMLFormat/*<T>*/{
          * @param name the name of the nested element.
          * @param cls the class identifying the format of the specified object.
          */
-        public/*<T>*/void add(Object/*{T}*/ obj, String name, Class/*<T>*/ cls)
+        public <T> void add(T obj, String name, Class<T> cls)
                 throws XMLStreamException {
             if (obj == null)
                 return;
@@ -845,8 +843,8 @@ public abstract class XMLFormat/*<T>*/{
          * @param uri the namespace URI of the nested element.
          * @param cls the class identifying the format of the specified object.
          */
-        public/*<T>*/void add(Object/*{T}*/obj, String localName, String uri,
-                Class/*<T>*/cls) throws XMLStreamException {
+        public <T> void add(T obj, String localName, String uri,
+                Class <T> cls) throws XMLStreamException {
             if (obj == null)
                 return;
 
@@ -966,22 +964,20 @@ public abstract class XMLFormat/*<T>*/{
          * 
          * @param  name the attribute name.
          * @param  value the <code>float</code> value for the specified attribute.
-         /*@JVM-1.1+@
+         */
          public void setAttribute(String name, float value) throws XMLStreamException {
          setAttribute(name, _tmpTextBuilder.clear().append(value));
          }
-         /**/
 
         /**
          * Sets the specified <code>double</code> attribute.
          * 
          * @param  name the attribute name.
          * @param  value the <code>double</code> value for the specified attribute.
-         /*@JVM-1.1+@
+         */
          public void setAttribute(String name, double value) throws XMLStreamException {
          setAttribute(name, _tmpTextBuilder.clear().append(value));
          }
-         /**/
 
         /**
          * Sets the specified attribute using its associated 
@@ -1023,7 +1019,7 @@ public abstract class XMLFormat/*<T>*/{
 
     }
     
-    private static CharSequence toCsq/**/(Object str) {
+    private static CharSequence toCsq (Object str) {
         return Javolution.j2meToCharSeq(str);
     }
 

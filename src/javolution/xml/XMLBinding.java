@@ -538,7 +538,7 @@ public class XMLBinding implements Reusable, XMLSerializable {
      * The elements' order is defined by the map's entries iterator order. 
      * Maps are deserialized using their default constructor.
      */
-    static final XMLFormat/*<Map>*/MAP_XML = new XMLFormat(Javolution
+    static final XMLFormat<Map> MAP_XML = new XMLFormat(Javolution
             .j2meGetClass("j2me.util.Map")) {
 
         public void read(InputElement xml, Object obj)
@@ -566,11 +566,8 @@ public class XMLBinding implements Reusable, XMLSerializable {
      * Holds the default XML representation for <code>java.lang.Object[]</code>
      * instances. This representation consists of nested XML elements one for
      * each element of the array.
-     /*@JVM-1.4+@
-     static final XMLFormat
-     /**/
-    /*<Object[]>*//*@JVM-1.4+@
-     OBJECT_ARRAY_XML = new XMLFormat(
+     */
+     static final XMLFormat<Object[]> OBJECT_ARRAY_XML = new XMLFormat(
      new Object[0].getClass()) {
      
      public Object newInstance(Class cls, javolution.xml.XMLFormat.InputElement xml) throws XMLStreamException {
@@ -600,12 +597,11 @@ public class XMLBinding implements Reusable, XMLSerializable {
      }
      }
      };
-     /**/
 
     /**
      * Holds the default XML representation for <code>java.lang.Boolean</code>.
      */
-    static final XMLFormat/*<Boolean>*/BOOLEAN_XML = new XMLFormat(
+    static final XMLFormat<Boolean>BOOLEAN_XML = new XMLFormat(
             new Boolean(true).getClass()) {
 
         public boolean isReferenceable() {
@@ -632,7 +628,7 @@ public class XMLBinding implements Reusable, XMLSerializable {
     /**
      * Holds the default XML representation for <code>java.lang.Byte</code>.
      */
-    static final XMLFormat/*<Byte>*/BYTE_XML = new XMLFormat(
+    static final XMLFormat<Byte> BYTE_XML = new XMLFormat(
             new Byte((byte) 0).getClass()) {
 
         public boolean isReferenceable() {
@@ -659,7 +655,7 @@ public class XMLBinding implements Reusable, XMLSerializable {
     /**
      * Holds the default XML representation for <code>java.lang.Character</code>.
      */
-    static final XMLFormat/*<Character>*/CHARACTER_XML = new XMLFormat(
+    static final XMLFormat<Character> CHARACTER_XML = new XMLFormat(
             new Character(' ').getClass()) {
 
         public boolean isReferenceable() {
@@ -691,7 +687,7 @@ public class XMLBinding implements Reusable, XMLSerializable {
     /**
      * Holds the default XML representation for <code>java.lang.Short</code>.
      */
-    static final XMLFormat/*<Short>*/SHORT_XML = new XMLFormat(new Short(
+    static final XMLFormat<Short> SHORT_XML = new XMLFormat(new Short(
             (short) 0).getClass()) {
 
         public boolean isReferenceable() {
@@ -718,7 +714,7 @@ public class XMLBinding implements Reusable, XMLSerializable {
     /**
      * Holds the default XML representation for <code>java.lang.Integer</code>.
      */
-    static final XMLFormat/*<Integer>*/INTEGER_XML = new XMLFormat(
+    static final XMLFormat<Integer> INTEGER_XML = new XMLFormat(
             new Integer(0).getClass()) {
 
         public boolean isReferenceable() {
@@ -745,7 +741,7 @@ public class XMLBinding implements Reusable, XMLSerializable {
     /**
      * Holds the default XML representation for <code>java.lang.Long</code>.
      */
-    static final XMLFormat/*<Long>*/LONG_XML = new XMLFormat(new Long(0)
+    static final XMLFormat<Long> LONG_XML = new XMLFormat(new Long(0)
             .getClass()) {
 
         public boolean isReferenceable() {
@@ -771,11 +767,8 @@ public class XMLBinding implements Reusable, XMLSerializable {
 
     /**
      * Holds the default XML representation for <code>java.lang.Float</code>.
-     /*@JVM-1.1+@
-     static final XMLFormat
-     /**/
-    /*<Float>*//*@JVM-1.1+@
-     FLOAT_XML = new XMLFormat(new Float(0f).getClass()) {
+     */
+     static final XMLFormat<Float>  FLOAT_XML = new XMLFormat(new Float(0f).getClass()) {
      
      public boolean isReferenceable() {
      return false; // Always by value (immutable). 
@@ -797,11 +790,8 @@ public class XMLBinding implements Reusable, XMLSerializable {
 
     /**
      * Holds the default XML representation for <code>java.lang.Double</code>.
-     /*@JVM-1.1+@
-     static final XMLFormat
-     /**/
-    /*<Double>*//*@JVM-1.1+@
-     DOUBLE_XML = new XMLFormat(new Double(0.0).getClass()) {
+     */
+     static final XMLFormat<Double> DOUBLE_XML = new XMLFormat(new Double(0.0).getClass()) {
      public boolean isReferenceable() {
      return false; // Always by value (immutable). 
      }
@@ -818,7 +808,6 @@ public class XMLBinding implements Reusable, XMLSerializable {
      xml.setAttribute("value", ((Double) obj).doubleValue());
      }
      };
-     /**/
 
     ////////////////////////////////////////////////////////////////////////////
     // JAVOLUTION XML FORMAT (HERE TO AVOID LOADING XML FRAMEWORK IF NOT USED)//
@@ -829,7 +818,7 @@ public class XMLBinding implements Reusable, XMLSerializable {
      * This representation consists of a <code>"value"</code> attribute 
      * holding the characters.
      */
-    static final XMLFormat/*<Text>*/TEXT_XML = new XMLFormat(Javolution
+    static final XMLFormat<Text> TEXT_XML = new XMLFormat(Javolution
             .j2meGetClass("javolution.text.Text")) {
 
         public Object newInstance(Class cls,
@@ -857,7 +846,7 @@ public class XMLBinding implements Reusable, XMLSerializable {
      * (if different from {@link FastComparator#DEFAULT}) and the 
      * {@link #isShared() "shared"} attribute.
      */
-    static final XMLFormat/*<FastMap>*/ FASTMAP_XML = new XMLFormat(
+    static final XMLFormat<FastMap> FASTMAP_XML = new XMLFormat(
             new FastMap().getClass()) {
 
         public void read(InputElement xml, Object obj)
@@ -904,7 +893,7 @@ public class XMLBinding implements Reusable, XMLSerializable {
      * Holds the default XML representation for FastCollection instances.
      * This representation is identical to {@link XMLBinding#COLLECTION_XML}.
      */
-    static final XMLFormat/*<FastCollection>*/ FASTCOLLECTION_XML = new XMLFormat(
+    static final XMLFormat<FastCollection> FASTCOLLECTION_XML = new XMLFormat(
             Javolution.j2meGetClass("javolution.util.FastCollection")) {
 
         public void read(InputElement xml, Object obj) throws XMLStreamException {
@@ -926,7 +915,7 @@ public class XMLBinding implements Reusable, XMLSerializable {
      * Holds the default XML representation for FastComparator instances
      * (format ensures unicity of predefined comparator).
      */
-    static final XMLFormat/*<FastComparator>*/ FASTCOMPARATOR_XML = new XMLFormat(
+    static final XMLFormat<FastComparator> FASTCOMPARATOR_XML = new XMLFormat(
             Javolution.j2meGetClass("javolution.util.FastComparator")) {
 
         public Object newInstance(Class cls, javolution.xml.XMLFormat.InputElement xml) throws XMLStreamException {
@@ -957,7 +946,7 @@ public class XMLBinding implements Reusable, XMLSerializable {
      * This presentation consists of a <code>"value"</code> attribute 
      * holding the index <code>int</code> value.
      */
-    static final XMLFormat/*<Index>*/INDEX_XML = new XMLFormat(Index.ZERO
+    static final XMLFormat<Index> INDEX_XML = new XMLFormat(Index.ZERO
             .getClass()) {
 
         public boolean isReferenceable() {
@@ -984,7 +973,7 @@ public class XMLBinding implements Reusable, XMLSerializable {
      * Holds the XML representation for persistent contexts
      * (holds persistent reference mapping).
      */
-    static final XMLFormat/*<PersistentContext>*/PERSISTENT_CONTEXT_XML = new XMLFormat(
+    static final XMLFormat<PersistentContext> PERSISTENT_CONTEXT_XML = new XMLFormat(
             new PersistentContext().getClass()) {
         public void read(InputElement xml, Object obj)
                 throws XMLStreamException {
@@ -999,7 +988,7 @@ public class XMLBinding implements Reusable, XMLSerializable {
         }
     };
     
-    private static CharSequence toCsq/**/(Object str) {
+    private static CharSequence toCsq (Object str) {
         return Javolution.j2meToCharSeq(str);
     }
 

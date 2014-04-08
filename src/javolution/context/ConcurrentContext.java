@@ -166,7 +166,7 @@ public abstract class ConcurrentContext extends Context {
      * for concurrent threads. Alternative (RTSJ) implementations could also use 
      * <code>javax.realtime.NoHeapRealtimeThread</code>. 
      */
-    public static final Configurable/*<Class<? extends ConcurrentContext>>*/
+    public static final Configurable<Class<? extends ConcurrentContext>>
         DEFAULT = new Configurable(Default.CLASS);
 
     /**
@@ -174,7 +174,7 @@ public abstract class ConcurrentContext extends Context {
      * (see <a href="{@docRoot}/overview-summary.html#configuration">
      * Javolution Configuration</a> for details). 
      */
-    public static final Configurable/*<Integer>*/MAXIMUM_CONCURRENCY = new Configurable(
+    public static final Configurable<Integer> MAXIMUM_CONCURRENCY = new Configurable(
             new Integer(availableProcessors() - 1)) {
         protected void notifyChange() { // The maximum concurrency is also the default concurrency. 
             CONCURRENCY.setDefault(this.get());

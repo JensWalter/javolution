@@ -83,11 +83,10 @@ public final class MathLib {
      * @param min the minimum value inclusive.
      * @param max the maximum value inclusive.
      * @return a pseudo random number in the range <code>[min, max]</code>.
-     * @JVM-1.1+@
+     */
      public static float random(float min, float max) {
      return (float) random((double)min, (double) max);   
      }
-     /**/
 
     /**
      * Returns a pseudo random <code>double</code> value in the range
@@ -96,13 +95,12 @@ public final class MathLib {
      * @param min the minimum value inclusive.
      * @param max the maximum value inclusive.
      * @return a pseudo random number in the range <code>[min, max]</code>.
-     * @JVM-1.1+@
+     */
      public static double random(double min, double max) {
      double next = RANDOM.nextDouble(); // 0.0 .. 1.0
      return min + (next * max) - (next * min);
      // Due to potential numeric errors, both min and max are possible.
      }
-     /**/
 
     /**
      * Returns the number of bits in the minimal two's-complement representation
@@ -223,7 +221,7 @@ public final class MathLib {
      * @param m the <code>long</code> multiplier.
      * @param n the power of two exponent.
      * @return <code>m * 2<sup>n</sup></code>.
-     @JVM-1.1+@
+     */
      public static double toDoublePow2(long m, int n) {
      if (m == 0)
      return 0.0;
@@ -251,7 +249,6 @@ public final class MathLib {
      bits |= exp << 52;
      return Double.longBitsToDouble(bits);
      }
-     /**/
 
     /**
      * Returns the closest <code>double</code> representation of the
@@ -260,7 +257,7 @@ public final class MathLib {
      * @param m the <code>long</code> multiplier.
      * @param n the power of ten exponent.
      * @return <code>multiplier * 10<sup>n</sup></code>.
-     * @JVM-1.1+@
+     */
      public static double toDoublePow10(long m, int n) {
      if (m == 0)
      return 0.0;
@@ -373,7 +370,6 @@ public final class MathLib {
      
      private static final int[] POW5_INT = { 1, 5, 25, 125, 625, 3125, 15625,
      78125, 390625, 1953125, 9765625, 48828125, 244140625, 1220703125 };
-     /**/
 
     /**
      * Returns the closest <code>long</code> representation of the
@@ -384,7 +380,7 @@ public final class MathLib {
      * @return <code>d * 2<sup>n</sup></code>
      * @throws ArithmeticException if the conversion cannot be performed
      *         (NaN, Infinity or overflow).
-     * @JVM-1.1+@
+     */
      public static long toLongPow2(double d, int n) {
      long bits = Double.doubleToLongBits(d);
      boolean isNegative = (bits >> 63) != 0;
@@ -405,7 +401,6 @@ public final class MathLib {
      (m >> -shift) + ((m >> -(shift + 1)) & 1) ; // Rounding.
      return isNegative ? -m : m;
      }
-     /**/
 
     /**
      * Returns the closest <code>long</code> representation of the
@@ -414,7 +409,7 @@ public final class MathLib {
      * @param d the <code>double</code> multiplier.
      * @param n the power of two exponent.
      * @return <code>d * 10<sup>n</sup></code>.
-     @JVM-1.1+@
+     */
      public static long toLongPow10(double d, int n) {
      long bits = Double.doubleToLongBits(d);
      boolean isNegative = (bits >> 63) != 0;
@@ -534,7 +529,7 @@ public final class MathLib {
      * @return <code>floor(Log2(abs(d)))</code>
      * @throws ArithmeticException if <code>d &lt;= 0<code> or <code>d</code>
      *         is <code>NaN</code> or <code>Infinity</code>.
-     * @JVM-1.1+@
+     */
      public static int floorLog2(double d) {
      if (d <= 0) throw new ArithmeticException("Negative number or zero");
      long bits = Double.doubleToLongBits(d);
@@ -544,7 +539,6 @@ public final class MathLib {
      return floorLog2(d * 18014398509481984L) - 54;  // 2^54 Exact.       
      return exp - 1023;
      }
-     /**/
 
     /**
      * Returns the largest power of 10 that is less than or equal to the
@@ -554,7 +548,7 @@ public final class MathLib {
      * @return <code>floor(Log10(abs(d)))</code>
      * @throws ArithmeticException if <code>d &lt;= 0<code> or <code>d</code>
      *         is <code>NaN</code> or <code>Infinity</code>.
-     * @JVM-1.1+@
+     */
      public static int floorLog10(double d) {
      int guess = (int) (LOG2_DIV_LOG10 * MathLib.floorLog2(d));
      double pow10 = MathLib.toDoublePow10(1, guess);
@@ -565,97 +559,92 @@ public final class MathLib {
      return guess + 1;
      }    
      private static final double LOG2_DIV_LOG10 = 0.3010299956639811952137388947;
-     /**/
 
     /**
      * The natural logarithm.
-     * @JVM-1.1+@
+     */
      public static final double E = 2.71828182845904523536028747135266;
      
      /**
      * The ratio of the circumference of a circle to its diameter.
-     * @JVM-1.1+@
+     */
      public static final double PI = 3.1415926535897932384626433832795;
 
      /**
      * Half the ratio of the circumference of a circle to its diameter.
-     * @JVM-1.1+@
+     */
      public static final double HALF_PI = 1.5707963267948966192313216916398;
 
      /**
      * Twice the ratio of the circumference of a circle to its diameter.
-     * @JVM-1.1+@
+     */
      public static final double TWO_PI = 6.283185307179586476925286766559;
      
      /**
      * Four time the ratio of the circumference of a circle to its diameter.
-     * @JVM-1.1+@
+     */
      public static final double FOUR_PI = 12.566370614359172953850573533118;
      
      /**
      * Holds {@link #PI} * {@link #PI}.
-     * @JVM-1.1+@
+     */
      public static final double PI_SQUARE = 9.8696044010893586188344909998762;
      
      /**
      * The natural logarithm of two.
-     * @JVM-1.1+@
+     */
      public static final double LOG2 = 0.69314718055994530941723212145818;
      
      /**
      * The natural logarithm of ten.
-     * @JVM-1.1+@
+     */
      public static final double LOG10 = 2.3025850929940456840179914546844;
      
      /**
      * The square root of two.
-     * @JVM-1.1+@
+     */
      public static final double SQRT2 = 1.4142135623730950488016887242097;
      
      /**
      * Not-A-Number.
-     * @JVM-1.1+@
+     */
      public static final double NaN = 0.0 / 0.0;
 
      /**
      * Infinity.
-     * @JVM-1.1+@
+     */
      public static final double Infinity = 1.0 / 0.0;
 
-     /**/
 
     /**
      * Converts an angle in degrees to radians.
      *
      * @param degrees the angle in degrees.
      * @return the specified angle in radians.
-     * @JVM-1.1+@
+     */
      public static double toRadians(double degrees) {
      return degrees * (PI / 180.0);
      }
-     /**/
 
     /**
      * Converts an angle in radians to degrees.
      *
      * @param radians the angle in radians.
      * @return the specified angle in degrees.
-     * @JVM-1.1+@
+     */
      public static double toDegrees(double radians) {
      return radians * (180.0 / PI);
      }
-     /**/
 
     /**
      * Returns the positive square root of the specified value.
      * 
      * @param x the value.
      * @return <code>java.lang.Math.sqrt(x)</code>
-     * @JVM-1.1+@
+     */
      public static double sqrt(double x) {
      return Math.sqrt(x); // CLDC 1.1
      }
-     /**/
 
     /**
      * Returns the remainder of the division of the specified two arguments.
@@ -663,7 +652,7 @@ public final class MathLib {
      * @param x the dividend.
      * @param y the divisor.
      * @return <code>x - round(x / y) * y</code>
-     * @JVM-1.1+@
+     */
      public static double rem(double x, double y) {
      double tmp = x / y;
      if (MathLib.abs(tmp) <= Long.MAX_VALUE) { 
@@ -672,7 +661,6 @@ public final class MathLib {
      return NaN;
      }
      }
-     /**/
 
     /**
      * Returns the smallest (closest to negative infinity) 
@@ -681,11 +669,10 @@ public final class MathLib {
      *
      * @param x the value.
      * @return <code>java.lang.Math.ceil(x)</code>
-     * @JVM-1.1+@
+     */
      public static double ceil(double x) {
      return Math.ceil(x); // CLDC 1.1
      }
-     /**/
 
     /**
      * Returns the largest (closest to positive infinity) 
@@ -694,44 +681,40 @@ public final class MathLib {
      *
      * @param x the value.
      * @return <code>java.lang.Math.ceil(x)</code>
-     * @JVM-1.1+@
+     */
      public static double floor(double x) {
      return Math.floor(x); // CLDC 1.1
      }
-     /**/
 
     /**
      * Returns the trigonometric sine of the specified angle in radians.
      * 
      * @param radians the angle in radians.
      * @return <code>java.lang.Math.sin(radians)</code>
-     * @JVM-1.1+@
+     */
      public static double sin(double radians) {
      return Math.sin(radians); // CLDC 1.1
      }
-     /**/
 
     /**
      * Returns the trigonometric cosine of the specified angle in radians.
      * 
      * @param radians the angle in radians.
      * @return <code>java.lang.Math.cos(radians)</code>
-     * @JVM-1.1+@
+     */
      public static double cos(double radians) {
      return Math.cos(radians); // CLDC 1.1
      }
-     /**/
 
     /**
      * Returns the trigonometric tangent of the specified angle in radians.
      * 
      * @param radians the angle in radians.
      * @return <code>java.lang.Math.tan(radians)</code>
-     * @JVM-1.1+@
+     */
      public static double tan(double radians) {
      return Math.tan(radians); // CLDC 1.1
      }
-     /**/
 
     /**
      * Returns the arc sine of the specified value, 
@@ -739,14 +722,13 @@ public final class MathLib {
      *
      * @param x the value whose arc sine is to be returned.
      * @return the arc sine in radians for the specified value.
-     * @JVM-1.1+@
+     */
      public static double asin(double x) {
      if (x < -1.0 || x > 1.0) return MathLib.NaN;
      if (x == -1.0) return - HALF_PI;
      if (x == 1.0) return HALF_PI;
      return MathLib.atan(x / MathLib.sqrt(1.0 - x * x));
      }
-     /**/
 
     /**
      * Returns the arc cosine of the specified value,
@@ -754,11 +736,10 @@ public final class MathLib {
      *
      * @param x the value whose arc cosine is to be returned.
      * @return the arc cosine in radians for the specified value.
-     * @JVM-1.1+@
+     */
      public static double acos(double x) {
      return HALF_PI - MathLib.asin(x);
      }
-     /**/
 
     /**
      * Returns the arc tangent of the specified value,
@@ -768,11 +749,10 @@ public final class MathLib {
      * @return the arc tangent in radians for the specified value.
      * @see <a href="http://mathworld.wolfram.com/InverseTangent.html">
      *      Inverse Tangent -- from MathWorld</a> 
-     * @JVM-1.1+@
+     */
      public static double atan(double x) {
      return MathLib._atan(x);
      }
-     /**/
 
     /**
      * Returns the angle theta such that
@@ -781,7 +761,7 @@ public final class MathLib {
      * @param y the y value.
      * @param x the x value.
      * @return the angle theta in radians.
-     * @JVM-1.1+@
+     */
      public static double atan2(double y, double x) {
      final double epsilon = 1E-128;
      if (MathLib.abs(x) > epsilon) {
@@ -797,40 +777,36 @@ public final class MathLib {
      return 0.0; 
      }
      }
-     /**/
 
     /**
      * Returns the hyperbolic sine of x.
      * 
      * @param x the value for which the hyperbolic sine is calculated.
      * @return <code>(exp(x) - exp(-x)) / 2</code>
-     * @JVM-1.1+@
+     */
      public static double sinh(double x) {
      return (MathLib.exp(x) - MathLib.exp(-x)) * 0.5;
      }
-     /**/
 
     /**
      * Returns the hyperbolic cosine of x.
      * 
      * @param x the value for which the hyperbolic cosine is calculated.
      * @return <code>(exp(x) + exp(-x)) / 2</code>
-     * @JVM-1.1+@
+     */
      public static double cosh(double x) {
      return (MathLib.exp(x) + MathLib.exp(-x)) * 0.5;
      }
-     /**/
 
     /**
      * Returns the hyperbolic tangent of x.
      * 
      * @param x the value for which the hyperbolic tangent is calculated.
      * @return <code>(exp(2 * x) - 1) / (exp(2 * x) + 1)</code>
-     * @JVM-1.1+@
+     */
      public static double tanh(double x) {
      return (MathLib.exp(2 * x) - 1) / (MathLib.exp(2 * x) + 1);
      }
-     /**/
 
     /**
      * Returns <i>{@link #E e}</i> raised to the specified power.
@@ -839,11 +815,10 @@ public final class MathLib {
      * @return <code><i>e</i><sup>x</sup></code>
      * @see <a href="http://mathworld.wolfram.com/ExponentialFunction.html">
      *      Exponential Function -- from MathWorld</a> 
-     * @JVM-1.1+@
+     */
      public static double exp(double x) {
      return MathLib._ieee754_exp(x);
      }
-     /**/
 
     /**
      * Returns the natural logarithm (base <i>{@link #E e}</i>) of the specified
@@ -851,23 +826,21 @@ public final class MathLib {
      *
      * @param x the value greater than <code>0.0</code>.
      * @return the value y such as <code><i>e</i><sup>y</sup> == x</code>
-     * @JVM-1.1+@
+     */
      public static double log(double x) {
      return MathLib._ieee754_log(x);
      }
-     /**/
 
     /**
      * Returns the decimal logarithm of the specified value.
      *
      * @param x the value greater than <code>0.0</code>.
      * @return the value y such as <code>10<sup>y</sup> == x</code>
-     * @JVM-1.1+@
+     */
      public static double log10(double x) {
      return log(x) * INV_LOG10;
      }
      private static double INV_LOG10 = 0.43429448190325182765112891891661;    
-     /**/
 
     /**
      * Returns the value of the first argument raised to the power of the
@@ -876,29 +849,21 @@ public final class MathLib {
      * @param x the base.
      * @param y the exponent.
      * @return <code>x<sup>y</sup></code>
-     * @JVM-1.1+@
+     */
      public static double pow(double x, double y) {
-     /**/
-    /* @JVM-1.4+@ // Use java.lang.Math value. 
-     if (true) return Math.pow(x, y);
-     /**/
-    /* @JVM-1.1+@ // Else (J2ME) use close approximation (+/- LSB)
-     if ((x < 0) && (y == (int)y)) return 
-     (((int)y) & 1) == 0 ? pow(-x, y) : -pow(-x, y);
-     return MathLib.exp(y * MathLib.log(x));
+  
+    	 return Math.pow(x, y);
      }
-     /**/
 
     /**
      * Returns the closest <code>int</code> to the specified argument. 
      *
      * @param f the <code>float</code> value to be rounded to a <code>int</code>
      * @return the nearest <code>int</code> value.
-     * @JVM-1.1+@
+     */
      public static int round(float f) {
      return (int) floor(f + 0.5f);
      }
-     /**/
 
     /**
      * Returns the closest <code>long</code> to the specified argument. 
@@ -906,23 +871,21 @@ public final class MathLib {
      * @param d the <code>double</code> value to be rounded to a 
      *        <code>long</code>
      * @return the nearest <code>long</code> value.
-     * @JVM-1.1+@
+     */
      public static long round(double d) {
      return (long) floor(d + 0.5d);
      }
-     /**/
 
     /**
      * Returns a random number between zero and one.
      *  
      * @return  a <code>double</code> greater than or equal 
      *          to <code>0.0</code> and less than <code>1.0</code>.
-     * @JVM-1.1+@
+     */
      public static double random() {
      return random(0, Integer.MAX_VALUE) * NORMALIZATION_FACTOR;
      }
      private static final double NORMALIZATION_FACTOR = -1.0 / Integer.MIN_VALUE;
-     /**/
 
     /**
      * Returns the absolute value of the specified <code>int</code> argument.
@@ -949,22 +912,20 @@ public final class MathLib {
      *
      * @param f the <code>float</code> value.
      * @return <code>f</code> or <code>-f</code>
-     * @JVM-1.1+@
+     */
      public static float abs(float f) {
      return (f < 0) ? -f : f;
      }
-     /**/
 
     /**
      * Returns the absolute value of the specified <code>double</code> argument.
      *
      * @param d the <code>double</code> value.
      * @return <code>d</code> or <code>-d</code>
-     * @JVM-1.1+@
+     */
      public static double abs(double d) {
      return (d < 0) ? -d : d;
      }
-     /**/
 
     /**
      * Returns the greater of two <code>int</code> values. 
@@ -994,11 +955,10 @@ public final class MathLib {
      * @param x the first value.
      * @param y the second value.
      * @return the larger of <code>x</code> and <code>y</code>.
-     * @JVM-1.1+@
+     */
      public static float max(float x, float y) {
      return (x >= y) ? x : y;
      }
-     /**/
 
     /**
      * Returns the greater of two <code>double</code> values. 
@@ -1006,11 +966,10 @@ public final class MathLib {
      * @param x the first value.
      * @param y the second value.
      * @return the larger of <code>x</code> and <code>y</code>.
-     * @JVM-1.1+@
+     */
      public static double max(double x, double y) {
      return (x >= y) ? x : y;
      }
-     /**/
 
     /**
      * Returns the smaller of two <code>int</code> values. 
@@ -1040,11 +999,10 @@ public final class MathLib {
      * @param x the first value.
      * @param y the second value.
      * @return the smaller of <code>x</code> and <code>y</code>.
-     * @JVM-1.1+@
+     */
      public static float min(float x, float y) {
      return (x < y) ? x : y;
      }
-     /**/
 
     /**
      * Returns the smaller of two <code>double</code> values. 
@@ -1052,11 +1010,10 @@ public final class MathLib {
      * @param x the first value.
      * @param y the second value.
      * @return the smaller of <code>x</code> and <code>y</code>.
-     * @JVM-1.1+@
+     */
      public static double min(double x, double y) {
      return (x < y) ? x : y;
      }
-     /**/
 
     ////////////////////////////////////////////////////////////////////////////
     /* @(#)s_atan.c 1.3 95/01/18 */
@@ -1090,7 +1047,7 @@ public final class MathLib {
      * constants. The decimal values may be used, provided that the 
      * compiler will convert from decimal to binary accurately enough 
      * to produce the hexadecimal values shown.
-     @JVM-1.1+@
+     */
      static final double atanhi[] = {
      4.63647609000806093515e-01, // atan(0.5)hi 0x3FDDAC67, 0x0561BB4F
      7.85398163397448278999e-01, // atan(1.0)hi 0x3FE921FB, 0x54442D18 
@@ -1167,7 +1124,6 @@ public final class MathLib {
      return (hx<0)? -z:z;
      }
      }
-     /**/
 
     ////////////////////////////////////////////////////////////////////////////
     /* @(#)e_log.c 1.3 95/01/18 */
@@ -1231,7 +1187,7 @@ public final class MathLib {
      * constants. The decimal values may be used, provided that the 
      * compiler will convert from decimal to binary accurately enough 
      * to produce the hexadecimal values shown.
-     @JVM-1.1+@
+     */
      static final double
      ln2_hi  =  6.93147180369123816490e-01,	// 3fe62e42 fee00000
      ln2_lo  =  1.90821492927058770002e-10,	// 3dea39ef 35793c76
@@ -1299,7 +1255,6 @@ public final class MathLib {
      return dk*ln2_hi-((s*(f-R)-dk*ln2_lo)-f);
      }
      }    
-     /**/
 
     ////////////////////////////////////////////////////////////////////////////
     /* @(#)e_exp.c 1.6 04/04/22 */
@@ -1374,7 +1329,7 @@ public final class MathLib {
      * constants. The decimal values may be used, provided that the 
      * compiler will convert from decimal to binary accurately enough
      * to produce the hexadecimal values shown.
-     @JVM-1.1+@
+     */
      static final double
      halF[]	= {0.5,-0.5,},
      twom1000= 9.33263618503218878990e-302,     // 2**-1000=0x01700000,0
@@ -1450,6 +1405,4 @@ public final class MathLib {
      return y*twom1000;
      }
      }
-     /**/
-
 }

@@ -77,7 +77,7 @@ public abstract class SecurityContext extends Context {
     /**
      * Holds the default security context implementation (configurable).
      */
-    public static final Configurable/*<Class<? extends SecurityContext>>*/DEFAULT 
+    public static final Configurable<Class<? extends SecurityContext>> DEFAULT 
         = new Configurable(_Default.getClass()) {
         protected void notifyChange() {
             _Default = (SecurityContext) ObjectFactory.getInstance((Class) get())

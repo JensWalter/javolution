@@ -41,21 +41,21 @@ public abstract class TimeContext extends TestContext {
 	 * {@link AssertionException} when an assertion fails, including any timing
 	 * assertion.
 	 */
-	public static final Class/*<TimeContext>*/REGRESSION = Regression.CLASS;
+	public static final Class<TimeContext> REGRESSION = Regression.CLASS;
 
 	/**
 	 * Holds the minimum duration of each test case execution (default 2000 ms).
 	 * The larger the number the more accurate is the average time result; but
 	 * the longer it takes to run the test.
 	 */
-	public static final Configurable/*<Integer>*/
+	public static final Configurable<Integer>
 	   TEST_DURATION_MS = new Configurable(new Integer(1000));
 
 	/**
 	 * Holds the time context default implementation (by default logs 
 	 * average and minimum execution time to <code>System.out</code>).
 	 */
-	public static final Configurable/*<Class<? extends TimeContext>>*/
+	public static final Configurable<Class<? extends TimeContext>>
 	   DEFAULT = new Configurable(Default.CLASS);
 
 	/**
@@ -331,10 +331,7 @@ public abstract class TimeContext extends TestContext {
 	}
 
 	private static long nanoTime() {
-		/*@JVM-1.5+@
-	    if (true) return System.nanoTime(); 
-        /**/
-	    return System.currentTimeMillis() * 1000000;
+		return System.nanoTime(); 
 	}
 
 	// TestContext implementation with no output (just validation).

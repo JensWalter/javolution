@@ -88,11 +88,9 @@ public class Javolution {
      */
     private static void builtInTests() {
 
-        /*@JVM-1.4+@
          LogContext.info("Load Configurable Parameters from System.getProperties()...");
          javolution.lang.Configurable.read(System.getProperties());
          LogContext.info("");
-         /**/
         
         Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
         new ContextTestSuite().run();
@@ -116,7 +114,7 @@ public class Javolution {
         try {
             cls = Class.forName(name); // Caller class loader.
         } catch (ClassNotFoundException e0) { // Try context class loader.
-            /*@JVM-1.4+@
+            
              try {
              ClassLoader cl = Thread.currentThread().getContextClassLoader();
              cls = Class.forName(name, true, cl);
@@ -127,7 +125,6 @@ public class Javolution {
              } catch (ClassNotFoundException e) {
              }
              }
-             /**/
         }
         if (cls == null)
             throw new JavolutionError("Class " + name + " not found");
@@ -142,9 +139,6 @@ public class Javolution {
      * @return <code>this</code> or a text wrapper.
      */
     public static CharSequence j2meToCharSeq(Object str) {
-        /*@JVM-1.4+@
-        if (true) return (CharSequence) str;
-        /**/
-        return Text.valueOf(str);
+        return (CharSequence) str;
     }
 }

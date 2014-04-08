@@ -58,13 +58,13 @@ public abstract class StackContext extends AllocatorContext {
      * pools. RTSJ alternative implementations could use 
      * <code>ScopedMemory</code> for their stack allocations.
      */
-    public static final Configurable/*<Class<? extends StackContext>>*/DEFAULT = new Configurable(
+    public static final Configurable<Class<? extends StackContext>> DEFAULT = new Configurable(
             Default.CLASS);
 
     /**
      * Indicates if stack allocations are globally disabled.
      */
-    public static final Configurable/*<Boolean>*/DISABLED = new Configurable/*<Boolean>*/(
+    public static final Configurable<Boolean> DISABLED = new Configurable<Boolean>(
             new Boolean(false));
 
     /**
@@ -100,14 +100,14 @@ public abstract class StackContext extends AllocatorContext {
      * @param value the value to be copied.
      * @return a copy allocated using the outer allocator.
      */
-    public static/*<T extends ValueType>*/ValueType/*{T}*/outerCopy(
-            ValueType/*{T}*/value) {
+    public static <T extends ValueType> T outerCopy(
+            T value) {
         StackContext ctx = (StackContext) AllocatorContext.getCurrent();
         boolean isDisabled = ctx.isDisabled();
         ctx.setDisabled(true);
         Object copy = value.copy();
         ctx.setDisabled(isDisabled);
-        return (ValueType/*{T}*/) copy;
+        return (T) copy;
     }
 
     /**

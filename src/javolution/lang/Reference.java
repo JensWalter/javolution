@@ -30,20 +30,20 @@ package javolution.lang;
  * @author  <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
  * @version 3.3, May 10, 2005
  */
-public interface Reference/*<T>*/ {
+public interface Reference<T> {
 
     /**
      * Returns the value this reference referes to.
      *
      * @return the referent or <code>null</code> if not set.
      */
-    Object/*{T}*/ get();
+    T get();
 
     /**
      * Sets the value this reference referes to.
      *
      * @param value the reference value.
      */
-    void set(Object/*{T}*/ value);
+    void set(T value);
 
 }

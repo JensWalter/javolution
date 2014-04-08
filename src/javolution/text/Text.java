@@ -198,12 +198,10 @@ public final class Text implements CharSequence, Comparable, XMLSerializable,
             return Text.valueOf(((Integer) num).intValue());
         if (num instanceof Long)
             return Text.valueOf(((Long) num).longValue());
-        /* @JVM-1.1+@
          if (num instanceof Float)
          return Text.valueOf(((Float)num).floatValue());
          if (num instanceof Double)
          return Text.valueOf(((Double)num).doubleValue());
-         /**/
         return Text.valueOf(String.valueOf(num));
     }
 
@@ -352,13 +350,12 @@ public final class Text implements CharSequence, Comparable, XMLSerializable,
      *
      * @param  f the <code>float</code> to format.
      * @return the corresponding text instance.
-     /*@JVM-1.1+@
+     */
      public static Text valueOf(float f) {
      TextBuilder tmp = (TextBuilder) TEXT_BUILDER.get();
      tmp.clear().append(f);
      return tmp.toText();
      }
-     /**/
 
     /**
      * Returns the textual representation of the specified <code>double</code>
@@ -366,13 +363,12 @@ public final class Text implements CharSequence, Comparable, XMLSerializable,
      *
      * @param  d the <code>double</code> to format.
      * @return the corresponding text instance.
-     /*@JVM-1.1+@
+     */
      public static Text valueOf(double d) {
      TextBuilder tmp = (TextBuilder) TEXT_BUILDER.get();
      tmp.clear().append(d);
      return tmp.toText();
      }
-     /**/
 
     /**
      * Returns the textual representation of the specified <code>double</code>
@@ -388,14 +384,13 @@ public final class Text implements CharSequence, Comparable, XMLSerializable,
      *         represented; <code>false</code> otherwise.
      * @return the corresponding text instance.
      * @throws IllegalArgumentException if <code>(digits &gt; 19)</code>)
-     /*@JVM-1.1+@
+     */
      public static Text valueOf(double d, int digits,
      boolean scientific, boolean showZero) {
      TextBuilder tmp = (TextBuilder) TEXT_BUILDER.get();
      tmp.clear().append(d, digits, scientific, showZero);
      return tmp.toText();
      }
-     /**/
 
     /**
      * Returns the length of this text.

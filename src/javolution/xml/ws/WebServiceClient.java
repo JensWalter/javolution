@@ -74,10 +74,7 @@ public abstract class WebServiceClient {
      * Default constructor (address not set).
      */
     public WebServiceClient() {
-        /*@JVM-1.4+@
-        if (true) return;
-        /**/
-        throw new UnsupportedOperationException("J2ME Not Supported Yet");
+        return;
     }
 
     /**
@@ -86,13 +83,11 @@ public abstract class WebServiceClient {
      * @param address the service full address. 
      */
     public WebServiceClient setAddress(String address) {
-        /*@JVM-1.4+@    
         try {
             _url = new java.net.URL(address);
         } catch (java.net.MalformedURLException e) {
             throw new IllegalArgumentException("Malformed URL: " + address);
         }
-        /**/
         return this;
     }
 
@@ -118,7 +113,6 @@ public abstract class WebServiceClient {
             // Sends the request.
             if (_url == null)
                 throw new IOException("URL not set");
-            /*@JVM-1.4+@    
             java.net.HttpURLConnection http = (java.net.HttpURLConnection) 
                ((java.net.URL)_url).openConnection();
             http.setRequestProperty("Content-Length", String.valueOf(_buffer
@@ -129,14 +123,11 @@ public abstract class WebServiceClient {
             http.setDoOutput(true);
             http.setDoInput(true);
             _utf8Writer.setOutput(http.getOutputStream());
-            /**/
             _buffer.print(_utf8Writer);
             _utf8Writer.close();
 
             // Reads the response.
-            /*@JVM-1.4+@    
             _reader.setInput(http.getInputStream());
-            /**/
             final XMLStreamReader xmlIn = _reader.getStreamReader();
             while (xmlIn.hasNext()) {
                 if ((xmlIn.next() == XMLStreamReader.START_ELEMENT)
@@ -163,7 +154,6 @@ public abstract class WebServiceClient {
     private final XMLObjectWriter _writer = new XMLObjectWriter();
     private final UTF8StreamWriter _utf8Writer = new UTF8StreamWriter();
     private  final XMLObjectReader _reader = new XMLObjectReader();
-    /**/
     
     /**
      * Writes the web service request (SOAP body).

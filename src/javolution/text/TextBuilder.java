@@ -611,11 +611,10 @@ public class TextBuilder implements Appendable,
      *
      * @param  f the <code>float</code> to format.
      * @return <code>this</code>
-     * @JVM-1.1+@
+     */
      public final TextBuilder append(float f) {
      return append(f, 10, (MathLib.abs(f) >= 1E7) || (MathLib.abs(f) < 0.001), false);
      }
-     /**/
 
     /**
      * Appends the textual representation of the specified <code>double</code>;
@@ -626,11 +625,10 @@ public class TextBuilder implements Appendable,
      * @param  d the <code>double</code> to format.
      * @return <code>append(d, -1, (MathLib.abs(d) >= 1E7) ||
      *        (MathLib.abs(d) < 0.001), false)</code>
-     * @JVM-1.1+@
+     */
      public final TextBuilder append(double d) {
      return append(d, -1, (MathLib.abs(d) >= 1E7) || (MathLib.abs(d) < 0.001), false);
      }
-     /**/
 
     /**
      * Appends the textual representation of the specified <code>double</code>
@@ -646,7 +644,7 @@ public class TextBuilder implements Appendable,
      *         represented; <code>false</code> otherwise.
      * @return <code>this</code>
      * @throws IllegalArgumentException if <code>(digits &gt; 19)</code>)
-     * @JVM-1.1+@
+     */
      public final TextBuilder append(double d, int digits,
      boolean scientific, boolean showZero)  {
      if (digits > 19)
@@ -720,7 +718,6 @@ public class TextBuilder implements Appendable,
      10000000000L, 100000000000L, 1000000000000L, 10000000000000L,
      100000000000000L, 1000000000000000L, 10000000000000000L,
      100000000000000000L, 1000000000000000000L };
-     /**/
 
     final void appendFraction(long l, int digits, boolean showZero) {
         append('.');
@@ -971,11 +968,10 @@ public class TextBuilder implements Appendable,
      * string buffer (only for text builder with length less than 32).
      *
      * @param sb the string builder.
-     * @JVM-1.5+@
+     */
      final void appendTo(StringBuilder sb) {
      sb.append(_chars0, 0, _length);
      }
-     /**/
 
     /**
      * Indicates if this text builder has the same character content as the 
