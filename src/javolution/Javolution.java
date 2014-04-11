@@ -15,7 +15,7 @@ import javolution.testing.TestContext;
 import javolution.testing.TimeContext;
 import javolution.text.Text;
 
-/**
+/** 
  * <p> This class contains the library {@link #main} method for
  *     versionning, self-tests, and performance analysis.</p>
  * <p> It is also the base class for the library benchmarks and 
