@@ -31,7 +31,7 @@ import javolution.lang.Reusable;
  * @author  <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
  * @version 4.2, December 18, 2006
  */
-public class FastSet/*<E>*/ extends FastCollection/*<E>*/ implements Set/*<E>*/, Reusable {
+public class FastSet<E> extends FastCollection<E> implements Set<E>, Reusable {
 
     /**
      * Holds the set factory.
@@ -88,7 +88,7 @@ public class FastSet/*<E>*/ extends FastCollection/*<E>*/ implements Set/*<E>*/,
      *
      * @param elements the elements to be placed into this fast set.
      */
-    public FastSet(Set/*<? extends E>*/ elements) {
+    public FastSet(Set<? extends E> elements) {
         this(new FastMap(elements.size()));
         addAll(elements);
     }
@@ -109,8 +109,8 @@ public class FastSet/*<E>*/ extends FastCollection/*<E>*/ implements Set/*<E>*/,
      *
      * @return a new, preallocated or recycled set instance.
      */
-    public static /*<E>*/ FastSet/*<E>*/ newInstance() {
-        return (FastSet/*<E>*/) FACTORY.object();
+    public static <E> FastSet<E> newInstance() {
+        return (FastSet<E>) FACTORY.object();
     }
 
     /**
@@ -139,7 +139,7 @@ public class FastSet/*<E>*/ extends FastCollection/*<E>*/ implements Set/*<E>*/,
      *         specified element.
      * @throws NullPointerException if the value is <code>null</code>.
      */
-    public final boolean add(Object/*{E}*/ value) {
+    public final boolean add(E value) {
         return _map.put(value, value) == null;
     }
 
@@ -150,13 +150,13 @@ public class FastSet/*<E>*/ extends FastCollection/*<E>*/ implements Set/*<E>*/,
      *
      * @return an iterator over this set values.
      */
-    public Iterator/*<E>*/iterator() {
+    public Iterator<E> iterator() {
         return _map.keySet().iterator();
     }
 
     // Overrides to return a set (JDK1.5+).
-    public Collection/*Set<E>*/unmodifiable() {
-        return (Collection/*Set<E>*/) super.unmodifiable();
+    public Set<E> unmodifiable() {
+        return (Set<E>) super.unmodifiable();
     }
 
     // Overrides (optimization).
@@ -180,13 +180,13 @@ public class FastSet/*<E>*/ extends FastCollection/*<E>*/ implements Set/*<E>*/,
      * @param comparator the value comparator.
      * @return <code>this</code>
      */
-    public FastSet/*<E>*/ setValueComparator(FastComparator/*<? super E>*/ comparator) {
+    public FastSet<E> setValueComparator(FastComparator<? super E> comparator) {
         _map.setKeyComparator(comparator);
         return this;
     }
     
     // Overrides.
-    public FastComparator/*<? super E>*/ getValueComparator() {
+    public FastComparator<? super E> getValueComparator() {
         return _map.getKeyComparator();
     }
 
@@ -229,8 +229,8 @@ public class FastSet/*<E>*/ extends FastCollection/*<E>*/ implements Set/*<E>*/,
     }
 
     // Implements FastCollection abstract method.
-    public final Object/*{E}*/ valueOf(Record record) {
-        return (Object/*{E}*/) ((FastMap.Entry) record).getKey();
+    public final E valueOf(Record record) {
+        return (E) ((FastMap.Entry) record).getKey();
     }
 
     // Implements FastCollection abstract method.

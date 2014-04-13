@@ -52,8 +52,8 @@ import javolution.xml.XMLSerializable;
  * @author <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
  * @version 4.2, December 18, 2006
  */
-public abstract class FastCollection/*<E>*/ implements
-        Collection/*<E>*/, XMLSerializable, Realtime {
+public abstract class FastCollection<E> implements
+        Collection<E>, XMLSerializable, Realtime {
 
     /**
      * Holds the unmodifiable view (allocated in the same memory area as 
@@ -96,7 +96,7 @@ public abstract class FastCollection/*<E>*/ implements
      * @param record the record whose current value is returned.
      * @return the current value.
      */
-    public abstract Object/*{E}*/valueOf(Record record);
+    public abstract E valueOf(Record record);
 
     /**
      * Deletes the specified record from this collection.
@@ -122,7 +122,7 @@ public abstract class FastCollection/*<E>*/ implements
      * 
      * @return the unmodifiable view over this collection.
      */
-    public Collection/*<E>*/unmodifiable() {
+    public Collection<E> unmodifiable() {
         if (_unmodifiable == null) {
             MemoryArea.getMemoryArea(this).executeInArea(new Runnable() {
                 public void run() {
@@ -140,8 +140,8 @@ public abstract class FastCollection/*<E>*/ implements
      *
      * @return an iterator over this collection's elements.
      */
-    public Iterator/*<E>*/iterator() {
-        return FastIterator.valueOf(this);
+    public Iterator<E> iterator() {
+        return (Iterator<E>) FastIterator.valueOf(this);
     }
 
     /**
@@ -151,7 +151,7 @@ public abstract class FastCollection/*<E>*/ implements
      * @return the comparator to use for value equality (or ordering if 
      *        the collection is ordered)
      */
-    public FastComparator/*<? super E>*/ getValueComparator() {
+    public FastComparator<? super E> getValueComparator() {
         return FastComparator.DEFAULT;
     }
 
@@ -167,7 +167,7 @@ public abstract class FastCollection/*<E>*/ implements
      *         <code>Collection.add</code> method).
      * @throws UnsupportedOperationException if not supported.
      */
-    public boolean add(Object/*{E}*/value) {
+    public boolean add(E value) {
         throw new UnsupportedOperationException();
     }
 
@@ -241,11 +241,11 @@ public abstract class FastCollection/*<E>*/ implements
      * @return <code>true</code> if this collection changed as a result of 
      *         the call; <code>false</code> otherwise.
      */
-    public boolean addAll(Collection/*<? extends E>*/c) {
+    public boolean addAll(Collection<? extends E> c) {
         if (c instanceof FastCollection)
             return addAll((FastCollection) c);
         boolean modified = false;
-        Iterator/*<? extends E>*/itr = c.iterator();
+        Iterator<? extends E> itr = c.iterator();
         int pos = c.size();
         while (--pos >= 0) {
             if (add(itr.next())) {
@@ -255,7 +255,7 @@ public abstract class FastCollection/*<E>*/ implements
         return modified;
     }
 
-    private boolean addAll(FastCollection/*<? extends E>*/c) {
+    private boolean addAll(FastCollection<? extends E> c) {
         if (c instanceof FastTable)
             return addAll((FastTable) c);
         boolean modified = false;
@@ -267,7 +267,7 @@ public abstract class FastCollection/*<E>*/ implements
         return modified;
     }
 
-    private boolean addAll(FastTable/*<? extends E>*/c) {
+    private boolean addAll(FastTable<? extends E> c) {
         boolean modified = false;
         for (int i=0, n = c.size(); i < n;) { // Faster than direct iterators.
             if (this.add(c.get(i++))) {
@@ -285,7 +285,7 @@ public abstract class FastCollection/*<E>*/ implements
      * @return <code>true</code> if this collection contains all of the values
      *         of the specified collection; <code>false</code> otherwise.
      */
-    public boolean containsAll(Collection/*<?>*/c) {
+    public boolean containsAll(Collection<?> c) {
         if (c instanceof FastCollection)
             return containsAll((FastCollection) c);
         Iterator/*<?>*/itr = c.iterator();
@@ -298,7 +298,7 @@ public abstract class FastCollection/*<E>*/ implements
         return true;
     }
 
-    private boolean containsAll(FastCollection/*<?>*/c) {
+    private boolean containsAll(FastCollection<?> c) {
         for (Record r = c.head(), end = c.tail(); (r = r.getNext()) != end;) {
             if (!contains(c.valueOf(r))) {
                 return false;
@@ -316,7 +316,7 @@ public abstract class FastCollection/*<E>*/ implements
      * @return <code>true</code> if this collection changed as a result of 
      *         the call; <code>false</code> otherwise.
      */
-    public boolean removeAll(Collection/*<?>*/c) {
+    public boolean removeAll(Collection<?> c) {
         boolean modified = false;
         // Iterates from the tail and removes the record if present in c. 
         for (Record head = head(), r = tail().getPrevious(), previous; r != head; r = previous) {
@@ -337,7 +337,7 @@ public abstract class FastCollection/*<E>*/ implements
      * @return <code>true</code> if this collection changed as a result of 
      *         the call; <code>false</code> otherwise.
      */
-    public boolean retainAll(Collection/*<?>*/c) {
+    public boolean retainAll(Collection<?> c) {
         boolean modified = false;
         // Iterates from the tail and remove the record if not present in c. 
         for (Record head = head(), r = tail().getPrevious(), previous; r != head; r = previous) {
@@ -375,7 +375,7 @@ public abstract class FastCollection/*<E>*/ implements
      * @return the specified array.
      * @throws UnsupportedOperationException if <code>array.length < size()</code> 
      */
-    public Object/*{<T> T}*/[] toArray(Object/*{T}*/[] array) {
+    public <T> T[] toArray(T[] array) {
         int size = size();
         if (array.length < size)
             throw new UnsupportedOperationException(

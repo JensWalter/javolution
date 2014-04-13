@@ -22,7 +22,7 @@ import java.util.Comparator;
  * @author <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
  * @version 4.2, December 18, 2006
  */
-public abstract class FastComparator/*<T>*/implements Comparator/*<T>*/,
+public abstract class FastComparator<T> implements Comparator<T>,
         XMLSerializable {
 
     /**
@@ -30,7 +30,7 @@ public abstract class FastComparator/*<T>*/implements Comparator/*<T>*/,
      * (see <a href="{@docRoot}/overview-summary.html#configuration">
      * Javolution Configuration</a> for details).
      */
-    public static final Configurable/*<Boolean>*/ REHASH_SYSTEM_HASHCODE 
+    public static final Configurable<Boolean> REHASH_SYSTEM_HASHCODE 
          = new Configurable(new Boolean(isPoorSystemHash())) {
         protected void notifyChange() {
             _Rehash = ((Boolean)get()).booleanValue();
@@ -57,7 +57,7 @@ public abstract class FastComparator/*<T>*/implements Comparator/*<T>*/,
      * @see <a href="{@docRoot}/overview-summary.html#configuration">
      *      Javolution Configuration</a> 
      */
-    public static final FastComparator/*<Object>*/ DEFAULT = new Default();
+    public static final FastComparator<Object> DEFAULT = new Default();
 
     static final class Default extends FastComparator {
 
@@ -86,7 +86,7 @@ public abstract class FastComparator/*<T>*/implements Comparator/*<T>*/,
      * throws {@link ClassCastException} if the specified objects are not
      * {@link Comparable}. 
      */
-    public static final FastComparator/*<Object>*/ DIRECT = new Direct();
+    public static final FastComparator<Object> DIRECT = new Direct();
 
     static final class Direct extends FastComparator {
         public int hashCodeOf(Object obj) {
@@ -114,7 +114,7 @@ public abstract class FastComparator/*<T>*/implements Comparator/*<T>*/,
      * The {@link #compare} method throws {@link ClassCastException} if the
      * specified objects are not {@link Comparable}.
      */
-    public static final FastComparator/*<Object>*/ REHASH = new Rehash();
+    public static final FastComparator<Object> REHASH = new Rehash();
 
     static final class Rehash extends FastComparator {
         public int hashCodeOf(Object obj) {
@@ -146,7 +146,7 @@ public abstract class FastComparator/*<T>*/implements Comparator/*<T>*/,
      * are calculated by taking a sample of few characters instead of 
      * the whole string.
      */
-    public static final FastComparator/*<String>*/ STRING = new StringComparator();
+    public static final FastComparator<String> STRING = new StringComparator();
 
     static final class StringComparator extends FastComparator {
         public int hashCodeOf(Object obj) {
@@ -179,7 +179,7 @@ public abstract class FastComparator/*<T>*/implements Comparator/*<T>*/,
      * throws {@link ClassCastException} if the specified objects are not
      * {@link Comparable}.
      */
-    public static final FastComparator/*<Object>*/ IDENTITY = new Identity();
+    public static final FastComparator<Object> IDENTITY = new Identity();
 
     static final class Identity extends FastComparator {
         public int hashCodeOf(Object obj) {
@@ -214,7 +214,7 @@ public abstract class FastComparator/*<T>*/implements Comparator/*<T>*/,
      * using the following formula (same as for <code>java.lang.String</code>):
      * <code>s[0]*31^(n-1) + s[1]*31^(n-2) + ... + s[n-1]</code>
      */
-    public static final FastComparator/*<CharSequence>*/ LEXICAL = new Lexical();
+    public static final FastComparator<CharSequence> LEXICAL = new Lexical();
 
     static final class Lexical extends FastComparator {
 
@@ -323,7 +323,7 @@ public abstract class FastComparator/*<T>*/implements Comparator/*<T>*/,
      * @throws NullPointerException if the specified object is 
      *         <code>null</code>.
      */
-    public abstract int hashCodeOf(Object/*{T}*/obj);
+    public abstract int hashCodeOf(T obj);
 
     /**
      * Indicates if the specified objects can be considered equal.
@@ -333,7 +333,7 @@ public abstract class FastComparator/*<T>*/implements Comparator/*<T>*/,
      * @return <code>true</code> if both objects are considered equal;
      *         <code>false</code> otherwise. 
      */
-    public abstract boolean areEqual(Object/*{T}*/o1, Object/*{T}*/o2);
+    public abstract boolean areEqual(T o1, T o2);
 
     /**
      * Compares the specified objects for order. Returns a negative integer, 
@@ -347,6 +347,6 @@ public abstract class FastComparator/*<T>*/implements Comparator/*<T>*/,
      * @throws NullPointerException if any of the specified object is 
      *         <code>null</code>.
      */
-    public abstract int compare(Object/*{T}*/o1, Object/*{T}*/o2);
+    public abstract int compare(T o1, T o2);
 
 }

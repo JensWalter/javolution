@@ -43,12 +43,12 @@ import javolution.xml.XMLSerializable;
  * @version 5.1, July 26, 2007
  */
 public final class Index extends Number implements 
-        Comparable/*<Index>*/, Record, Immutable, XMLSerializable  {
+        Comparable<Index>, Record, Immutable, XMLSerializable  {
 
     /**
      * Holds the initial first index value (default <code>-1</code>).
      */
-    public static final Configurable/*<Integer>*/ INITIAL_FIRST
+    public static final Configurable<Integer> INITIAL_FIRST
         = new Configurable(new Integer(-1)) {
         protected void notifyChange() {
             // Ensures Index creation from minimum balue. 
@@ -59,7 +59,7 @@ public final class Index extends Number implements
     /**
      * Holds the initial last index value (default <code>16</code>).
      */
-    public static final Configurable/*<Integer>*/ INITIAL_LAST
+    public static final Configurable<Integer> INITIAL_LAST
         = new Configurable(new Integer(16)) {
         protected void notifyChange() {
             // Ensures Index creation to maximum value. 
@@ -289,7 +289,7 @@ public final class Index extends Number implements
     }    
 
     //  Implements Comparable interface.
-    public int compareTo(Object/*{Index}*/ that) {
+    public int compareTo(Index that) {
         return this._value - ((Index)that)._value;
     }
 
