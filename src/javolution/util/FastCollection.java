@@ -55,7 +55,8 @@ import javolution.xml.XMLSerializable;
 public abstract class FastCollection<E> implements
         Collection<E>, XMLSerializable, Realtime {
 
-    /**
+	private static final long serialVersionUID = -6078350271359617211L;
+	/**
      * Holds the unmodifiable view (allocated in the same memory area as 
      * this collection).  
      */

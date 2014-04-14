@@ -390,7 +390,8 @@ public abstract class LogContext extends Context {
      * This class represents the console logging context.
      */
     private static class ConsoleLog extends SystemOut {
-         final java.io.PrintWriter writer;
+		private static final long serialVersionUID = -1028479046618204543L;
+		final java.io.PrintWriter writer;
          ConsoleLog() {
          java.io.Console console = System.console();
          writer = console != null ? console.writer() : null;

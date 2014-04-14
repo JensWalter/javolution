@@ -153,7 +153,9 @@ public abstract class StackContext extends AllocatorContext {
      */
     private static final class Default extends StackContext {
 
-        private static final Class CLASS = new Default().getClass();
+		private static final long serialVersionUID = 1280547745726394840L;
+
+		private static final Class CLASS = new Default().getClass();
 
         private final ThreadLocal _factoryToAllocator = new ThreadLocal() {
             protected Object initialValue() {

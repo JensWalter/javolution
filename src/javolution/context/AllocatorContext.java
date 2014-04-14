@@ -27,7 +27,9 @@ import javolution.lang.Configurable;
  */
 public abstract class AllocatorContext extends Context {
 
-    /**
+	private static final long serialVersionUID = 4993828501974972L;
+
+	/**
      * Holds the default allocator context instance.
      */
     private static volatile AllocatorContext _Default = new HeapContext();

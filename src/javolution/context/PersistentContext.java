@@ -37,8 +37,9 @@ import javolution.util.FastMap;
  * @version 4.2, December 31, 2006
  */
 public class PersistentContext extends Context {
+	private static final long serialVersionUID = 1506458928159237124L;
 
-    /**
+	/**
      * Holds the single instance.
      */
     private static PersistentContext _PersistentContext = new PersistentContext();

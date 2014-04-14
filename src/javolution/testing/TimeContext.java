@@ -244,6 +244,7 @@ public abstract class TimeContext extends TestContext {
 	// Holds the default implementation.
 	private static final class Default extends TimeContext {
 
+		private static final long serialVersionUID = 2145827122686236864L;
 		private static final Class CLASS = new Default().getClass();
 
 		// Overrides.
@@ -337,6 +338,7 @@ public abstract class TimeContext extends TestContext {
 	// TestContext implementation with no output (just validation).
 	private static final class Regression extends TimeContext {
 
+		private static final long serialVersionUID = -4434611049857608606L;
 		private static final Class CLASS = new Regression().getClass();
 
 		public boolean isErrorLogged() {

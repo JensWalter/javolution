@@ -25,7 +25,8 @@ import java.util.Comparator;
 public abstract class FastComparator<T> implements Comparator<T>,
         XMLSerializable {
 
-    /**
+	private static final long serialVersionUID = 2034761284937529727L;
+	/**
      * Indicates if the system hash code should be rehashed 
      * (see <a href="{@docRoot}/overview-summary.html#configuration">
      * Javolution Configuration</a> for details).
@@ -61,7 +62,9 @@ public abstract class FastComparator<T> implements Comparator<T>,
 
     static final class Default extends FastComparator {
 
-        public int hashCodeOf(Object obj) {
+		private static final long serialVersionUID = -5067806715801654453L;
+
+		public int hashCodeOf(Object obj) {
             return (_Rehash ? REHASH.hashCodeOf(obj) : obj.hashCode());
         }
 
@@ -89,7 +92,9 @@ public abstract class FastComparator<T> implements Comparator<T>,
     public static final FastComparator<Object> DIRECT = new Direct();
 
     static final class Direct extends FastComparator {
-        public int hashCodeOf(Object obj) {
+		private static final long serialVersionUID = 8847834523685286288L;
+
+		public int hashCodeOf(Object obj) {
             return obj.hashCode();
         }
 
@@ -117,7 +122,9 @@ public abstract class FastComparator<T> implements Comparator<T>,
     public static final FastComparator<Object> REHASH = new Rehash();
 
     static final class Rehash extends FastComparator {
-        public int hashCodeOf(Object obj) {
+		private static final long serialVersionUID = 3268274976636452027L;
+
+		public int hashCodeOf(Object obj) {
             // Formula identical <code>java.util.HashMap</code> to ensures
             // similar behavior for ill-conditioned hashcode keys. 
             int h = obj.hashCode();
@@ -182,7 +189,9 @@ public abstract class FastComparator<T> implements Comparator<T>,
     public static final FastComparator<Object> IDENTITY = new Identity();
 
     static final class Identity extends FastComparator {
-        public int hashCodeOf(Object obj) {
+		private static final long serialVersionUID = -2172529246073255365L;
+
+		public int hashCodeOf(Object obj) {
             int h = System.identityHashCode(obj);
             if (!_Rehash)
                 return h;

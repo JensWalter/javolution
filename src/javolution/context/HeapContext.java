@@ -26,7 +26,9 @@ import javolution.util.FastTable;
  */
 public class HeapContext extends AllocatorContext {
 
-    /**
+	private static final long serialVersionUID = -9062066465207348579L;
+
+	/**
      * Holds the factory to allocator mapping (per thread).
      */
     private static final ThreadLocal FACTORY_TO_ALLOCATOR = new ThreadLocal() {

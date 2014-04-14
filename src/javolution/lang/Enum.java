@@ -26,7 +26,9 @@ import javolution.util.FastMap;
  */
 public abstract class Enum implements Comparable, Serializable {
 
-    /**
+	private static final long serialVersionUID = -2891907381405996303L;
+
+	/**
      * Holds the class to enum mapping.
      */
     private static final FastMap CLASS_TO_ENUMS = new FastMap();

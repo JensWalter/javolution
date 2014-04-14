@@ -275,7 +275,9 @@ public abstract class ConcurrentContext extends Context {
      */
     static final class Default extends ConcurrentContext {
 
-        private static final Class CLASS = new Default().getClass();
+		private static final long serialVersionUID = 8110295509957309825L;
+
+		private static final Class CLASS = new Default().getClass();
         
         /**
          * Holds the concurrent executors.

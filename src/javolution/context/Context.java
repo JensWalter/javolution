@@ -38,7 +38,9 @@ import java.lang.ThreadLocal;
  */
 public abstract class Context implements XMLSerializable {
 
-    /**
+	private static final long serialVersionUID = -7413465895318530197L;
+
+	/**
      * Holds the root context (top context of all threads).
      */
     public static final Context ROOT = new Root();
