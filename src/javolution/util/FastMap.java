@@ -584,10 +584,10 @@ public class FastMap<K,V> implements Map<K,V>, Reusable,
     }
 
     // Adds the specified entry to this map table.
-    private void mapEntry(Entry entry) {
+    private void mapEntry(Entry<K,V> entry) {
         final int mask = _entries.length - 1;
         for (int i = entry._keyHash >> _keyShift;; i++) {
-            Entry e = _entries[i & mask];
+            Entry<K,V> e = _entries[i & mask];
             if (e == null) {
                 _entries[i & mask] = entry;
                 break;
@@ -597,7 +597,7 @@ public class FastMap<K,V> implements Map<K,V>, Reusable,
     }
 
     // The destination table must be empty.
-    private void copyEntries(Object[] from, Entry[] to, int count) {
+    private void copyEntries(Object[] from, Entry<K,V>[] to, int count) {
         final int mask = to.length - 1;
         for (int i = 0; i < count;) {
             Entry entry = (Entry) from[i++];

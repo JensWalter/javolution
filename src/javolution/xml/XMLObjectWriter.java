@@ -269,7 +269,7 @@ public class XMLObjectWriter implements Reusable {
      * @param cls the non-abstract class identifying the XML format to use.
      * @see   XMLFormat.OutputElement#add(Object, String, Class)
      */
-    public /*<T>*/ void write(Object/*{T}*/ obj, String name, Class/*<T>*/ cls)
+    public <T> void write(T obj, String name, Class<T> cls)
             throws XMLStreamException {
         _xml.add(obj, name, cls);
     }
@@ -284,7 +284,7 @@ public class XMLObjectWriter implements Reusable {
      * @param cls the class identifying the XML format to use.
      * @see   XMLFormat.OutputElement#add(Object, String, String, Class)
      */
-    public /*<T>*/ void write(Object/*{T}*/ obj, String localName, String uri, Class/*<T>*/ cls)
+    public <T> void write(T obj, String localName, String uri, Class<T> cls)
             throws XMLStreamException {
         _xml.add(obj, localName, uri, cls);
     }

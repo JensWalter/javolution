@@ -78,7 +78,9 @@ import javolution.xml.XMLSerializable;
 public final class Text implements CharSequence, Comparable, XMLSerializable,
         ValueType, Realtime {
 
-    /**
+	private static final long serialVersionUID = -4720035476069885638L;
+
+	/**
      * Holds the default size for primitive blocks of characters.
      */
     private static final int BLOCK_SIZE = 1 << 5;
@@ -1145,7 +1147,7 @@ public final class Text implements CharSequence, Comparable, XMLSerializable,
     }
 
     // Implements ValueType interface.
-    public Object/*{Text}*/copy() {
+    public Text copy() {
         if (_data != null) { // Primitive.
             Text text = Text.newPrimitive(_count);
             System.arraycopy(_data, 0, text._data, 0, _count);

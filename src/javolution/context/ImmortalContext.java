@@ -92,7 +92,7 @@ public final class ImmortalContext extends AllocatorContext {
 	 * @return the immortal context being exited.
 	 * @throws ClassCastException if the context is not an immortal context.
 	 */
-	public static/*ImmortalContext*/Context exit() {
+	public static ImmortalContext exit() {
 		return (ImmortalContext) Context.exit();
 	}
 

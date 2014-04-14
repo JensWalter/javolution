@@ -223,8 +223,8 @@ public class XMLObjectReader implements Reusable {
      * @throws XMLStreamException if <code>hasNext() == false</code>
      * @see    XMLFormat.InputElement#getNext()
      */
-    public /*<T>*/Object/*{T}*/ read() throws XMLStreamException {
-        return (Object/*{T}*/)_xml.getNext();
+    public <T> T read() throws XMLStreamException {
+        return (T)_xml.getNext();
     }
 
     /**
@@ -236,8 +236,8 @@ public class XMLObjectReader implements Reusable {
      *         local name does not match.
      * @see    XMLFormat.InputElement#get(String)
      */
-    public /*<T>*/Object/*{T}*/ read(String name) throws XMLStreamException {
-        return (Object/*{T}*/) _xml.get(name);
+    public <T> T read(String name) throws XMLStreamException {
+        return (T ) _xml.get(name);
     }
 
     /**
@@ -250,9 +250,9 @@ public class XMLObjectReader implements Reusable {
      *         name/uri does not match.
      * @see    XMLFormat.InputElement#get(String, String)
      */
-    public /*<T>*/Object/*{T}*/ read(String localName, String uri)
+    public <T> T read(String localName, String uri)
             throws XMLStreamException {
-        return (Object/*{T}*/) _xml.get(localName, uri);
+        return (T) _xml.get(localName, uri);
     }
 
     /**
@@ -264,7 +264,7 @@ public class XMLObjectReader implements Reusable {
      * @param cls the non-abstract class identifying the object to return.
      * @return <code>read(name, null, cls)</code>
      */
-    public/*<T>*/Object/*{T}*/read(String name, Class/*<T>*/cls)
+    public<T> T read(String name, Class<T> cls)
             throws XMLStreamException {
         return _xml.get(name, cls);
     }
@@ -279,8 +279,8 @@ public class XMLObjectReader implements Reusable {
      * @param cls the non-abstract class identifying the object to return.
      * @return the next content object or <code>null</code> if no match.
      */
-    public/*<T>*/Object/*{T}*/read(String localName, String uri,
-            Class/*<T>*/cls) throws XMLStreamException {
+    public<T> T read(String localName, String uri,
+            Class<T> cls) throws XMLStreamException {
         return _xml.get(localName, uri, cls);
     }
 

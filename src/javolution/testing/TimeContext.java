@@ -88,7 +88,7 @@ public abstract class TimeContext extends TestContext {
 	 * @return the time context being exited.
 	 * @throws ClassCastException if the context is not a stack context.
 	 */
-	public static/*TimeContext*/Context exit() {
+	public static TimeContext exit() {
 		return (TimeContext) Context.exit();
 	}
 

@@ -269,7 +269,7 @@ implements List<E>, Reusable {
     public final boolean addAll(int index, Collection<? extends E> values) {
         if ((index < 0) || (index > _size))
             throw new IndexOutOfBoundsException("index: " + index);
-        final Node indexNode = nodeAt(index);
+        final Node<E> indexNode = nodeAt(index);
         Iterator<? extends E> i = values.iterator();
         while (i.hasNext()) {
             addBefore(indexNode, i.next());

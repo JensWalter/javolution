@@ -58,7 +58,7 @@ public abstract class AllocatorContext extends Context {
      *
      * @return the current allocator context.
      */
-    public static/*AllocatorContext*/Context getCurrent() {
+    public static AllocatorContext getCurrent() {
         return Context.getCurrent().getAllocatorContext();
     }
  

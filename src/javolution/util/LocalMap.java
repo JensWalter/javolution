@@ -45,7 +45,7 @@ import javolution.context.LocalContext;
  * @author <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
  * @version 3.7, January 27, 2005
  */
-public final class LocalMap/*<K,V>*/implements Map/*<K,V>*/{
+public final class LocalMap<K,V> implements Map<K,V>{
 
     /**
      * Holds the fast map reference (shared map).
@@ -65,7 +65,7 @@ public final class LocalMap/*<K,V>*/implements Map/*<K,V>*/{
      * @param keyComparator the key comparator.
      * @return <code>this</code>
      */
-    public LocalMap /*<K,V>*/setKeyComparator(FastComparator/*<? super K>*/ keyComparator) {
+    public LocalMap<K,V> setKeyComparator(FastComparator<? super K> keyComparator) {
         localMap().setKeyComparator(keyComparator);
         return this;
     }
@@ -76,7 +76,7 @@ public final class LocalMap/*<K,V>*/implements Map/*<K,V>*/{
      * @param valueComparator the value comparator.
      * @return <code>this</code>
      */
-    public LocalMap/*<K,V>*/setValueComparator(FastComparator/*<? super V>*/ valueComparator) {
+    public LocalMap<K,V> setValueComparator(FastComparator<? super V> valueComparator) {
         localMap().setValueComparator(valueComparator);
         return this;
     }
@@ -94,8 +94,8 @@ public final class LocalMap/*<K,V>*/implements Map/*<K,V>*/{
      *         previously associated <code>null</code> with the specified key.
      * @throws NullPointerException if the key is <code>null</code>.
      */
-    public Object/*{V}*/putDefault(Object/*{K}*/key, Object/*{V}*/defaultValue) {
-        return (Object/*{V}*/) ((FastMap) _mapRef.getDefault()).put(key,
+    public V putDefault(K key, V defaultValue) {
+        return (V) ((FastMap) _mapRef.getDefault()).put(key,
                 defaultValue);
     }
     /**
@@ -150,8 +150,8 @@ public final class LocalMap/*<K,V>*/implements Map/*<K,V>*/{
      *         <code>null</code> if there is no mapping for the key.
      * @throws NullPointerException if key is <code>null</code>.
      */
-    public Object/*{V}*/get(Object key) {
-        return (Object/*{V}*/) ((FastMap) _mapRef.get()).get(key);
+    public V get(Object key) {
+        return (V) ((FastMap) _mapRef.get()).get(key);
     }
 
     /**
@@ -165,8 +165,8 @@ public final class LocalMap/*<K,V>*/implements Map/*<K,V>*/{
      *         previously associated <code>null</code> with the specified key.
      * @throws NullPointerException if the key is <code>null</code>.
      */
-    public Object/*{V}*/put(Object/*{K}*/key, Object/*{V}*/value) {
-        return (Object/*{V}*/) localMap().put(key, value);
+    public V put(K key, V value) {
+        return (V) localMap().put(key, value);
     }
 
     /**
@@ -176,7 +176,7 @@ public final class LocalMap/*<K,V>*/implements Map/*<K,V>*/{
      * @throws NullPointerException the specified map is <code>null</code>,
      *         or the specified map contains <code>null</code> keys.
      */
-    public void putAll(Map/*<? extends K, ? extends V>*/map) {
+    public void putAll(Map<? extends K, ? extends V> map) {
         localMap().putAll(map);
     }
 
@@ -188,8 +188,8 @@ public final class LocalMap/*<K,V>*/implements Map/*<K,V>*/{
      * @return <code>put(key, null)</code>
      * @throws NullPointerException if the key is <code>null</code>.
      */
-    public Object/*{V}*/remove(Object key) {
-        return put((Object/*{K}*/)key, null);
+    public V remove(Object key) {
+        return put((K )key, null);
     }
 
     /**
@@ -209,7 +209,7 @@ public final class LocalMap/*<K,V>*/implements Map/*<K,V>*/{
      * @return a set view of the keys contained in this map
      *         (instance of {@link FastCollection}).
      */
-    public Set/*<K>*/keySet() {
+    public Set<K> keySet() {
         return localMap().keySet();
     }
 
@@ -220,7 +220,7 @@ public final class LocalMap/*<K,V>*/implements Map/*<K,V>*/{
      * @return a collection view of the values contained in this map 
      *         (instance of {@link FastCollection}).
      */
-    public Collection/*<V>*/values() {
+    public Collection<V> values() {
         return localMap().values();
     }
 
@@ -231,7 +231,7 @@ public final class LocalMap/*<K,V>*/implements Map/*<K,V>*/{
      * @return a collection view of the mappings contained in this map
      *         (instance of {@link FastCollection}).
      */
-    public Set/*<Map.Entry<K,V>>*/entrySet() {
+    public Set<Map.Entry<K,V>> entrySet() {
         return localMap().entrySet();
     }
 
@@ -241,7 +241,7 @@ public final class LocalMap/*<K,V>*/implements Map/*<K,V>*/{
      * 
      * @return a shared fast map belonging to the current local context.
      */
-    private FastMap/*<K,V>*/localMap() {
+    private FastMap<K,V> localMap() {
         FastMap localMap = (FastMap) _mapRef.getLocal();
         return (localMap != null) ? localMap : newLocalMap();
     }

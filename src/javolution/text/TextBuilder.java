@@ -270,7 +270,7 @@ public class TextBuilder implements Appendable,
      * @param  c the character to append.
      * @return <code>this</code>
      */
-    public final Appendable/*TextBuilder*/append(char c) { // Short to be inlined.
+    public final TextBuilder append(char c) { // Short to be inlined.
         if (_length >= C0)
             return append2(c);
         _chars0[_length++] = c;
@@ -313,7 +313,7 @@ public class TextBuilder implements Appendable,
      * @param  csq the character sequence to append or <code>null</code>.
      * @return <code>this</code>
      */
-    public final Appendable/*TextBuilder*/append(CharSequence csq) {
+    public final TextBuilder append(CharSequence csq) {
         return (csq == null) ? append("null") : append(csq, 0, csq.length());
     }
 
@@ -329,7 +329,7 @@ public class TextBuilder implements Appendable,
      * @throws IndexOutOfBoundsException if <code>(start < 0) || (end < 0) 
      *         || (start > end) || (end > csq.length())</code>
      */
-    public final Appendable/*TextBuilder*/append(CharSequence csq, int start,
+    public final TextBuilder append(CharSequence csq, int start,
             int end) {
         if (csq == null)
             return append("null");

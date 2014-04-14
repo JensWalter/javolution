@@ -89,7 +89,7 @@ public abstract class StackContext extends AllocatorContext {
      * @return the stack context being exited.
      * @throws ClassCastException if the context is not a stack context.
      */
-    public static/*StackContext*/Context exit() {
+    public static StackContext exit() {
         return (StackContext) Context.exit();
     }
 

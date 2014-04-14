@@ -214,7 +214,7 @@ public class XMLReferenceResolver implements Reusable {
         _counter = 0;
     }
 
-    private static CharSequence toCsq/**/(Object str) {
+    private static CharSequence toCsq(Object str) {
         return Javolution.j2meToCharSeq(str);
     }
 

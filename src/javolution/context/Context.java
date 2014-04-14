@@ -58,12 +58,12 @@ public abstract class Context implements XMLSerializable {
      * Holds the current owner of this context or <code>null</code> if global 
      * context.
      */
-    private Thread _owner;
+    protected Thread _owner;
 
     /**
      * Holds the outer context or <code>null</code> if none (root context).
      */
-    private Context _outer;
+    protected Context _outer;
 
     /**
      * Holds the factory having produced this context if any (for recycling 
@@ -74,7 +74,7 @@ public abstract class Context implements XMLSerializable {
     /**
      * Holds the inherited allocator context or <code>null</code>
      */
-    private AllocatorContext _allocator; 
+    protected AllocatorContext _allocator; 
 
     /**
      * Default constructor. 
@@ -143,7 +143,7 @@ public abstract class Context implements XMLSerializable {
      * @return the specified context.
      * @throws IllegalStateException if this context is currently in use.
      */
-    public static final <T extends Context> /*T*/Context enter(/*T*/Context context) {
+    public static final <T extends Context> T enter(T context) {
         if (context._owner != null)
             throw new IllegalStateException("Context is currently in use");
         Context current = Context.getCurrent();
@@ -152,7 +152,7 @@ public abstract class Context implements XMLSerializable {
         context._allocator = context instanceof AllocatorContext ? (AllocatorContext) context : current._allocator;
         Context.CURRENT.set(context);
         context.enterAction();
-        return (/*T*/Context) context;
+        return (T) context;
     }
 
     /**
@@ -168,12 +168,12 @@ public abstract class Context implements XMLSerializable {
      * @return the context being entered.
      * @see ObjectFactory#getInstance(Class)
      */
-    public static final <T extends Context> /*T*/Context enter(Class/*<T>*/ contextType) {
+    public static final <T extends Context> T enter(Class<T> contextType) {
         ObjectFactory factory = ObjectFactory.getInstance(contextType);
         Context context = (Context) factory.object();
         context._factory = factory;
         Context.enter(context);
-        return (/*T*/Context) context;
+        return (T) context;
     }
   
     /**

@@ -132,7 +132,7 @@ public abstract class LogContext extends Context {
      *
      * @return the current logging context.
      */
-    public static/*LogContext*/Context getCurrent() {
+    public static LogContext getCurrent() {
         for (Context ctx = Context.getCurrent(); ctx != null; ctx = ctx.getOuter()) {
             if (ctx instanceof LogContext)
                 return (LogContext) ctx;

@@ -78,7 +78,7 @@ public class PersistentContext extends Context {
      *
      * @return the persistent context instance.
      */
-    public static/*PersistentContext*/Context getCurrent() {
+    public static PersistentContext getCurrent() {
         return _PersistentContext;
     }
 

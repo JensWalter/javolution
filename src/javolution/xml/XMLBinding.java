@@ -239,7 +239,7 @@ public class XMLBinding implements Reusable, XMLSerializable {
      * @param cls the class for which the XML format is returned.
      * @return the XML format for the specified class. 
      */
-    public/*<T>*/XMLFormat/*<T>*/getFormat(Class/*<T>*/cls) {
+    public <T> XMLFormat<T> getFormat(Class<T> cls) {
         Object xmlFormat = STATIC_MAPPING.get(cls);
         return (xmlFormat != null) ? (XMLFormat) xmlFormat : searchFormat(cls);
     }
@@ -446,7 +446,7 @@ public class XMLBinding implements Reusable, XMLSerializable {
      * instances. This representation consists of a <code>"value"</code> 
      * attribute holding the string.
      */
-    static final XMLFormat/*<String>*/STRING_XML = new XMLFormat("".getClass()) {
+    static final XMLFormat<String> STRING_XML = new XMLFormat("".getClass()) {
 
         public Object newInstance(Class cls,
                 javolution.xml.XMLFormat.InputElement xml)

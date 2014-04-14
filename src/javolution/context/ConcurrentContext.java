@@ -220,7 +220,7 @@ public abstract class ConcurrentContext extends Context {
      * @return the concurrent context being exited.
      * @throws ClassCastException if the context is not a concurrent context.
      */
-    public static /*ConcurrentContext*/Context exit() {
+    public static ConcurrentContext exit() {
         return (ConcurrentContext) Context.exit();
     }
 

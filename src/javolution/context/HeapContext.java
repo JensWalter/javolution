@@ -62,7 +62,7 @@ public class HeapContext extends AllocatorContext {
      * @return the heap context being exited.
      * @throws ClassCastException if the context is not a heap context.
      */
-    public static/*HeapContext*/Context exit() {
+    public static HeapContext exit() {
         return (HeapContext) Context.exit();
     }
 

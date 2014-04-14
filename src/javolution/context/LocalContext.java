@@ -69,7 +69,7 @@ public class LocalContext extends Context {
      * @return the local context being exited.
      * @throws ClassCastException if the context is not a local context.
      */
-    public static /*LocalContext*/Context exit() {
+    public static LocalContext exit() {
         return (LocalContext) Context.exit();
     }
 

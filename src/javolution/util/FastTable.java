@@ -424,7 +424,7 @@ public class FastTable<E> extends FastCollection<E> implements
     public final int indexOf(Object value) {
         final FastComparator comp = this.getValueComparator();
         for (int i = 0; i < _size;) {
-            final Object/*{E}*/[] low = _high[i >> B1];
+            final E[] low = _high[i >> B1];
             final int count = MathLib.min(low.length, _size - i);
             for (int j = 0; j < count; j++) {
                 if (comp == FastComparator.DEFAULT ? defaultEquals(value,
