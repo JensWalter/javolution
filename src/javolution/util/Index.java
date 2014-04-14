@@ -49,7 +49,7 @@ public final class Index extends Number implements
      * Holds the initial first index value (default <code>-1</code>).
      */
     public static final Configurable<Integer> INITIAL_FIRST
-        = new Configurable(new Integer(-1)) {
+        = new Configurable<Integer>(new Integer(-1)) {
         protected void notifyChange() {
             // Ensures Index creation from minimum balue. 
             Index.valueOf(((Integer)INITIAL_FIRST.get()).intValue());
@@ -60,7 +60,7 @@ public final class Index extends Number implements
      * Holds the initial last index value (default <code>16</code>).
      */
     public static final Configurable<Integer> INITIAL_LAST
-        = new Configurable(new Integer(16)) {
+        = new Configurable<Integer>(new Integer(16)) {
         protected void notifyChange() {
             // Ensures Index creation to maximum value. 
             Index.valueOf(((Integer)INITIAL_LAST.get()).intValue());

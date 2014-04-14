@@ -35,7 +35,9 @@ import javolution.util.FastMap;
  */
 public class LocalContext extends Context {
 
-    /**
+	private static final long serialVersionUID = 2657328930255102389L;
+
+	/**
      * Holds this class (J2ME does not support LocalContext.class).
      */
     private static Class CLASS = new LocalContext().getClass();

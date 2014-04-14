@@ -18,7 +18,9 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Set;
+
 import j2mex.realtime.MemoryArea;
+
 import java.io.IOException;
 import java.io.PrintStream;
 
@@ -159,7 +161,7 @@ public class FastMap<K,V> implements Map<K,V>, Reusable,
     /**
      * Holds sub-maps (for large collection). 
      */
-    private transient FastMap[] _subMaps;
+    private transient FastMap<K,V>[] _subMaps;
 
     /**
      * Indicates if sub-maps are active.

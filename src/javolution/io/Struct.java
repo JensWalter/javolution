@@ -142,12 +142,12 @@ public class Struct {
      * (default <code>4</code>).
      */
     public static final Configurable<Integer>MAXIMUM_ALIGNMENT 
-        = new Configurable(new Integer(4));
+        = new Configurable<Integer>(new Integer(4));
 
     /**
      * Holds the outer struct if any.
      */
-    private Struct _outer;
+    protected Struct _outer;
 
     /**
      * Holds the byte buffer backing the struct (top struct).
@@ -158,7 +158,7 @@ public class Struct {
      * Holds the offset of this struct relative to the outer struct or
      * to the byte buffer if there is no outer.
      */
-    private int _outerOffset;
+    protected int _outerOffset;
 
     /**
      * Holds the number of bits currently used (for size calculation).
@@ -168,7 +168,7 @@ public class Struct {
     /**
      * Holds this struct alignment (largest alignment of its members).
      */
-    private int _alignment = 1;
+    protected int _alignment = 1;
 
     /**
      * Holds the current bit index position (during construction).
@@ -479,7 +479,7 @@ public class Struct {
      * @throws IllegalArgumentException if the specified struct is already 
      *         an inner struct.
      */
-    protected/* <S extends Struct> S*/Struct inner(/*S*/Struct struct) {
+    protected <S extends Struct> S inner(S struct) {
         if (struct._outer != null)
             throw new IllegalArgumentException(
                     "struct: Already an inner struct");
@@ -487,7 +487,7 @@ public class Struct {
         final int bitSize = struct.size() << 3;
         updateIndexes(struct._alignment, bitSize, bitSize);
         struct._outerOffset = (_bitIndex - bitSize) >> 3;
-        return (/*S*/Struct) struct;
+        return (S) struct;
     }
 
     /**
@@ -500,7 +500,7 @@ public class Struct {
      * @throws IllegalArgumentException if the specified array contains 
      *         inner structs.
      */
-    protected/* <S extends Struct> S*/Struct[] array(/*S*/Struct[] structs) {
+    protected <S extends Struct> S[] array(S[] structs) {
         Class structClass = null;
         boolean resetIndexSaved = _resetIndex;
         if (_resetIndex) {
@@ -508,7 +508,7 @@ public class Struct {
             _resetIndex = false; // Ensures the array elements are sequential.
         }
         for (int i = 0; i < structs.length;) {
-            /*S*/Struct struct = structs[i];
+            S struct = structs[i];
             if (struct == null) {
                 try {
                     if (structClass == null) {
@@ -520,7 +520,7 @@ public class Struct {
                             throw new JavolutionError("Struct class: "
                                     + structName + " not found");
                     }
-                    struct = (/*S*/Struct) structClass.newInstance();
+                    struct = (S) structClass.newInstance();
                 } catch (Exception e) {
                     throw new JavolutionError(e);
                 }
@@ -528,7 +528,7 @@ public class Struct {
             structs[i++] = inner(struct);
         }
         _resetIndex = resetIndexSaved;
-        return (/*S*/Struct[]) structs;
+        return (S[]) structs;
     }
 
     /**
@@ -541,8 +541,8 @@ public class Struct {
      * @throws IllegalArgumentException if the specified array contains 
      *         inner structs.
      */
-    protected/* <S extends Struct> S*/Struct[][] array(
-    /*S*/Struct[][] structs) {
+    protected <S extends Struct> S[][] array(
+    S[][] structs) {
         boolean resetIndexSaved = _resetIndex;
         if (_resetIndex) {
             _bitIndex = 0;
@@ -552,7 +552,7 @@ public class Struct {
             array(structs[i]);
         }
         _resetIndex = resetIndexSaved;
-        return (/*S*/Struct[][]) structs;
+        return (S[][]) structs;
     }
 
     /**
@@ -565,8 +565,8 @@ public class Struct {
      * @throws IllegalArgumentException if the specified array contains 
      *         inner structs.
      */
-    protected/* <S extends Struct> S*/Struct[][][] array(
-    /*S*/Struct[][][] structs) {
+    protected <S extends Struct> S[][][] array(
+    S[][][] structs) {
         boolean resetIndexSaved = _resetIndex;
         if (_resetIndex) {
             _bitIndex = 0;
@@ -576,7 +576,7 @@ public class Struct {
             array(structs[i]);
         }
         _resetIndex = resetIndexSaved;
-        return (/*S*/Struct[][][]) structs;
+        return (S[][][]) structs;
     }
 
     /**
@@ -589,8 +589,8 @@ public class Struct {
      * @throws UnsupportedOperationException if the specified array 
      *         is empty and the member type is unknown. 
      */
-    protected/* <M extends Member> M*/Member[] array(
-    /*M*/Member[] arrayMember) {
+    protected <M extends Member> M[] array(
+    M[] arrayMember) {
         boolean resetIndexSaved = _resetIndex;
         if (_resetIndex) {
             _bitIndex = 0;
@@ -598,41 +598,41 @@ public class Struct {
         }
         if (BOOL.isInstance(arrayMember)) {
             for (int i = 0; i < arrayMember.length;)
-                arrayMember[i++] = (/*M*/Member) this.new Bool();
+                arrayMember[i++] = (M) this.new Bool();
         } else if (SIGNED_8.isInstance(arrayMember)) {
             for (int i = 0; i < arrayMember.length;)
-                arrayMember[i++] = (/*M*/Member) this.new Signed8();
+                arrayMember[i++] = (M) this.new Signed8();
         } else if (UNSIGNED_8.isInstance(arrayMember)) {
             for (int i = 0; i < arrayMember.length;)
-                arrayMember[i++] = (/*M*/Member) this.new Unsigned8();
+                arrayMember[i++] = (M) this.new Unsigned8();
         } else if (SIGNED_16.isInstance(arrayMember)) {
             for (int i = 0; i < arrayMember.length;)
-                arrayMember[i++] = (/*M*/Member) this.new Signed16();
+                arrayMember[i++] = (M) this.new Signed16();
         } else if (UNSIGNED_16.isInstance(arrayMember)) {
             for (int i = 0; i < arrayMember.length;)
-                arrayMember[i++] = (/*M*/Member) this.new Unsigned16();
+                arrayMember[i++] = (M) this.new Unsigned16();
         } else if (SIGNED_32.isInstance(arrayMember)) {
             for (int i = 0; i < arrayMember.length;)
-                arrayMember[i++] = (/*M*/Member) this.new Signed32();
+                arrayMember[i++] = (M) this.new Signed32();
         } else if (UNSIGNED_32.isInstance(arrayMember)) {
             for (int i = 0; i < arrayMember.length;)
-                arrayMember[i++] = (/*M*/Member) this.new Unsigned32();
+                arrayMember[i++] = (M) this.new Unsigned32();
         } else if (SIGNED_64.isInstance(arrayMember)) {
             for (int i = 0; i < arrayMember.length;)
-                arrayMember[i++] = (/*M*/Member) this.new Signed64();
+                arrayMember[i++] = (M) this.new Signed64();
         } else if (FLOAT_32.isInstance(arrayMember)) {
             for (int i = 0; i < arrayMember.length;)
-                arrayMember[i++] = (/*M*/Member) this.new Float32();
+                arrayMember[i++] = (M) this.new Float32();
         } else if (FLOAT_64.isInstance(arrayMember)) {
             for (int i = 0; i < arrayMember.length;)
-                arrayMember[i++] = (/*M*/Member) this.new Float64();
+                arrayMember[i++] = (M) this.new Float64();
         } else {
             throw new UnsupportedOperationException(
                     "Cannot create member elements, the arrayMember should "
                             + "contain the member instances instead of null");
         }
         _resetIndex = resetIndexSaved;
-        return (/*M*/Member[]) arrayMember;
+        return (M[]) arrayMember;
     }
 
     private static final Class BOOL = new Bool[0].getClass();
@@ -665,8 +665,8 @@ public class Struct {
      * @throws UnsupportedOperationException if the specified array 
      *         is empty and the member type is unknown. 
      */
-    protected/* <M extends Member> M*/Member[][] array(
-    /*M*/Member[][] arrayMember) {
+    protected <M extends Member> M[][] array(
+    M[][] arrayMember) {
         boolean resetIndexSaved = _resetIndex;
         if (_resetIndex) {
             _bitIndex = 0;
@@ -676,7 +676,7 @@ public class Struct {
             array(arrayMember[i]);
         }
         _resetIndex = resetIndexSaved;
-        return (/*M*/Member[][]) arrayMember;
+        return (M[][]) arrayMember;
     }
 
     /**
@@ -689,8 +689,8 @@ public class Struct {
      * @throws UnsupportedOperationException if the specified array 
      *         is empty and the member type is unknown. 
      */
-    protected/* <M extends Member> M*/Member[][][] array(
-    /*M*/Member[][][] arrayMember) {
+    protected <M extends Member> M[][][] array(
+    M[][][] arrayMember) {
         boolean resetIndexSaved = _resetIndex;
         if (_resetIndex) {
             _bitIndex = 0;
@@ -700,7 +700,7 @@ public class Struct {
             array(arrayMember[i]);
         }
         _resetIndex = resetIndexSaved;
-        return (/*M*/Member[][][]) arrayMember;
+        return (M[][][]) arrayMember;
     }
 
     /**
@@ -1304,15 +1304,15 @@ public class Struct {
      *           can be created at the address specified by {@link #value} 
      *           (using JNI) and the reference {@link #set set} accordingly.</p>
      */
-    public class Reference32/*<S extends Struct>*/extends Member {
+    public class Reference32<S extends Struct> extends Member {
 
-        private/*S*/Struct _struct;
+        private S _struct;
 
         public Reference32() {
             super(4, 4);
         }
 
-        public void set(/*S*/Struct struct) {
+        public void set(S struct) {
             if (struct != null) {
                 getByteBuffer().putInt(position(), (int) struct.address());
             } else {
@@ -1321,7 +1321,7 @@ public class Struct {
             _struct = struct;
         }
 
-        public/*S*/Struct get() {
+        public S get() {
             return _struct;
         }
 
@@ -1349,14 +1349,14 @@ public class Struct {
      *           can be created at the address specified by {@link #value} 
      *           (using JNI) and then {@link #set set} to the reference.</p>
      */
-    public class Reference64/*<S extends Struct>*/extends Member {
-        private/*S*/Struct _struct;
+    public class Reference64<S extends Struct> extends Member {
+        private S  _struct;
 
         public Reference64() {
             super(8, 8);
         }
 
-        public void set(/*S*/Struct struct) {
+        public void set(S struct) {
             if (struct != null) {
                 getByteBuffer().putLong(position(), struct.address());
             } else if (struct == null) {
@@ -1365,7 +1365,7 @@ public class Struct {
             _struct = struct;
         }
 
-        public/*S*/Struct get() {
+        public S get() {
             return _struct;
         }
 

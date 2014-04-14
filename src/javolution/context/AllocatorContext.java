@@ -75,7 +75,7 @@ public abstract class AllocatorContext extends Context {
      * @param factory the factory for which the allocator is returned.
      * @return the allocator producing instances of the specified factory.
      */
-    protected abstract Allocator getAllocator(ObjectFactory factory);
+    protected abstract <T> Allocator<T> getAllocator(ObjectFactory<T> factory);
 
     /**
      * Deactivates the {@link Allocator allocators} belonging to this context
@@ -102,9 +102,9 @@ public abstract class AllocatorContext extends Context {
         /**
          * Holds the factory.
          */
-        private static final ObjectFactory FACTORY = new ObjectFactory() {
+        private static final ObjectFactory<?> FACTORY = new ObjectFactory<Object>() {
             protected Object create() {
-                return new Reference();
+                return new Reference<Object>();
             }
 
             protected void cleanup(Object obj) {

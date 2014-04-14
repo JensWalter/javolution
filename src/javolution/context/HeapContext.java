@@ -107,19 +107,19 @@ public class HeapContext extends AllocatorContext {
     }
 
     // Holds heap allocator implementation.
-    private static final class HeapAllocator extends Allocator {
+    private static final class HeapAllocator<T> extends Allocator<T> {
 
-        private final ObjectFactory _factory;
+        private final ObjectFactory<T> _factory;
 
-        public HeapAllocator(ObjectFactory factory) {
+        public HeapAllocator(ObjectFactory<T> factory) {
             _factory = factory;
         }
 
-        protected Object allocate() {
+        protected T allocate() {
             return _factory.create();
         }
 
-        protected void recycle(Object object) {
+        protected void recycle(T object) {
             if (_factory.doCleanup()) {
                 _factory.cleanup(object);
             }

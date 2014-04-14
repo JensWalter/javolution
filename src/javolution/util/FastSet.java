@@ -12,7 +12,6 @@ import java.io.IOException;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.Set;
 import javolution.context.ObjectFactory;

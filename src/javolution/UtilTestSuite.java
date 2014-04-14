@@ -34,8 +34,8 @@ import javolution.util.FastList.Node;
  */
 public final class UtilTestSuite extends TestSuite {
 
-    public static final Configurable/*<Integer>*/ SIZE 
-        = new Configurable(new Integer(256));
+    public static final Configurable<Integer> SIZE 
+        = new Configurable<Integer>(new Integer(256));
 
     private static final int PADDING = 60;
 
