@@ -100,37 +100,6 @@ public class Javolution {
 
     }
 
-    ///////////////////////////////////////////////
-    // Utilities for J2ME Backward Compatibility //
-    ///////////////////////////////////////////////
-
-    /**
-     * Returns the class having the specified name; for 
-     * backward compatibility with CLDC 1.0 (cannot use .class as exception 
-     * java.lang.NoClassDefFoundError does not exist for that platform).
-     */
-    public static Class j2meGetClass(String name) {
-        Class cls = null;
-        try {
-            cls = Class.forName(name); // Caller class loader.
-        } catch (ClassNotFoundException e0) { // Try context class loader.
-            
-             try {
-             ClassLoader cl = Thread.currentThread().getContextClassLoader();
-             cls = Class.forName(name, true, cl);
-             } catch (ClassNotFoundException e1) { // Try system class loader.
-             ClassLoader cl = ClassLoader.getSystemClassLoader();
-             try {
-             cls = Class.forName(name, true, cl);
-             } catch (ClassNotFoundException e) {
-             }
-             }
-        }
-        if (cls == null)
-            throw new JavolutionError("Class " + name + " not found");
-        return cls;
-    }
-
     /**
      * Converts the specified String as CharSequence (String is a 
      * CharSequence only for J2SE 1.4+).

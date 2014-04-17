@@ -223,11 +223,13 @@ public abstract class FastComparator<T> implements Comparator<T>,
      * using the following formula (same as for <code>java.lang.String</code>):
      * <code>s[0]*31^(n-1) + s[1]*31^(n-2) + ... + s[n-1]</code>
      */
-    public static final FastComparator<CharSequence> LEXICAL = new Lexical();
+    public static final FastComparator<CharSequence> LEXICAL = new Lexical<CharSequence>();
 
-    static final class Lexical extends FastComparator {
+    static final class Lexical<T> extends FastComparator<T> {
 
-        public int hashCodeOf(Object obj) {
+		private static final long serialVersionUID = 1643954212834368873L;
+
+		public int hashCodeOf(Object obj) {
             if ((obj instanceof String) || (obj instanceof Text))
                 return obj.hashCode();
             CharSequence chars = (CharSequence) obj;

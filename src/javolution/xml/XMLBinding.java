@@ -134,10 +134,9 @@ public class XMLBinding implements Reusable, XMLSerializable {
      * Holds the XML representation of this binding (class/alias mapping 
      * and class attribute values).
      */
-    static final XMLFormat XML = new XMLFormat(Javolution
-            .j2meGetClass("javolution.xml.XMLBinding")) {
+    static final XMLFormat<XMLBinding> XML = new XMLFormat<XMLBinding>(XMLBinding.class) {
 
-        public void read(InputElement xml, Object obj)
+        public void read(InputElement xml, XMLBinding obj)
                 throws XMLStreamException {
             XMLBinding binding = (XMLBinding) obj;
             binding._classAttributeName = xml.getAttribute(
@@ -152,7 +151,7 @@ public class XMLBinding implements Reusable, XMLSerializable {
             }
         }
 
-        public void write(Object obj, OutputElement xml)
+        public void write(XMLBinding obj, OutputElement xml)
                 throws XMLStreamException {
             XMLBinding binding = (XMLBinding) obj;
             xml.setAttribute("classAttributeName", binding._classAttributeName);
@@ -391,7 +390,7 @@ public class XMLBinding implements Reusable, XMLSerializable {
      * (default format when a more specialized format does not exist).
      * The XML representation consists of an empty element with no attribute.
      */
-    static final XMLFormat/*<Object>*/OBJECT_XML = new XMLFormat(new Object()
+    static final XMLFormat<Object> OBJECT_XML = new XMLFormat<Object>(new Object()
             .getClass()) {
 
         public void read(javolution.xml.XMLFormat.InputElement xml, Object obj) {
@@ -408,14 +407,14 @@ public class XMLBinding implements Reusable, XMLSerializable {
      * instances. This representation consists of a <code>"name"</code> 
      * attribute holding the class name.
      */
-    static final XMLFormat/*<Class>*/CLASS_XML = new XMLFormat("".getClass()
+    static final XMLFormat<Class> CLASS_XML = new XMLFormat<Class>("".getClass()
             .getClass()) {
 
         public boolean isReferenceable() {
             return false; // Always by value (immutable). 
         }
 
-        public Object newInstance(Class cls,
+        public Class newInstance(Class cls,
                 javolution.xml.XMLFormat.InputElement xml)
                 throws XMLStreamException {
             CharArray name = xml.getAttribute("name");
@@ -430,12 +429,12 @@ public class XMLBinding implements Reusable, XMLSerializable {
             return clazz;
         }
 
-        public void read(javolution.xml.XMLFormat.InputElement xml, Object obj)
+        public void read(javolution.xml.XMLFormat.InputElement xml, Class obj)
                 throws XMLStreamException {
             // Do nothing.            
         }
 
-        public void write(Object obj, javolution.xml.XMLFormat.OutputElement xml)
+        public void write(Class obj, javolution.xml.XMLFormat.OutputElement xml)
                 throws XMLStreamException {
             xml.setAttribute("name", ((Class) obj).getName());
         }
@@ -446,20 +445,20 @@ public class XMLBinding implements Reusable, XMLSerializable {
      * instances. This representation consists of a <code>"value"</code> 
      * attribute holding the string.
      */
-    static final XMLFormat<String> STRING_XML = new XMLFormat("".getClass()) {
+    static final XMLFormat<String> STRING_XML = new XMLFormat<String>("".getClass()) {
 
-        public Object newInstance(Class cls,
+        public String newInstance(Class cls,
                 javolution.xml.XMLFormat.InputElement xml)
                 throws XMLStreamException {
             return xml.getAttribute("value", "");
         }
 
-        public void read(InputElement xml, Object obj)
+        public void read(InputElement xml, String obj)
                 throws XMLStreamException {
             // Do nothing.            
         }
 
-        public void write(Object obj, OutputElement xml)
+        public void write(String obj, OutputElement xml)
                 throws XMLStreamException {
             xml.setAttribute("value", (String) obj);
         }
@@ -470,10 +469,10 @@ public class XMLBinding implements Reusable, XMLSerializable {
      * instances. This representation consists of a <code>"value"</code> attribute 
      * holding the characters.
      */
-    static final XMLFormat/*<Appendable>*/APPENDABLE_XML = new XMLFormat(
-            Javolution.j2meGetClass("javolution.text.Appendable")) {
+    static final XMLFormat<Appendable> APPENDABLE_XML = new XMLFormat<Appendable>(
+            Appendable.class) {
 
-        public void read(InputElement xml, Object obj)
+        public void read(InputElement xml, Appendable obj)
                 throws XMLStreamException {
             CharSequence csq = xml.getAttribute("value");
             if (csq != null) {
@@ -485,7 +484,7 @@ public class XMLBinding implements Reusable, XMLSerializable {
             }
         }
 
-        public void write(Object obj, OutputElement xml)
+        public void write(Appendable obj, OutputElement xml)
                 throws XMLStreamException {
             if (obj instanceof CharSequence) {
                 xml.setAttribute("value", (CharSequence) obj);
@@ -502,21 +501,20 @@ public class XMLBinding implements Reusable, XMLSerializable {
      * the collection iterator order. Collections are deserialized using their
      * default constructor. 
      */
-    static final XMLFormat/*<Collection>*/COLLECTION_XML = new XMLFormat(
-            Javolution.j2meGetClass("j2me.util.Collection")) {
+    static final XMLFormat<Collection<Object>> COLLECTION_XML = new XMLFormat<Collection<Object>>(Collection.class) {
 
-        public void read(InputElement xml, Object obj)
+        public void read(InputElement xml, Collection<Object> obj)
                 throws XMLStreamException {
-            Collection collection = (Collection) obj;
+        	Collection<Object> collection = (Collection<Object>) obj;
             while (xml.hasNext()) {
                 collection.add(xml.getNext());
             }
         }
 
-        public void write(Object obj, OutputElement xml)
+        public void write(Collection<Object> obj, OutputElement xml)
                 throws XMLStreamException {
-            Collection collection = (Collection) obj;
-            for (Iterator i = collection.iterator(); i.hasNext();) {
+        	Collection<Object> collection = (Collection<Object>) obj;
+            for (Iterator<Object> i = collection.iterator(); i.hasNext();) {
                 xml.add(i.next());
             }
         }
@@ -538,12 +536,11 @@ public class XMLBinding implements Reusable, XMLSerializable {
      * The elements' order is defined by the map's entries iterator order. 
      * Maps are deserialized using their default constructor.
      */
-    static final XMLFormat<Map> MAP_XML = new XMLFormat(Javolution
-            .j2meGetClass("j2me.util.Map")) {
+    static final XMLFormat<Map<Object,Object>> MAP_XML = new XMLFormat<Map<Object,Object>>(Map.class) {
 
-        public void read(InputElement xml, Object obj)
+        public void read(InputElement xml, Map<Object,Object> obj)
                 throws XMLStreamException {
-            final Map map = (Map) obj;
+            final Map<Object,Object> map = (Map<Object,Object>) obj;
             while (xml.hasNext()) {
                 Object key = xml.get("Key");
                 Object value = xml.get("Value");
@@ -551,11 +548,11 @@ public class XMLBinding implements Reusable, XMLSerializable {
             }
         }
 
-        public void write(Object obj, OutputElement xml)
+        public void write(Map<Object,Object> obj, OutputElement xml)
                 throws XMLStreamException {
-            final Map map = (Map) obj;
-            for (Iterator it = map.entrySet().iterator(); it.hasNext();) {
-                Map.Entry entry = (Map.Entry) it.next();
+            final Map<Object,Object> map = (Map<Object,Object>) obj;
+            for (Iterator<Map.Entry<Object,Object>> it = map.entrySet().iterator(); it.hasNext();) {
+            	Map.Entry<Object,Object> entry = it.next();
                 xml.add(entry.getKey(), "Key");
                 xml.add(entry.getValue(), "Value");
             }
@@ -567,10 +564,10 @@ public class XMLBinding implements Reusable, XMLSerializable {
      * instances. This representation consists of nested XML elements one for
      * each element of the array.
      */
-     static final XMLFormat<Object[]> OBJECT_ARRAY_XML = new XMLFormat(
+     static final XMLFormat<Object[]> OBJECT_ARRAY_XML = new XMLFormat<Object[]>(
      new Object[0].getClass()) {
      
-     public Object newInstance(Class cls, javolution.xml.XMLFormat.InputElement xml) throws XMLStreamException {
+     public Object[] newInstance(Class cls, javolution.xml.XMLFormat.InputElement xml) throws XMLStreamException {
      Class componentType;
      try {
      componentType = Reflection.getClass(xml.getAttribute("componentType"));
@@ -578,17 +575,17 @@ public class XMLBinding implements Reusable, XMLSerializable {
      throw new XMLStreamException(e);
      }
      int length = xml.getAttribute("length", 0);
-     return java.lang.reflect.Array.newInstance(componentType, length);
+     return (Object[])java.lang.reflect.Array.newInstance(componentType, length);
      }
 
-     public void read(InputElement xml, Object obj) throws XMLStreamException {
+     public void read(InputElement xml, Object[] obj) throws XMLStreamException {
      Object[] array = (Object[]) obj;
      for (int i=0; i < array.length; i++) {
      array[i] = xml.getNext();
      }
      }
 
-     public void write(Object obj, OutputElement xml) throws XMLStreamException {
+     public void write(Object[] obj, OutputElement xml) throws XMLStreamException {
      Object[] array = (Object[]) obj;
      xml.setAttribute("componentType", array.getClass().getComponentType().getName());
      xml.setAttribute("length", array.length);
@@ -601,52 +598,52 @@ public class XMLBinding implements Reusable, XMLSerializable {
     /**
      * Holds the default XML representation for <code>java.lang.Boolean</code>.
      */
-    static final XMLFormat<Boolean>BOOLEAN_XML = new XMLFormat(
+    static final XMLFormat<Boolean>BOOLEAN_XML = new XMLFormat<Boolean>(
             new Boolean(true).getClass()) {
 
         public boolean isReferenceable() {
             return false; // Always by value (immutable). 
         }
 
-        public Object newInstance(Class cls,
+        public Boolean newInstance(Class cls,
                 javolution.xml.XMLFormat.InputElement xml)
                 throws XMLStreamException {
             return new Boolean(xml.getAttribute("value", false));
         }
 
-        public void read(InputElement xml, Object obj)
+        public void read(InputElement xml, Boolean obj)
                 throws XMLStreamException {
             // Do nothing.
         }
 
-        public void write(Object obj, OutputElement xml)
+        public void write(Boolean obj, OutputElement xml)
                 throws XMLStreamException {
-            xml.setAttribute("value", ((Boolean) obj).booleanValue());
+            xml.setAttribute("value", obj.booleanValue());
         }
     };
 
     /**
      * Holds the default XML representation for <code>java.lang.Byte</code>.
      */
-    static final XMLFormat<Byte> BYTE_XML = new XMLFormat(
+    static final XMLFormat<Byte> BYTE_XML = new XMLFormat<Byte>(
             new Byte((byte) 0).getClass()) {
 
         public boolean isReferenceable() {
             return false; // Always by value (immutable). 
         }
 
-        public Object newInstance(Class cls,
+        public Byte newInstance(Class cls,
                 javolution.xml.XMLFormat.InputElement xml)
                 throws XMLStreamException {
             return new Byte((byte) xml.getAttribute("value", 0));
         }
 
-        public void read(InputElement xml, Object obj)
+        public void read(InputElement xml, Byte obj)
                 throws XMLStreamException {
             // Do nothing.
         }
 
-        public void write(Object obj, OutputElement xml)
+        public void write(Byte obj, OutputElement xml)
                 throws XMLStreamException {
             xml.setAttribute("value", ((Byte) obj).byteValue());
         }
@@ -655,14 +652,14 @@ public class XMLBinding implements Reusable, XMLSerializable {
     /**
      * Holds the default XML representation for <code>java.lang.Character</code>.
      */
-    static final XMLFormat<Character> CHARACTER_XML = new XMLFormat(
+    static final XMLFormat<Character> CHARACTER_XML = new XMLFormat<Character>(
             new Character(' ').getClass()) {
 
         public boolean isReferenceable() {
             return false; // Always by value (immutable). 
         }
 
-        public Object newInstance(Class cls,
+        public Character newInstance(Class cls,
                 javolution.xml.XMLFormat.InputElement xml)
                 throws XMLStreamException {
             CharSequence csq = xml.getAttribute("value");
@@ -672,12 +669,12 @@ public class XMLBinding implements Reusable, XMLSerializable {
             return new Character(csq.charAt(0));
         }
 
-        public void read(InputElement xml, Object obj)
+        public void read(InputElement xml, Character obj)
                 throws XMLStreamException {
             // Do nothing.
         }
 
-        public void write(Object obj, OutputElement xml)
+        public void write(Character obj, OutputElement xml)
                 throws XMLStreamException {
             xml.setAttribute("value", Text.valueOf(((Character) obj)
                     .charValue()));
@@ -687,79 +684,79 @@ public class XMLBinding implements Reusable, XMLSerializable {
     /**
      * Holds the default XML representation for <code>java.lang.Short</code>.
      */
-    static final XMLFormat<Short> SHORT_XML = new XMLFormat(new Short(
+    static final XMLFormat<Short> SHORT_XML = new XMLFormat<Short>(new Short(
             (short) 0).getClass()) {
 
         public boolean isReferenceable() {
             return false; // Always by value (immutable). 
         }
 
-        public Object newInstance(Class cls,
+        public Short newInstance(Class cls,
                 javolution.xml.XMLFormat.InputElement xml)
                 throws XMLStreamException {
             return new Short((short) xml.getAttribute("value", 0));
         }
 
-        public void read(InputElement xml, Object obj)
+        public void read(InputElement xml, Short obj)
                 throws XMLStreamException {
             // Do nothing.
         }
 
-        public void write(Object obj, OutputElement xml)
+        public void write(Short obj, OutputElement xml)
                 throws XMLStreamException {
-            xml.setAttribute("value", ((Short) obj).shortValue());
+            xml.setAttribute("value", obj.shortValue());
         }
     };
 
     /**
      * Holds the default XML representation for <code>java.lang.Integer</code>.
      */
-    static final XMLFormat<Integer> INTEGER_XML = new XMLFormat(
+    static final XMLFormat<Integer> INTEGER_XML = new XMLFormat<Integer>(
             new Integer(0).getClass()) {
 
         public boolean isReferenceable() {
             return false; // Always by value (immutable). 
         }
 
-        public Object newInstance(Class cls,
+        public Integer newInstance(Class cls,
                 javolution.xml.XMLFormat.InputElement xml)
                 throws XMLStreamException {
             return new Integer(xml.getAttribute("value", 0));
         }
 
-        public void read(InputElement xml, Object obj)
+        public void read(InputElement xml, Integer obj)
                 throws XMLStreamException {
             // Do nothing.
         }
 
-        public void write(Object obj, OutputElement xml)
+        public void write(Integer obj, OutputElement xml)
                 throws XMLStreamException {
-            xml.setAttribute("value", ((Integer) obj).intValue());
+            xml.setAttribute("value", obj.intValue());
         }
     };
 
     /**
      * Holds the default XML representation for <code>java.lang.Long</code>.
      */
-    static final XMLFormat<Long> LONG_XML = new XMLFormat(new Long(0)
+    static final XMLFormat<Long> LONG_XML = new XMLFormat<Long>(new Long(0)
             .getClass()) {
 
         public boolean isReferenceable() {
             return false; // Always by value (immutable). 
         }
 
-        public Object newInstance(Class cls,
+        public Long newInstance(Class cls,
                 javolution.xml.XMLFormat.InputElement xml)
                 throws XMLStreamException {
             return new Long(xml.getAttribute("value", 0L));
         }
 
-        public void read(InputElement xml, Object obj)
+        public void read(InputElement xml, Long obj)
                 throws XMLStreamException {
             // Do nothing.
         }
 
-        public void write(Object obj, OutputElement xml)
+        public void write(Long obj, OutputElement xml)
                 throws XMLStreamException {
             xml.setAttribute("value", ((Long) obj).longValue());
         }
@@ -818,22 +815,21 @@ public class XMLBinding implements Reusable, XMLSerializable {
      * This representation consists of a <code>"value"</code> attribute 
      * holding the characters.
      */
-    static final XMLFormat<Text> TEXT_XML = new XMLFormat(Javolution
-            .j2meGetClass("javolution.text.Text")) {
+    static final XMLFormat<Text> TEXT_XML = new XMLFormat<Text>(Text.class) {
 
-        public Object newInstance(Class cls,
+        public Text newInstance(Class cls,
                 javolution.xml.XMLFormat.InputElement xml)
                 throws XMLStreamException {
             CharSequence csq = xml.getAttribute("value");
             return csq != null ? Text.valueOf(csq) : Text.EMPTY;
         }
 
-        public void read(InputElement xml, Object obj)
+        public void read(InputElement xml, Text obj)
                 throws XMLStreamException {
             // Do nothing.
         }
 
-        public void write(Object obj, OutputElement xml)
+        public void write(Text obj, OutputElement xml)
                 throws XMLStreamException {
             xml.setAttribute("value", (Text) obj);
         }
@@ -846,10 +842,10 @@ public class XMLBinding implements Reusable, XMLSerializable {
      * (if different from {@link FastComparator#DEFAULT}) and the 
      * {@link #isShared() "shared"} attribute.
      */
-    static final XMLFormat<FastMap> FASTMAP_XML = new XMLFormat(
+    static final XMLFormat<FastMap> FASTMAP_XML = new XMLFormat<FastMap>(
             new FastMap().getClass()) {
 
-        public void read(InputElement xml, Object obj)
+        public void read(InputElement xml, FastMap obj)
                 throws XMLStreamException {
             final FastMap fm = (FastMap) obj;
             fm.setShared(xml.getAttribute("shared", false));
@@ -870,7 +866,7 @@ public class XMLBinding implements Reusable, XMLSerializable {
             }
         }
 
-        public void write(Object obj, OutputElement xml)
+        public void write(FastMap obj, OutputElement xml)
                 throws XMLStreamException {
             final FastMap fm = (FastMap) obj;
             if (fm.isShared()) {
@@ -893,17 +889,16 @@ public class XMLBinding implements Reusable, XMLSerializable {
      * Holds the default XML representation for FastCollection instances.
      * This representation is identical to {@link XMLBinding#COLLECTION_XML}.
      */
-    static final XMLFormat<FastCollection> FASTCOLLECTION_XML = new XMLFormat(
-            Javolution.j2meGetClass("javolution.util.FastCollection")) {
+    static final XMLFormat<FastCollection> FASTCOLLECTION_XML = new XMLFormat<FastCollection>(FastCollection.class) {
 
-        public void read(InputElement xml, Object obj) throws XMLStreamException {
+        public void read(InputElement xml, FastCollection obj) throws XMLStreamException {
             FastCollection fc = (FastCollection) obj;
             while (xml.hasNext()) {
                 fc.add(xml.getNext());
             }
         }
 
-        public void write(Object obj, OutputElement xml) throws XMLStreamException {
+        public void write(FastCollection obj, OutputElement xml) throws XMLStreamException {
             FastCollection fc = (FastCollection) obj;
             for (Record r=fc.head(), end=fc.tail(); (r=r.getNext())!=end;) {
                 xml.add(fc.valueOf(r));
@@ -915,10 +910,9 @@ public class XMLBinding implements Reusable, XMLSerializable {
      * Holds the default XML representation for FastComparator instances
      * (format ensures unicity of predefined comparator).
      */
-    static final XMLFormat<FastComparator> FASTCOMPARATOR_XML = new XMLFormat(
-            Javolution.j2meGetClass("javolution.util.FastComparator")) {
+    static final XMLFormat<FastComparator> FASTCOMPARATOR_XML = new XMLFormat<FastComparator>(FastComparator.class) {
 
-        public Object newInstance(Class cls, javolution.xml.XMLFormat.InputElement xml) throws XMLStreamException {
+        public FastComparator newInstance(Class cls, javolution.xml.XMLFormat.InputElement xml) throws XMLStreamException {
             if (cls == FastComparator.DEFAULT.getClass())
                 return FastComparator.DEFAULT;
             if (cls == FastComparator.DIRECT.getClass())
@@ -932,11 +926,11 @@ public class XMLBinding implements Reusable, XMLSerializable {
             return super.newInstance(cls, xml);
         }
 
-        public void read(InputElement xml, Object obj) throws XMLStreamException {
+        public void read(InputElement xml, FastComparator obj) throws XMLStreamException {
             // Do nothing.
         }
 
-        public void write(Object obj, OutputElement xml) throws XMLStreamException {
+        public void write(FastComparator obj, OutputElement xml) throws XMLStreamException {
             // Do nothing.
         }
     };

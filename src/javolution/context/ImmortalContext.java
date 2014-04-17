@@ -54,10 +54,12 @@ import javolution.util.FastTable;
  */
 public final class ImmortalContext extends AllocatorContext {
 
+	private static final long serialVersionUID = 3992472803472081482L;
+
 	/**
 	 * Holds the class.
 	 */
-	private static final Class CLASS = new ImmortalContext().getClass();
+	private static final Class<? extends ImmortalContext> CLASS = new ImmortalContext().getClass();
 
 	/**
 	 * Holds the factory to allocator mapping (per thread).
@@ -139,15 +141,15 @@ public final class ImmortalContext extends AllocatorContext {
 	}
 
 	// Holds immortal allocator implementation.
-	private static final class ImmortalAllocator extends Allocator {
+	private static final class ImmortalAllocator<T> extends Allocator<T> {
 
 		private static final MemoryArea IMMORTAL = MemoryArea.getMemoryArea("");
 
-		private final ObjectFactory _factory;
+		private final ObjectFactory<T> _factory;
 
-		private Object _allocated;
+		private T _allocated;
 
-		public ImmortalAllocator(ObjectFactory factory) {
+		public ImmortalAllocator(ObjectFactory<T> factory) {
 			_factory = factory;
 		}
 
@@ -163,12 +165,12 @@ public final class ImmortalContext extends AllocatorContext {
 			}
 		};
 
-		protected Object allocate() {
+		protected T allocate() {
 			IMMORTAL.executeInArea(_allocate);
 			return _allocated;
 		}
 
-		protected void recycle(Object object) {
+		protected void recycle(T object) {
 			if (_factory.doCleanup()) {
 				_factory.cleanup(object);
 			}

@@ -144,7 +144,7 @@ public abstract class XMLFormat<T>{
      * @throws IllegalArgumentException if the specified class is already 
      *         bound to another format.
      */
-    protected XMLFormat(Class<T>cls) {
+    protected <T> XMLFormat(Class<T>cls) {
         _class = cls;
         if (cls == null)
             return; // Dynamic format.

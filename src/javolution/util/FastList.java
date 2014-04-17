@@ -758,12 +758,12 @@ implements List<E>, Reusable {
     private static final class SubList extends FastCollection implements List,
             Serializable {
 
-        private static final ObjectFactory FACTORY = new ObjectFactory() {
-            protected Object create() {
+        private static final ObjectFactory<SubList> FACTORY = new ObjectFactory<SubList>() {
+            protected SubList create() {
                 return new SubList();
             }
 
-            protected void cleanup(Object obj) {
+            protected void cleanup(SubList obj) {
                 SubList sl = (SubList) obj;
                 sl._list = null;
                 sl._head = null;

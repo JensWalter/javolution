@@ -75,7 +75,7 @@ import javolution.xml.XMLSerializable;
  * @author Wilfried Middleton
  * @version 5.1, July 1, 2007
  */
-public final class Text implements CharSequence, Comparable, XMLSerializable,
+public final class Text implements CharSequence, Comparable<CharSequence>, XMLSerializable,
         ValueType, Realtime {
 
 	private static final long serialVersionUID = -4720035476069885638L;
@@ -97,14 +97,14 @@ public final class Text implements CharSequence, Comparable, XMLSerializable,
     /**
      * Holds the texts interned in ImmortalMemory
      */
-    private static final FastMap INTERN_INSTANCES = new FastMap()
+    private static final FastMap<Text,Text> INTERN_INSTANCES = new FastMap<Text,Text>()
             .setKeyComparator(FastComparator.LEXICAL);
 
     /**
      * Holds the text builder used to create small text instances.
      */
-    private static final ThreadLocal TEXT_BUILDER = new ThreadLocal() {
-        protected Object initialValue() {
+    private static final ThreadLocal<TextBuilder> TEXT_BUILDER = new ThreadLocal<TextBuilder>() {
+        protected TextBuilder initialValue() {
             return new TextBuilder();
         }
     };
@@ -864,8 +864,8 @@ public final class Text implements CharSequence, Comparable, XMLSerializable,
      * @throws  ClassCastException if the specifed object is not a
      *          <code>CharSequence</code> or a <code>String</code>.
      */
-    public int compareTo(Object csq) {
-        return ((FastComparator) FastComparator.LEXICAL).compare(this, csq);
+    public int compareTo(CharSequence csq) {
+        return FastComparator.LEXICAL.compare(this, csq);
     }
 
     /**
@@ -1406,9 +1406,9 @@ public final class Text implements CharSequence, Comparable, XMLSerializable,
         return text;
     }
     
-    private static final ObjectFactory PRIMITIVE_FACTORY = new ObjectFactory() {
+    private static final ObjectFactory<Text> PRIMITIVE_FACTORY = new ObjectFactory<Text>() {
 
-        public Object create() {
+        public Text create() {
             return new Text(true);
         }
     };
@@ -1427,9 +1427,9 @@ public final class Text implements CharSequence, Comparable, XMLSerializable,
         text._tail = tail;
         return text;
     }
-    private static final ObjectFactory COMPOSITE_FACTORY = new ObjectFactory() {
+    private static final ObjectFactory<Text> COMPOSITE_FACTORY = new ObjectFactory<Text>() {
 
-        public Object create() {
+        public Text create() {
             return new Text(false);
         }
     };

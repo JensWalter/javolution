@@ -139,8 +139,8 @@ final class NamespacesImpl implements Reusable, NamespaceContext {
     }
 
     // Implements NamespaceContext
-    public Iterator getPrefixes(CharSequence namespaceURI) {
-        FastList prefixes = new FastList();
+    public Iterator<CharSequence> getPrefixes(CharSequence namespaceURI) {
+        FastList<CharSequence> prefixes = new FastList<CharSequence>();
         for (int i = _namespacesCount[_nesting]; --i >= 0;) {
             if (_namespaces[i].equals(namespaceURI)) {
                 prefixes.add(_prefixes[i]);

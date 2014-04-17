@@ -24,7 +24,7 @@ import javolution.util.FastMap;
  * @author  <a href="mailto:jean-marie@dautelle.com">Jean-Marie Dautelle</a>
  * @version 2.0, November 26, 2004
  */
-public abstract class Enum implements Comparable, Serializable {
+public abstract class Enum implements Comparable<Enum>, Serializable {
 
 	private static final long serialVersionUID = -2891907381405996303L;
 
@@ -129,10 +129,9 @@ public abstract class Enum implements Comparable, Serializable {
      * @throws ClassCastException if both enum do not belong to the same
      *         enumeration.
      */
-    public final int compareTo(Object that) {
-        Enum e = (Enum) that;
+    public final int compareTo(Enum that) {
         if (this.getClass() == that.getClass()) {
-            return this._ordinal - e._ordinal;
+            return this._ordinal - that._ordinal;
         } else {
             throw new ClassCastException();
         }

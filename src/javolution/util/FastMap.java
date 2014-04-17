@@ -498,9 +498,9 @@ public class FastMap<K,V> implements Map<K,V>, Reusable,
     private void createNewEntries() { // Increase the number of entries.
         MemoryArea.getMemoryArea(this).executeInArea(new Runnable() {
             public void run() {
-                Entry previous = _tail;
+                Entry<K,V> previous = _tail;
                 for (int i = 0; i < 8; i++) { // Creates 8 entries at a time.
-                    Entry/*<K,V>*/newEntry = newEntry();
+                    Entry<K,V> newEntry = newEntry();
                     newEntry._previous = previous;
                     previous._next = newEntry;
                     previous = newEntry;
@@ -707,7 +707,7 @@ public class FastMap<K,V> implements Map<K,V>, Reusable,
                     entry._key = null;
                     entry._value = null;
 
-                    final Entry next = _tail._next;
+                    final Entry<K,V> next = _tail._next;
                     entry._previous = _tail;
                     entry._next = next;
                     _tail._next = entry;
@@ -882,7 +882,7 @@ public class FastMap<K,V> implements Map<K,V>, Reusable,
      */
     public int hashCode() {
         int code = 0;
-        for (Entry e = _head, end = _tail; (e = e._next) != end;) {
+        for (Entry<K,V> e = _head, end = _tail; (e = e._next) != end;) {
             code += e.hashCode();
         }
         return code;
@@ -1048,9 +1048,11 @@ public class FastMap<K,V> implements Map<K,V>, Reusable,
         return _values;
     }
 
-    private final class Values extends FastCollection {
+    private final class Values<E> extends FastCollection<E> {
 
-        public int size() {
+		private static final long serialVersionUID = 8905800965110547381L;
+
+		public int size() {
             return FastMap.this.size();
         }
 
@@ -1066,8 +1068,8 @@ public class FastMap<K,V> implements Map<K,V>, Reusable,
             return FastMap.this._tail;
         }
 
-        public Object valueOf(Record record) {
-            return ((Entry) record)._value;
+        public E valueOf(Record record) {
+            return (E) ((Entry) record)._value;
         }
 
         public void delete(Record record) {

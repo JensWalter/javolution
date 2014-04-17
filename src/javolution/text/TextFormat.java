@@ -54,7 +54,7 @@ public abstract class TextFormat<T>{
     /**
      * Holds the class to format mapping.
      */
-    private static final FastMap FORMATS = new FastMap().setShared(true);
+    private static final FastMap<Class,TextFormat> FORMATS = new FastMap<Class,TextFormat>().setShared(true);
 
     /**
      * Default constructor.
@@ -96,7 +96,7 @@ public abstract class TextFormat<T>{
      *         <code>null</code> if unkown.
      */
     public static <T> TextFormat<T> getInstance(Class<T> cls) {
-        TextFormat format = (TextFormat) FORMATS.get(cls);
+        TextFormat<T> format = (TextFormat<T>) FORMATS.get(cls);
         return (format != null) ? format : searchFormat(cls);
     }
 
@@ -215,8 +215,8 @@ public abstract class TextFormat<T>{
         /**
          * Holds the cursor factory.
          */
-        private static final ObjectFactory FACTORY = new ObjectFactory() {
-            public Object create() {
+        private static final ObjectFactory<Cursor> FACTORY = new ObjectFactory<Cursor>() {
+            public Cursor create() {
                 return new Cursor();
             }
         };
@@ -523,87 +523,87 @@ public abstract class TextFormat<T>{
 
     // Predefined formats.
     static {
-        FORMATS.put(new Boolean(true).getClass(), new TextFormat() {
+        FORMATS.put(new Boolean(true).getClass(), new TextFormat<Boolean>() {
 
-            public Appendable format(Object obj, Appendable dest)
+            public Appendable format(Boolean obj, Appendable dest)
                     throws IOException {
                 return TypeFormat.format(((Boolean) obj).booleanValue(), dest);
             }
 
-            public Object parse(CharSequence csq, Cursor cursor) {
+            public Boolean parse(CharSequence csq, Cursor cursor) {
                 return new Boolean(TypeFormat.parseBoolean(csq, cursor));
             }
 
         });
-        FORMATS.put(new Character(' ').getClass(), new TextFormat() {
+        FORMATS.put(new Character(' ').getClass(), new TextFormat<Character>() {
 
-            public Appendable format(Object obj, Appendable dest)
+            public Appendable format(Character obj, Appendable dest)
                     throws IOException {
                 return dest.append(((Character) obj).charValue());
             }
 
-            public Object parse(CharSequence csq, Cursor cursor) {
+            public Character parse(CharSequence csq, Cursor cursor) {
                 return new Character(cursor.next(csq));
             }
 
         });
-        FORMATS.put(new Byte((byte)0).getClass(), new TextFormat() {
+        FORMATS.put(new Byte((byte)0).getClass(), new TextFormat<Byte>() {
 
-            public Appendable format(Object obj, Appendable dest)
+            public Appendable format(Byte obj, Appendable dest)
                     throws IOException {
                 return TypeFormat.format(((Byte) obj).byteValue(), dest);
             }
 
-            public Object parse(CharSequence csq, Cursor cursor) {
+            public Byte parse(CharSequence csq, Cursor cursor) {
                 return new Byte(TypeFormat.parseByte(csq, 10, cursor));
             }
 
         });
-        FORMATS.put(new Short((short)0).getClass(), new TextFormat() {
+        FORMATS.put(new Short((short)0).getClass(), new TextFormat<Short>() {
 
-            public Appendable format(Object obj, Appendable dest)
+            public Appendable format(Short obj, Appendable dest)
                     throws IOException {
                 return TypeFormat.format(((Short) obj).shortValue(), dest);
             }
 
-            public Object parse(CharSequence csq, Cursor cursor) {
+            public Short parse(CharSequence csq, Cursor cursor) {
                 return new Short(TypeFormat.parseShort(csq, 10, cursor));
             }
 
         });
-        FORMATS.put(new Integer(0).getClass(), new TextFormat() {
+        FORMATS.put(new Integer(0).getClass(), new TextFormat<Integer>() {
 
-            public Appendable format(Object obj, Appendable dest)
+            public Appendable format(Integer obj, Appendable dest)
                     throws IOException {
                 return TypeFormat.format(((Integer) obj).intValue(), dest);
             }
 
-            public Object parse(CharSequence csq, Cursor cursor) {
+            public Integer parse(CharSequence csq, Cursor cursor) {
                 return new Integer(TypeFormat.parseInt(csq, 10, cursor));
             }
 
         });
-        FORMATS.put(new Long(0).getClass(), new TextFormat() {
+        FORMATS.put(new Long(0).getClass(), new TextFormat<Long>() {
 
-            public Appendable format(Object obj, Appendable dest)
+            public Appendable format(Long obj, Appendable dest)
                     throws IOException {
                 return TypeFormat.format(((Long) obj).longValue(), dest);
             }
 
-            public Object parse(CharSequence csq, Cursor cursor) {
+            public Long parse(CharSequence csq, Cursor cursor) {
                 return new Long(TypeFormat.parseLong(csq, 10, cursor));
             }
 
         });
-        FORMATS.put("".getClass().getClass(), new TextFormat() {
+        FORMATS.put("".getClass().getClass(), new TextFormat<Class>() {
 
-            public Appendable format(Object obj, Appendable dest)
+            public Appendable format(Class obj, Appendable dest)
                     throws IOException {
                 return dest.append(Javolution.j2meToCharSeq(((Class) obj)
                         .getName()));
             }
 
-            public Object parse(CharSequence csq, Cursor cursor) {
+            public Class parse(CharSequence csq, Cursor cursor) {
                 Text txt = Text.valueOf(csq.subSequence(cursor.getIndex(),
                         cursor.getEndIndex()));
                 int index = txt.indexOfAny(CharSet.WHITESPACES);
@@ -622,30 +622,30 @@ public abstract class TextFormat<T>{
 
         });
 
-         FORMATS.put(new Float(0).getClass(), new TextFormat() {
+		FORMATS.put(new Float(0).getClass(), new TextFormat<Float>() {
 
-         public Appendable format(Object obj, Appendable dest)
-         throws IOException {
-         return TypeFormat.format(((Float) obj).floatValue(), dest);
-         }
+			public Appendable format(Float obj, Appendable dest)
+					throws IOException {
+				return TypeFormat.format(((Float) obj).floatValue(), dest);
+			}
 
-         public Object parse(CharSequence csq, Cursor cursor) {
-         return new Float(TypeFormat.parseFloat(csq, cursor));
-         }
+			public Float parse(CharSequence csq, Cursor cursor) {
+				return new Float(TypeFormat.parseFloat(csq, cursor));
+			}
 
-         });
-         FORMATS.put(new Double(0).getClass(), new TextFormat() {
+		});
+		FORMATS.put(new Double(0).getClass(), new TextFormat<Double>() {
 
-         public Appendable format(Object obj, Appendable dest)
-         throws IOException {
-         return TypeFormat.format(((Double) obj).doubleValue(), dest);
-         }
+			public Appendable format(Double obj, Appendable dest)
+					throws IOException {
+				return TypeFormat.format(((Double) obj).doubleValue(), dest);
+			}
 
-         public Object parse(CharSequence csq, Cursor cursor) {
-         return new Double(TypeFormat.parseDouble(csq, cursor));
-         }
+			public Double parse(CharSequence csq, Cursor cursor) {
+				return new Double(TypeFormat.parseDouble(csq, cursor));
+			}
 
-         });
+		});
 
     }
 }

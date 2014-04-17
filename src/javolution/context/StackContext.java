@@ -157,8 +157,8 @@ public abstract class StackContext extends AllocatorContext {
 
 		private static final Class CLASS = new Default().getClass();
 
-        private final ThreadLocal _factoryToAllocator = new ThreadLocal() {
-            protected Object initialValue() {
+        private final ThreadLocal<FastMap> _factoryToAllocator = new ThreadLocal<FastMap>() {
+            protected FastMap initialValue() {
                 return new FastMap();
             }
         };
@@ -186,7 +186,7 @@ public abstract class StackContext extends AllocatorContext {
             allocators.clear();
         }
 
-        protected Allocator getAllocator(ObjectFactory factory) {
+        protected <T> Allocator<T> getAllocator(ObjectFactory<T> factory) {
         	if (isDisabled()) // Forwards to outer. 
         		return getOuter().getAllocatorContext().getAllocator(factory);
         	

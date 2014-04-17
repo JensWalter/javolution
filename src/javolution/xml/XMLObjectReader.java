@@ -45,13 +45,13 @@ public class XMLObjectReader implements Reusable {
     /**
      * Holds the associated factory.
      */
-    private static final ObjectFactory FACTORY = new ObjectFactory() {
+    private static final ObjectFactory<XMLObjectReader> FACTORY = new ObjectFactory<XMLObjectReader>() {
 
-        protected Object create() {
+        protected XMLObjectReader create() {
             return new XMLObjectReader();
         } 
-        protected void cleanup(Object obj) {
-            ((XMLObjectReader)obj).reset();
+        protected void cleanup(XMLObjectReader obj) {
+            obj.reset();
         } 
     };
 
