@@ -36,6 +36,8 @@ import javolution.text.TextBuilder;
  */
 public abstract class TimeContext extends TestContext {
 
+	private static final long serialVersionUID = 5447102294070439568L;
+
 	/**
 	 * Holds an implementation which does not perform any logging but raises an
 	 * {@link AssertionException} when an assertion fails, including any timing

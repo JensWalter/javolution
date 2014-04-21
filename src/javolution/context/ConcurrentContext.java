@@ -159,7 +159,9 @@ import javolution.lang.Reflection;
  */
 public abstract class ConcurrentContext extends Context {
 
-    /**
+	private static final long serialVersionUID = 3506042024694368773L;
+
+	/**
      * Holds the default implementation. Concurrent executions are performed 
      * in the same memory area and at the same priority as the calling thread.
      * This implementation uses <code>javax.realtime.RealtimeThread</code>
@@ -174,7 +176,7 @@ public abstract class ConcurrentContext extends Context {
      * (see <a href="{@docRoot}/overview-summary.html#configuration">
      * Javolution Configuration</a> for details). 
      */
-    public static final Configurable<Integer> MAXIMUM_CONCURRENCY = new Configurable(
+    public static final Configurable<Integer> MAXIMUM_CONCURRENCY = new Configurable<Integer>(
             new Integer(availableProcessors() - 1)) {
         protected void notifyChange() { // The maximum concurrency is also the default concurrency. 
             CONCURRENCY.setDefault(this.get());

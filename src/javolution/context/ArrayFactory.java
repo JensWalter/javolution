@@ -50,64 +50,64 @@ public abstract class ArrayFactory<T>{
     /**
      * Holds factory for <code>byte</code> arrays.
      */
-    public static final ArrayFactory<byte[]> BYTES_FACTORY = new ArrayFactory() {
-        protected Object create(int size) {
+    public static final ArrayFactory<byte[]> BYTES_FACTORY = new ArrayFactory<byte[]>() {
+        protected byte[] create(int size) {
             return new byte[size];
         }
 
-        public void recycle(Object array) {
-            recycle(array, ((byte[]) array).length);
+        public void recycle(byte[] array) {
+            recycle(array, array.length);
         }
     };
 
     /**
      * Holds factory for <code>char</code> arrays.
      */
-    public static final ArrayFactory<char[]> CHARS_FACTORY = new ArrayFactory() {
-        protected Object create(int size) {
+    public static final ArrayFactory<char[]> CHARS_FACTORY = new ArrayFactory<char[]>() {
+        protected char[] create(int size) {
             return new char[size];
         }
 
-        public void recycle(Object array) {
-            recycle(array, ((char[]) array).length);
+        public void recycle(char[] array) {
+            recycle(array, array.length);
         }
     };
 
     /**
      * Holds factory for <code>short</code> arrays.
      */
-    public static final ArrayFactory<short[]> SHORTS_FACTORY = new ArrayFactory() {
-        protected Object create(int size) {
+    public static final ArrayFactory<short[]> SHORTS_FACTORY = new ArrayFactory<short[]>() {
+        protected short[] create(int size) {
             return new short[size];
         }
 
-        public void recycle(Object array) {
-            recycle(array, ((short[]) array).length);
+        public void recycle(short[] array) {
+            recycle(array, array.length);
         }
     };
 
     /**
      * Holds factory for <code>int</code> arrays.
      */
-    public static final ArrayFactory<int[]> INTS_FACTORY = new ArrayFactory() {
-        protected Object create(int size) {
+    public static final ArrayFactory<int[]> INTS_FACTORY = new ArrayFactory<int[]>() {
+        protected int[] create(int size) {
             return new int[size];
         }
 
-        public void recycle(Object array) {
-            recycle(array, ((int[]) array).length);
+        public void recycle(int[] array) {
+            recycle(array, array.length);
         }
     };
 
     /**
      * Holds factory for <code>long</code> arrays.
      */
-    public static final ArrayFactory<long[]> LONGS_FACTORY = new ArrayFactory() {
-        protected Object create(int size) {
+    public static final ArrayFactory<long[]> LONGS_FACTORY = new ArrayFactory<long[]>() {
+        protected long[] create(int size) {
             return new long[size];
         }
 
-        public void recycle(Object array) {
+        public void recycle(long[] array) {
             recycle(array, ((long[]) array).length);
         }
     };
@@ -115,46 +115,45 @@ public abstract class ArrayFactory<T>{
     /**
      * Holds factory for <code>float</code> arrays.
      */
-     public static final ArrayFactory<float[]>FLOATS_FACTORY = new ArrayFactory() {
-     protected Object create(int size) {
+     public static final ArrayFactory<float[]>FLOATS_FACTORY = new ArrayFactory<float[]>() {
+     protected float[] create(int size) {
      return new float[size];
      }
-     public void recycle(Object array) {
-     recycle(array, ((float[])array).length);
+     public void recycle(float[] array) {
+     recycle(array, array.length);
      }        
      };
 
     /**
      * Holds factory for <code>double</code> arrays.
      */
-     public static final ArrayFactory<double[]> DOUBLES_FACTORY = new ArrayFactory() {
-     protected Object create(int size) {
+     public static final ArrayFactory<double[]> DOUBLES_FACTORY = new ArrayFactory<double[]>() {
+     protected double[] create(int size) {
      return new double[size];
      }
-     public void recycle(Object array) {
-     recycle(array, ((double[])array).length);
+     public void recycle(double[] array) {
+     recycle(array, array.length);
      }        
      };
-     /**/
 
     /**
      * Holds factory for generic <code>Object</code> arrays.
      */
-    public static final ArrayFactory<Object[]> OBJECTS_FACTORY = new ArrayFactory() {
-        protected Object create(int size) {
+    public static final ArrayFactory<Object[]> OBJECTS_FACTORY = new ArrayFactory<Object[]>() {
+        protected Object[] create(int size) {
             return new Object[size];
         }
 
-        public void recycle(Object array) {
-            recycle(array, ((Object[]) array).length);
+        public void recycle(Object[] array) {
+            recycle(array, array.length);
         }
     };
 
     /**
      * Holds factory for arrays up to size 4.
      */
-    private final ObjectFactory _factory4 = new ObjectFactory() {
-        protected Object create() {
+    private final ObjectFactory<T> _factory4 = new ObjectFactory<T>() {
+        protected T create() {
             return ArrayFactory.this.create(4);
         }
     };
@@ -162,8 +161,8 @@ public abstract class ArrayFactory<T>{
     /**
      * Holds factory for arrays up to size 8.
      */
-    private final ObjectFactory _factory8 = new ObjectFactory() {
-        protected Object create() {
+    private final ObjectFactory<T> _factory8 = new ObjectFactory<T>() {
+        protected T create() {
             return ArrayFactory.this.create(8);
         }
     };
@@ -171,8 +170,8 @@ public abstract class ArrayFactory<T>{
     /**
      * Holds factory for arrays up to size 16.
      */
-    private final ObjectFactory _factory16 = new ObjectFactory() {
-        protected Object create() {
+    private final ObjectFactory<T> _factory16 = new ObjectFactory<T>() {
+        protected T create() {
             return ArrayFactory.this.create(16);
         }
     };
@@ -180,8 +179,8 @@ public abstract class ArrayFactory<T>{
     /**
      * Holds factory for arrays up to size 32.
      */
-    private final ObjectFactory _factory32 = new ObjectFactory() {
-        protected Object create() {
+    private final ObjectFactory<T> _factory32 = new ObjectFactory<T>() {
+        protected T create() {
             return ArrayFactory.this.create(32);
         }
     };
@@ -189,8 +188,8 @@ public abstract class ArrayFactory<T>{
     /**
      * Holds factory for arrays up to size 64.
      */
-    private final ObjectFactory _factory64 = new ObjectFactory() {
-        protected Object create() {
+    private final ObjectFactory<T> _factory64 = new ObjectFactory<T>() {
+        protected T create() {
             return ArrayFactory.this.create(64);
         }
     };
@@ -198,8 +197,8 @@ public abstract class ArrayFactory<T>{
     /**
      * Holds factory for arrays up to size 128.
      */
-    private final ObjectFactory _factory128 = new ObjectFactory() {
-        protected Object create() {
+    private final ObjectFactory<T> _factory128 = new ObjectFactory<T>() {
+        protected T create() {
             return ArrayFactory.this.create(128);
         }
     };
@@ -207,8 +206,8 @@ public abstract class ArrayFactory<T>{
     /**
      * Holds factory for arrays up to size 256.
      */
-    private final ObjectFactory _factory256 = new ObjectFactory() {
-        protected Object create() {
+    private final ObjectFactory<T> _factory256 = new ObjectFactory<T>() {
+        protected T create() {
             return ArrayFactory.this.create(256);
         }
     };
@@ -216,8 +215,8 @@ public abstract class ArrayFactory<T>{
     /**
      * Holds factory for arrays up to size 512.
      */
-    private final ObjectFactory _factory512 = new ObjectFactory() {
-        protected Object create() {
+    private final ObjectFactory<T> _factory512 = new ObjectFactory<T>() {
+        protected T create() {
             return ArrayFactory.this.create(512);
         }
     };
@@ -225,8 +224,8 @@ public abstract class ArrayFactory<T>{
     /**
      * Holds factory for arrays up to size 1024.
      */
-    private final ObjectFactory _factory1024 = new ObjectFactory() {
-        protected Object create() {
+    private final ObjectFactory<T> _factory1024 = new ObjectFactory<T>() {
+        protected T create() {
             return ArrayFactory.this.create(1024);
         }
     };
@@ -234,8 +233,8 @@ public abstract class ArrayFactory<T>{
     /**
      * Holds factory for arrays up to size 2048.
      */
-    private final ObjectFactory _factory2048 = new ObjectFactory() {
-        protected Object create() {
+    private final ObjectFactory<T> _factory2048 = new ObjectFactory<T>() {
+        protected T create() {
             return ArrayFactory.this.create(2048);
         }
     };
@@ -243,8 +242,8 @@ public abstract class ArrayFactory<T>{
     /**
      * Holds factory for arrays up to size 4096.
      */
-    private final ObjectFactory _factory4096 = new ObjectFactory() {
-        protected Object create() {
+    private final ObjectFactory<T> _factory4096 = new ObjectFactory<T>() {
+        protected T create() {
             return ArrayFactory.this.create(4096);
         }
     };
@@ -252,8 +251,8 @@ public abstract class ArrayFactory<T>{
     /**
      * Holds factory for arrays up to size 8192.
      */
-    private final ObjectFactory _factory8192 = new ObjectFactory() {
-        protected Object create() {
+    private final ObjectFactory<T> _factory8192 = new ObjectFactory<T>() {
+        protected T create() {
             return ArrayFactory.this.create(8192);
         }
     };
@@ -261,8 +260,8 @@ public abstract class ArrayFactory<T>{
     /**
      * Holds factory for arrays up to size 16384.
      */
-    private final ObjectFactory _factory16384 = new ObjectFactory() {
-        protected Object create() {
+    private final ObjectFactory<T> _factory16384 = new ObjectFactory<T>() {
+        protected T create() {
             return ArrayFactory.this.create(16384);
         }
     };
@@ -270,8 +269,8 @@ public abstract class ArrayFactory<T>{
     /**
      * Holds factory for arrays up to size 32768.
      */
-    private final ObjectFactory _factory32768 = new ObjectFactory() {
-        protected Object create() {
+    private final ObjectFactory<T> _factory32768 = new ObjectFactory<T>() {
+        protected T create() {
             return ArrayFactory.this.create(32768);
         }
     };
@@ -279,8 +278,8 @@ public abstract class ArrayFactory<T>{
     /**
      * Holds factory for arrays up to size 65536.
      */
-    private final ObjectFactory _factory65536 = new ObjectFactory() {
-        protected Object create() {
+    private final ObjectFactory<T> _factory65536 = new ObjectFactory<T>() {
+        protected T create() {
             return ArrayFactory.this.create(65536);
         }
     };
@@ -346,7 +345,7 @@ public abstract class ArrayFactory<T>{
         recycle(array, ((Object[]) array).length);
     }
 
-    final void recycle(Object array, int length) {
+    final void recycle(T array, int length) {
         if (length <= 4) {
             _factory4.recycle(array);
         } else if (length <= 8) {

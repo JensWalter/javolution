@@ -37,7 +37,8 @@ import java.util.logging.LogRecord;
  */
 public class StandardLog extends LogContext {
 
-    /**
+	private static final long serialVersionUID = -2971431148078190517L;
+	/**
      * The logger associated to this logging context.
      */
     private Logger _logger;

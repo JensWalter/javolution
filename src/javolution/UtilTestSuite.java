@@ -580,7 +580,9 @@ public final class UtilTestSuite extends TestSuite {
     }
 
     private static final class SharedFastMap extends FastMap {
-        SharedFastMap() {
+		private static final long serialVersionUID = -1706008386707505642L;
+
+		SharedFastMap() {
             setShared(true);
         }
     }

@@ -32,7 +32,7 @@ public abstract class FastComparator<T> implements Comparator<T>,
      * Javolution Configuration</a> for details).
      */
     public static final Configurable<Boolean> REHASH_SYSTEM_HASHCODE 
-         = new Configurable(new Boolean(isPoorSystemHash())) {
+         = new Configurable<Boolean>(new Boolean(isPoorSystemHash())) {
         protected void notifyChange() {
             _Rehash = ((Boolean)get()).booleanValue();
         }
@@ -156,7 +156,9 @@ public abstract class FastComparator<T> implements Comparator<T>,
     public static final FastComparator<String> STRING = new StringComparator();
 
     static final class StringComparator extends FastComparator {
-        public int hashCodeOf(Object obj) {
+		private static final long serialVersionUID = -881266255589765598L;
+
+		public int hashCodeOf(Object obj) {
             final String str = (String)obj;
             final int length = str.length();
             if (length == 0) return 0;

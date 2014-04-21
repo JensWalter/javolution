@@ -284,7 +284,7 @@ public class FastMap<K,V> implements Map<K,V>, Reusable,
     /**
      * Used solely for sub-maps (we don't need head or tail just the table).
      */
-    private FastMap(Entry[] entries) {
+    private FastMap(Entry<K,V>[] entries) {
         _entries = entries;
     }
 
@@ -421,7 +421,7 @@ public class FastMap<K,V> implements Map<K,V>, Reusable,
         }
     }
 
-    private final FastMap getSubMap(int keyHash) {
+    private final FastMap<K,V> getSubMap(int keyHash) {
         return _useSubMaps ? _subMaps[keyHash & (C2 - 1)]
                 .getSubMap(keyHash >> B2) : this;
     }
@@ -843,7 +843,7 @@ public class FastMap<K,V> implements Map<K,V>, Reusable,
         // We also detach the main entry table and sub-maps.
         MemoryArea.getMemoryArea(this).executeInArea(new Runnable() {
             public void run() {
-                _entries = (Entry/*<K,V>*/[]) new Entry[C0];
+                _entries = (Entry<K,V>[]) new Entry[C0];
                 if (_useSubMaps) {
                     _useSubMaps = false;
                     _subMaps = newSubMaps(C0);

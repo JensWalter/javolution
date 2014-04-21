@@ -47,7 +47,8 @@ import javolution.text.TextBuilder;
  */
 public abstract class TestContext extends LogContext {
 
-    /**
+	private static final long serialVersionUID = 3348311105788362600L;
+	/**
      * Holds an implementation which does not perform any logging but raises 
      * an {@link AssertionException} when an assertion fails.
      * This implementation can be used for automatic regression tests.
@@ -176,7 +177,8 @@ public abstract class TestContext extends LogContext {
     // TestContext implementation with no output (just validation).
     private static final class Regression extends TestContext {
         
-        private static final Class CLASS = new Regression().getClass();
+		private static final long serialVersionUID = -6236516768091164984L;
+		private static final Class CLASS = new Regression().getClass();
 
         // Overrides.
         public void doTest(TestCase testCase) {

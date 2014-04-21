@@ -53,7 +53,9 @@ import javolution.util.FastTable;
  */
 public abstract class StackContext extends AllocatorContext {
 
-    /**
+	private static final long serialVersionUID = 6887024770114560752L;
+
+	/**
      * Holds the default implementation. This implementation uses thread-local
      * pools. RTSJ alternative implementations could use 
      * <code>ScopedMemory</code> for their stack allocations.

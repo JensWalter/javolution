@@ -103,7 +103,8 @@ public abstract class TestSuite implements Runnable {
     }
     
     private static final class GetTestCases extends TestContext {
-        FastTable _testCases = new FastTable();
+		private static final long serialVersionUID = 6680879978447004157L;
+		FastTable _testCases = new FastTable();
         
 		public boolean doAssertEquals(String message, Object expected, Object actual) {
 			return true;

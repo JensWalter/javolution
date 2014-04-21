@@ -120,7 +120,9 @@ import java.util.Map;
  */
 public class XMLBinding implements Reusable, XMLSerializable {
 
-    /**
+	private static final long serialVersionUID = 3810235594441363086L;
+
+	/**
      * Holds the static mapping format.
      */
     private static FastMap STATIC_MAPPING = new FastMap().setShared(true);
@@ -765,22 +767,22 @@ public class XMLBinding implements Reusable, XMLSerializable {
     /**
      * Holds the default XML representation for <code>java.lang.Float</code>.
      */
-     static final XMLFormat<Float>  FLOAT_XML = new XMLFormat(new Float(0f).getClass()) {
+     static final XMLFormat<Float>  FLOAT_XML = new XMLFormat<Float>(new Float(0f).getClass()) {
      
      public boolean isReferenceable() {
      return false; // Always by value (immutable). 
      }
      
-     public Object newInstance(Class cls, javolution.xml.XMLFormat.InputElement xml) throws XMLStreamException {
+     public Float newInstance(Class cls, javolution.xml.XMLFormat.InputElement xml) throws XMLStreamException {
      return new Float(xml.getAttribute("value", 0f));
      }
 
-     public void read(InputElement xml, Object obj) throws XMLStreamException {
+     public void read(InputElement xml, Float obj) throws XMLStreamException {
      // Do nothing.
      }
 
-     public void write(Object obj, OutputElement xml) throws XMLStreamException {
-     xml.setAttribute("value", ((Float) obj).floatValue());
+     public void write(Float obj, OutputElement xml) throws XMLStreamException {
+     xml.setAttribute("value", obj.floatValue());
      }
      };
      /**/
@@ -788,21 +790,21 @@ public class XMLBinding implements Reusable, XMLSerializable {
     /**
      * Holds the default XML representation for <code>java.lang.Double</code>.
      */
-     static final XMLFormat<Double> DOUBLE_XML = new XMLFormat(new Double(0.0).getClass()) {
+     static final XMLFormat<Double> DOUBLE_XML = new XMLFormat<Double>(new Double(0.0).getClass()) {
      public boolean isReferenceable() {
      return false; // Always by value (immutable). 
      }
      
-     public Object newInstance(Class cls, javolution.xml.XMLFormat.InputElement xml) throws XMLStreamException {
+     public Double newInstance(Class cls, javolution.xml.XMLFormat.InputElement xml) throws XMLStreamException {
      return new Double(xml.getAttribute("value", 0.0));
      }
 
-     public void read(InputElement xml, Object obj) throws XMLStreamException {
+     public void read(InputElement xml, Double obj) throws XMLStreamException {
      // Do nothing.
      }
 
-     public void write(Object obj, OutputElement xml) throws XMLStreamException {
-     xml.setAttribute("value", ((Double) obj).doubleValue());
+     public void write(Double obj, OutputElement xml) throws XMLStreamException {
+     xml.setAttribute("value", obj.doubleValue());
      }
      };
 
@@ -940,26 +942,26 @@ public class XMLBinding implements Reusable, XMLSerializable {
      * This presentation consists of a <code>"value"</code> attribute 
      * holding the index <code>int</code> value.
      */
-    static final XMLFormat<Index> INDEX_XML = new XMLFormat(Index.ZERO
+    static final XMLFormat<Index> INDEX_XML = new XMLFormat<Index>(Index.ZERO
             .getClass()) {
 
         public boolean isReferenceable() {
             return false; // Always by value (immutable). 
         }
 
-        public Object newInstance(Class cls, InputElement xml)
+        public Index newInstance(Class cls, InputElement xml)
                 throws XMLStreamException {
             return Index.valueOf(xml.getAttribute("value", 0));
         }
 
-        public void read(InputElement xml, Object obj)
+        public void read(InputElement xml, Index obj)
                 throws XMLStreamException {
             // Do nothing.
         }
 
-        public void write(Object obj, OutputElement xml)
+        public void write(Index obj, OutputElement xml)
                 throws XMLStreamException {
-            xml.setAttribute("value", ((Index) obj).intValue());
+            xml.setAttribute("value", obj.intValue());
         }
     };
 
@@ -967,15 +969,15 @@ public class XMLBinding implements Reusable, XMLSerializable {
      * Holds the XML representation for persistent contexts
      * (holds persistent reference mapping).
      */
-    static final XMLFormat<PersistentContext> PERSISTENT_CONTEXT_XML = new XMLFormat(
+    static final XMLFormat<PersistentContext> PERSISTENT_CONTEXT_XML = new XMLFormat<PersistentContext>(
             new PersistentContext().getClass()) {
-        public void read(InputElement xml, Object obj)
+        public void read(InputElement xml, PersistentContext obj)
                 throws XMLStreamException {
             final PersistentContext ctx = (PersistentContext) obj;
             ctx.getIdToValue().putAll((FastMap) xml.get("References"));
         }
 
-        public void write(Object obj, OutputElement xml)
+        public void write(PersistentContext obj, OutputElement xml)
                 throws XMLStreamException {
             final PersistentContext ctx = (PersistentContext) obj;
             xml.add(ctx.getIdToValue(), "References");

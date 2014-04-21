@@ -525,7 +525,10 @@ public abstract class FastCollection<E> implements
      * This inner class represents an unmodifiable view over the collection.
      */
     private final class Unmodifiable extends FastCollection implements
-            Set, List { // Allows to be used for unmodifiable set/list view.
+            Set, List { 
+		private static final long serialVersionUID = 1412736353279079753L;
+
+			// Allows to be used for unmodifiable set/list view.
 
         // Implements abstract method.
         public int size() {
@@ -604,17 +607,17 @@ public abstract class FastCollection<E> implements
             return ((List)FastCollection.this).lastIndexOf(o);
         }
 
-        public ListIterator listIterator() {
+        public ListIterator<E> listIterator() {
             throw new UnsupportedOperationException(
             "List iterator not supported for unmodifiable collection");
         }
 
-        public ListIterator listIterator(int index) {
+        public ListIterator<E> listIterator(int index) {
             throw new UnsupportedOperationException(
             "List iterator not supported for unmodifiable collection");
         }
 
-        public List subList(int fromIndex, int toIndex) {
+        public List<E> subList(int fromIndex, int toIndex) {
             throw new UnsupportedOperationException(
                     "Sub-List not supported for unmodifiable collection");
         }

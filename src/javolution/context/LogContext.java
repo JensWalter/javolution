@@ -77,7 +77,9 @@ import java.lang.CharSequence;
  */
 public abstract class LogContext extends Context {
 
-    /**
+	private static final long serialVersionUID = 1289522825496433515L;
+
+	/**
      * Holds the default logging context instance.
      */
     private static volatile LogContext _Default = new StandardLog();
@@ -319,7 +321,9 @@ public abstract class LogContext extends Context {
      */
     private static class SystemOut extends LogContext {
 
-        public boolean isInfoLogged() {
+		private static final long serialVersionUID = 974212834916381067L;
+
+		public boolean isInfoLogged() {
             return true;
         }
 
@@ -361,7 +365,9 @@ public abstract class LogContext extends Context {
      */
     private static final class NullLog extends SystemOut {
 
-        public boolean isInfoLogged() {
+		private static final long serialVersionUID = -3242160579110579635L;
+
+		public boolean isInfoLogged() {
             return false;
         }
 

@@ -53,8 +53,8 @@ public abstract class XMLOutputFactory {
     /**
      * Holds the XMLOutputFactory default implementation (configurable).
      */
-    public static final Configurable/*<Class<? extends XMLOutputFactory>>*/DEFAULT 
-        = new Configurable/*<Class<? extends XMLOutputFactory>>*/(Default.CLASS);
+    public static final Configurable<Class<? extends XMLOutputFactory>> DEFAULT 
+        = new Configurable<Class<? extends XMLOutputFactory>>(Default.CLASS);
 
     /**
      * Property used to set prefix defaulting on the output side
@@ -270,14 +270,14 @@ public abstract class XMLOutputFactory {
     /**
      * Holds a factory producing reusable writer instances.
      */
-    private static final ObjectFactory XML_WRITER_FACTORY = new ObjectFactory() {
+    private static final ObjectFactory<XMLStreamWriterImpl> XML_WRITER_FACTORY = new ObjectFactory<XMLStreamWriterImpl>() {
 
-        protected Object create() {
+        protected XMLStreamWriterImpl create() {
             return new XMLStreamWriterImpl();
         }
 
-        protected void cleanup(Object obj) {
-            ((XMLStreamWriterImpl) obj).reset();
+        protected void cleanup(XMLStreamWriterImpl obj) {
+            obj.reset();
         }
 
     };

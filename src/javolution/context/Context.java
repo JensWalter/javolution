@@ -227,7 +227,9 @@ public abstract class Context implements XMLSerializable {
     // Holds the root context definition.
     private static final class Root extends Context {
 
-        protected void enterAction() {
+		private static final long serialVersionUID = 8484215017514054856L;
+
+		protected void enterAction() {
             throw new UnsupportedOperationException(
                     "Cannot enter the root context");
         }

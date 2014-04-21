@@ -59,7 +59,9 @@ import javolution.lang.Reusable;
 public class FastList<E> extends FastCollection<E>
 implements List<E>, Reusable {
 
-    /**
+	private static final long serialVersionUID = 6788740502014533496L;
+
+	/**
      * Holds the main list factory.
      */
     private static final ObjectFactory FACTORY = new ObjectFactory() {
@@ -758,7 +760,9 @@ implements List<E>, Reusable {
     private static final class SubList extends FastCollection implements List,
             Serializable {
 
-        private static final ObjectFactory<SubList> FACTORY = new ObjectFactory<SubList>() {
+		private static final long serialVersionUID = -1224847103491317222L;
+
+		private static final ObjectFactory<SubList> FACTORY = new ObjectFactory<SubList>() {
             protected SubList create() {
                 return new SubList();
             }
@@ -918,13 +922,13 @@ implements List<E>, Reusable {
      */
     private static final class FastListIterator implements ListIterator {
 
-        private static final ObjectFactory FACTORY = new ObjectFactory() {
-            protected Object create() {
+        private static final ObjectFactory<FastListIterator> FACTORY = new ObjectFactory<FastListIterator>() {
+            protected FastListIterator create() {
                 return new FastListIterator();
             }
 
-            protected void cleanup(Object obj) {
-                FastListIterator i = (FastListIterator) obj;
+            protected void cleanup(FastListIterator obj) {
+                FastListIterator i = obj;
                 i._list = null;
                 i._currentNode = null;
                 i._nextNode = null;
@@ -1017,7 +1021,4 @@ implements List<E>, Reusable {
     }
 
     static volatile int ONE_VOLATILE = 1; // To prevent reordering.
-
-    private static final long serialVersionUID = 1L;
-
 }
