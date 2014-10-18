@@ -8,11 +8,7 @@
  */
 package javolution.util;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Set;
+import java.util.*;
 import java.lang.UnsupportedOperationException;
 import j2mex.realtime.MemoryArea;
 import javolution.lang.Realtime;
@@ -620,6 +616,10 @@ public abstract class FastCollection<E> implements
         public List<E> subList(int fromIndex, int toIndex) {
             throw new UnsupportedOperationException(
                     "Sub-List not supported for unmodifiable collection");
+        }
+
+        public Spliterator<E> spliterator() {
+            return List.super.spliterator();
         }
     }
 }
